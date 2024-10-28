@@ -65,7 +65,7 @@ h1 {
 
 .article-pic{
   width: auto;   
- height: 70%;
+ height: inherit 70%;
         
             }
 
