@@ -62,6 +62,15 @@ h1 {
     }
 
 
+
+.article-pic{
+  width: auto;   
+ height: inherit;
+        
+            }
+
+
+
     .HeaderTitle {
       color: #e5f1f7;
       text-align: center;
