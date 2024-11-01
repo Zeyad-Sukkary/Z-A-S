@@ -62,25 +62,31 @@ h1 {
     }
 
 
-    .HeaderTitle {
-      color: #d8f2ff;
-      text-align: center;
-      font-size: 30px;
-      text-decoration: none;
-      margin: 0 auto;
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: all 0.1;
-    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-  margin-top: 20px;
-  font-weight: bold;
-  }
+  .HeaderTitle {
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+    margin: 0 auto;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
 
-  .HeaderTitle:hover{
-    color: #98ddff;
-  }
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  font-weight: bold;
+  color: transparent;
+  background-clip: text;
+  background-color: hsl(290, 100%, 80%);
+  background-image: 
+     radial-gradient(at 0% 50%, rgb(135, 191, 255) 0px, transparent 50%),
+     radial-gradient(at 0% 100%, rgb(130, 255, 224) 0px, transparent 50%),
+     radial-gradient(at 80% 100%, rgb(255, 139, 228) 0px, transparent 50%);
+     transition: all 0.2s;
+}
+
+html {
+ scroll-behaviour: smooth;
+}
   
   .slide-in-left {
     opacity: 0;
