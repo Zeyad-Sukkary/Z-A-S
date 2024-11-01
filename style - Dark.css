@@ -16,7 +16,6 @@ body, main {
 
 
   .HeaderTitle {
-    color: #c8e2ee;
     text-align: center;
     font-size: 30px;
     text-decoration: none;
@@ -25,15 +24,16 @@ body, main {
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
-    transition: all 0.25;
   font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   font-weight: bold;
-}
-
-
-
-.HeaderTitle:hover{
-  color: #83b2cc;
+  color: transparent;
+  background-clip: text;
+  background-color: hsl(290, 100%, 80%);
+  background-image: 
+     radial-gradient(at 0% 50%, rgb(135, 191, 255) 0px, transparent 50%),
+     radial-gradient(at 0% 100%, rgb(130, 255, 224) 0px, transparent 50%),
+     radial-gradient(at 80% 100%, rgb(255, 139, 228) 0px, transparent 50%);
+     transition: all 0.2s;
 }
 
 .idkwhereislogoclass{
