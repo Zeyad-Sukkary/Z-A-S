@@ -1,18 +1,36 @@
  Z-A-S
 
-Landing Page should be Z-A-S News.html NOT Z-A-S News - Dark.html
+Ver 5.0.0
 
+New:
 
-Ver 3.0.2
+NEW website storage split by half
 
-New
+NEW and IMPROVED Dark Mode
+  - removal of html based Dark Mode
+  - inclusion of a proper JavaScript based dark Mode
+  - Webdite now remembers what Mode Has been Chosen
+  - Theme Switch now implemented in all pages
+  - easier implementation of New pages and Page Design
 
-Design overhaul
+NEW Scroll Button now implemented in all pages
 
-Dark mode Reimplementation and update
+NEW Style Design Overhaul
+  - the website now uses one Stylesheet for all pages
+  - the Stylesheet now implements root values for colors, which results in easier customization and a cleaner look OverAll
+  - removal of Unessacary Classes in the Stylesheet which makes the code shorter and more presentable
 
-Dark mode switch to Latest.html
+NEW Organization of all documents and pictures in specified Folders
 
-Go to top switch for Latest.html
+NEW header and footer Design based on the BootStrap Features and Stylesheet
 
-Article pages Redesign.
+NEW Added icons for:
+  - Darkmode
+  - Scroll Button
+  - Email Submit Button
+
+NEW Added Titling for Buttons in Pages
+
+NEW Design and color Pallettes for both the Dark and Light Modes
+
+That's it for the updates, See you again Soon!
