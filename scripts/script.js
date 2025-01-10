@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resetButton.addEventListener('click', () => {
       localStorage.clear(); // Clears all local storage
       console.log('Local storage cleared');
-      alert('All Local Has Been Cleared.');
+      alert('All Local Data Has Been Cleared.');
     });
   }
 });
