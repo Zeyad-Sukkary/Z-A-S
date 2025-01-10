@@ -11,42 +11,47 @@ if (closeButton && alertParent) {
 }
 
 
-
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const modalTour = document.getElementById('modalTour');
-  if (modalTour && localStorage.getItem('modalDismissed') !== 'true') {
-    console.log('Showing modal');
-    modalTour.classList.remove('hidden');
+  const modalDismiss = document.getElementById('modaldismiss');
+
+  if (localStorage.getItem('modalDismissed') === 'true') {
+    if (modalTour) modalTour.classList.add('hidden'); // Ensure modal is hidden
+    return;
   }
 
-  document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  if (modalTour) modalTour.classList.remove('hidden');
 
-  const loading = document.getElementById('loading');
-  if (loading) {
-    loading.style.display = 'none';
+  if (modalDismiss && modalTour) {
+    modalDismiss.addEventListener('click', () => {
+      modalTour.classList.add('fade-out');
+
+      modalTour.addEventListener(
+        'animationend',
+        () => {
+          modalTour.classList.add('hidden');
+          localStorage.setItem('modalDismissed', 'true'); // Save dismissal status
+        },
+        { once: true }
+      );
+    });
   }
 });
 
 
 
 
-const modalDismiss = document.getElementById('modaldismiss');
-const modalTour = document.getElementById('modalTour');
-if (modalDismiss && modalTour) {
-  modalDismiss.addEventListener('click', () => {
-    console.log('Dismissing modal');
-    modalTour.classList.add('fade-out');
-    modalTour.addEventListener('animationend', () => {
-      modalTour.classList.add('hidden');
-      localStorage.setItem('modalDismissed', 'true');
-      console.log('Modal dismissed and hidden');
-    }, { once: true });
-  });
-} else {
-  console.log('Modal elements not found');
-}
+window.addEventListener('load', () => {
 
 
+  document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+
+  const loading = document.getElementById('loading');
+  if (loading) {
+    loading.classList.add('hidden');
+  }
+  
+});
 
 
 
@@ -88,5 +93,21 @@ window.addEventListener('scroll', function() {
       logo.classList.add('fixed');
   } else {
       logo.classList.remove('fixed');
+  }
+});
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const resetButton = document.getElementById('resetStorage');
+
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      localStorage.clear(); // Clears all local storage
+      console.log('Local storage cleared');
+      alert('Local storage has been reset.');
+    });
   }
 });
