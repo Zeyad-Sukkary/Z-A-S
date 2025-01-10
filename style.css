@@ -14,7 +14,7 @@
 .darkmode{
   --main: #272727;
 --secondarybg: #3b3b3b;
---maintext: #8f4ae2;
+--maintext: #9e61e9;
 --secondarytext: #36ebd9;
 --link: #BB86FC;
 --linkhover: #cba0ff;
@@ -160,7 +160,45 @@ text-decoration: none;
   }
 
 
-  
+
+
+
+
+  .modal-content {
+    background-color: var(--secondarybg);
+    color: var(--maintext);
+    border: 1px solid var(--maintext);
+}
+
+.modal-body h2 {
+    color: var(--secondarytext);
+}
+
+.modal-body ul li {
+    color: var(--maintext);
+}
+
+.modal-body ul li svg {
+    fill: var(--maintext);
+}
+
+.modal-body button {
+    background-color: var(--button);
+    color: var(--main);
+    border: none;
+}
+
+.modal-body button:hover {
+    background-color: var(--linkhover);
+    color: var(--main);
+}
+
+.modal-body button:active {
+    background-color: var(--linkactive);
+    color: var(--secondarybg);
+}
+
+
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -421,6 +459,39 @@ font-family: 'Roboto', sans-serif !important;
   }
 
 
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondarybg);
+  color: var(--maintext);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+
+.hidden {
+  display: none;
+}
+
 
 .logo{
   transition: all 0.3s ease;
@@ -441,6 +512,15 @@ margin: 5px;
 margin-left: 8px;
 }
 
+
+.fixed2{
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000; 
+  margin-top: 18px;
+margin-left: 8px;
+}
 
 
 .latestheader {

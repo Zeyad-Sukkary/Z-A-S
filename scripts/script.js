@@ -10,9 +10,45 @@ if (closeButton && alertParent) {
   });
 }
 
+
+
 window.addEventListener('load', () => {
-document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  const modalTour = document.getElementById('modalTour');
+  if (modalTour && localStorage.getItem('modalDismissed') !== 'true') {
+    console.log('Showing modal');
+    modalTour.classList.remove('hidden');
+  }
+
+  document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+
+  const loading = document.getElementById('loading');
+  if (loading) {
+    loading.style.display = 'none';
+  }
 });
+
+
+
+
+const modalDismiss = document.getElementById('modaldismiss');
+const modalTour = document.getElementById('modalTour');
+if (modalDismiss && modalTour) {
+  modalDismiss.addEventListener('click', () => {
+    console.log('Dismissing modal');
+    modalTour.classList.add('fade-out');
+    modalTour.addEventListener('animationend', () => {
+      modalTour.classList.add('hidden');
+      localStorage.setItem('modalDismissed', 'true');
+      console.log('Modal dismissed and hidden');
+    }, { once: true });
+  });
+} else {
+  console.log('Modal elements not found');
+}
+
+
+
+
 
 window.onscroll = function() { scrollFunction() };
 
@@ -23,15 +59,12 @@ function scrollFunction() {
   } else {
     scrollBtn.style.display = "none";
   }
-
 }
 
 function scrollToTop() {
 document.body.scrollTop = 0;
 document.documentElement.scrollTop = 0;
 }
-
-
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -41,13 +74,9 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0 }); 
 
-
 const slidingElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
 
-
 slidingElements.forEach(el => observer.observe(el));
-
-
 
 window.addEventListener('scroll', function() {
   const header = document.getElementById('header');
@@ -61,8 +90,3 @@ window.addEventListener('scroll', function() {
       logo.classList.remove('fixed');
   }
 });
-
-
-
-
-
