@@ -211,12 +211,14 @@ text-decoration: none;
   margin-right: 5%;
     margin-left: 2%;
     display: flex;
+    flex-wrap: nowrap;
 }
 
 .nav-item{
   text-align: center !important;
   align-items: center ;
   align-self: center;
+  flex-shrink: 1;
 }
 
 
