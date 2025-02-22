@@ -9,6 +9,7 @@ if (closeButton && alertParent) {
     alertParent.style.backgroundColor = 'var(--maintext)';
   });
 }
+ 
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -40,17 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-window.addEventListener('load', () => {
-
-
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
 
   const loading = document.getElementById('loading');
   if (loading) {
     loading.classList.add('hidden');
   }
-  
 });
 
 
@@ -110,4 +107,54 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('All Local Data Has Been Cleared.');
     });
   }
+});
+
+
+
+
+
+document.addEventListener('keydown', (event) => {
+  if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+    return; 
+  }
+
+  switch (event.key.toLowerCase()) { 
+    case 's': 
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      break;
+
+    case 't': 
+      document.body.classList.toggle('darkmode');
+      localStorage.setItem('theme', document.body.classList.contains('darkmode') ? 'dark' : 'light');
+      console.log('Dark mode toggled');
+      break;
+        
+    case 'h': 
+      const modal = document.getElementById('modalTour');
+      if (modal && !modal.classList.contains('hidden')) {
+        modal.classList.add('hidden');
+        localStorage.setItem('modalDismissed', 'true');
+        console.log('Modal hidden');
+      }
+      break;
+  }
+});
+
+
+
+const scrollProgress = document.createElement('div');
+scrollProgress.id = 'scrollProgress';
+scrollProgress.style.position = 'fixed';
+scrollProgress.style.top = '0';
+scrollProgress.style.left = '0';
+scrollProgress.style.height = '5px';
+scrollProgress.style.backgroundColor = 'var(--maintext)';
+scrollProgress.style.zIndex = '1000';
+document.body.prepend(scrollProgress);
+
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrollPercentage = (scrollTop / scrollHeight) * 100;
+  scrollProgress.style.width = scrollPercentage + '%';
 });
