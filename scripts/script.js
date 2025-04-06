@@ -110,6 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+  let currentPage = window.location.pathname;
+
+  if (currentPage.endsWith('.html')) {
+    currentPage = currentPage.replace(/\.html$/, '');
+  }
+
 
 
 
@@ -150,6 +156,7 @@ scrollProgress.style.left = '0';
 scrollProgress.style.height = '5px';
 scrollProgress.style.backgroundColor = 'var(--maintext)';
 scrollProgress.style.zIndex = '1000';
+scrollProgress.style.transition = 'width 0.25s ease-in-out';
 document.body.prepend(scrollProgress);
 
 window.addEventListener('scroll', () => {

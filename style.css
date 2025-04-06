@@ -33,13 +33,21 @@ body, main {
 
 }
 
+
+#header {
+  border-bottom: none !important;
+}
+
+
+
   header, footer{
     color: var(--maintext) !important; 
     margin-bottom: 0px;
     border-radius: 5px;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.15);
     transition: all 0.2s;
-
+    border-bottom: none !important ;
+    border-top: none !important;
     transition: .3s color, backgroundcolor;
 
   }
@@ -72,7 +80,7 @@ color: var(--main) !important;
   .fade-in {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.8s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
   }
 
 
@@ -92,8 +100,8 @@ color: var(--main) !important;
     height: 50px;
     width: 50px;
     padding: 0;
-    border-radius: 50%;
-    background-color: var(--secondarybg);
+    border-radius: 45%;
+    background-color: var(--main);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -149,6 +157,7 @@ text-decoration: none;
   h1, h2, h3, h4, h5 {
     color: var(--maintext) !important;
     font-family: 'Roboto', sans-serif !important; 
+    cursor: default;
   }
 
 
@@ -157,6 +166,7 @@ text-decoration: none;
     color: var(--secondarytext);
     font-family: 'Roboto', sans-serif !important;
     font-size: 18px;
+    cursor: default;
   }
 
 
