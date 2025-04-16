@@ -110,12 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-  let currentPage = window.location.pathname;
-
-  if (currentPage.endsWith('.html')) {
-    currentPage = currentPage.replace(/\.html$/, '');
-  }
-
 
 
 
