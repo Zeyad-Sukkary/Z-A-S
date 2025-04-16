@@ -2,7 +2,7 @@
   {
     "slug": "Riyadh",
     "Trending": "true",
-    "category": "entertainment",
+    "category": "Lifestyle",
     "article-title": "Riyadh Season 2024: A Cultural Extravaganza",
     "author": "Gemini",
     "article-date": "11/10/24",
@@ -33,32 +33,47 @@
   },
 
   {
-    "slug": "",
+    "slug": "talking-about-ai",
+    "Trending": "true",
+    "category": "Tech",
+    "article-title": "Why Everyone's Talking About AI (And What It Actually Means for You)",
+    "author": "ChatGpt",
+    "article-date": "16/04/25",
+    "image": "pics/AI.png",
+    "article-content": "<p>Artificial Intelligence is no longer just sci-fi talk — it’s already part of our daily lives.<br> From your phone’s voice assistant to the way Netflix recommends what to watch, AI is everywhere.<br> But what does it really mean for the average person?<br><br> Simply put, AI is about machines learning to do tasks that usually require human thinking — like recognizing faces,<br> translating languages, or even writing articles like this.<br> And while some fear it's coming for jobs, the truth is, AI is more likely to change jobs than replace them entirely.<br> Think of it as a super-smart assistant that can help humans focus on what they do best: creativity, emotion, and big-picture thinking.<br><br> In the next few years, you’ll probably see more AI in schools, healthcare, and even law enforcement.<br> It’s not about robots taking over — it’s about using powerful tools in smart ways.<br> If you want to stay ahead, just start learning the basics.<br> Trust me, it’s easier than it sounds.<br></p>"
+  },
+
+  {
+    "slug": "power-of-walking",
+    "Trending": "true",
+    "category": "Lifestyle",
+    "article-title": "The Power of Walking: A Simple Path to Wellness",
+    "author": "ChatGpt",
+    "article-date": "16/04/25",
+    "image": "pics/walking.png",
+    "article-content": "<p>When people think of fitness, they usually picture intense gym workouts, complicated diets, or running marathons.<br> But guess what? One of the best things you can do for your body and mind is something you’ve been doing since you were a toddler: walking.</p><p>Yup — simple, steady walking.</p><p>A 20-30 minute walk each day can do wonders.<br> It boosts your mood, helps with digestion, supports heart health, and even sparks creativity.<br> There’s a reason some of the world’s greatest thinkers — like Steve Jobs — took walking meetings.</p><p>The best part? No fancy equipment, gym membership, or app required.<br> Just comfy shoes, a sidewalk (or a park), and some time to yourself.<br> You can listen to music, call a friend, or just let your thoughts wander.<br> It’s low impact, so your knees and joints won’t hate you for it.<br> Plus, it helps clear your head in ways scrolling Instagram never will.</p><p>So if life feels a little overwhelming or you’re just stuck on a problem, take a walk.<br> You might not solve everything, but you’ll definitely feel better when you get back.</p><p>Who knew something so simple could be so powerful?</p>"
+  },
+
+  {
+    "slug": "joy-of-doing-nothing",
     "Trending": "false",
-    "category": "Category",
-    "article-title": "",
-    "author": "[AuthorName]",
-    "article-date": "DD/MM/YY",
-    "image": "",
-    "article-content": ""
+    "category": "Lifestyle",
+    "article-title": "The Simple Joy of Doing Nothing (Yes, Really)",
+    "author": "ChatGpt",
+    "article-date": "15/04/25",
+    "image": "pics/joyofnothing.png",
+    "article-content": "<p>When was the last time you did… absolutely nothing? <br> No phone, no music, no scrolling. Just you, your thoughts, and maybe a ceiling fan.<br><br> In today’s go-go-go culture, “doing nothing” sounds lazy or even wasteful. <br> But taking small breaks — like 10 minutes of just sitting still — can actually reset your brain. <br> It’s like giving your mind a breath of fresh air.<br><br> You don’t have to meditate or be super spiritual about it. <br> Just sit down, stare out a window, and don’t feel guilty. <br> Your brain will thank you later with more focus, better ideas, and way less stress. <br> Give it a shot.</p>"
   },
 
   {
-    "slug": "",
-    "article-title": "",
-    "author": "",
-    "article-date": "",
-    "image": "",
-    "article-content": ""
-  },
-
-  {
-    "slug": "",
-    "article-title": "",
-    "author": "",
-    "article-date": "",
-    "image": "",
-    "article-content": ""
+    "slug": "Microsoft-Majorana-1-chip",
+    "Trending": "true",
+    "category": "Tech",
+    "article-title": "Microsoft's Quantum Technology: A Game Changer for the Future",
+    "author": "ChatGpt",
+    "article-date": "18/04/25",
+    "image": "pics/QuantumMicrosoft.png",
+  "article-content": "<p>In February 2025, Microsoft unveiled a significant advancement in quantum computing with the introduction of its Majorana 1 chip.<br> This eight-qubit topological quantum processor represents the culmination of over two decades of research,<br> aiming to harness the elusive properties of Majorana zero modes (MZMs) for more stable and error-resistant quantum computation.</p><p><b>What Makes Majorana 1 Special?</b></p><p>Traditional qubits are prone to errors due to environmental disturbances.<br> Microsoft's approach utilizes topological qubits, which are theoretically more robust against such errors.<br> The Majorana 1 chip is designed to host MZMs—quasiparticles that are their own antiparticles—<br>within a new state of matter known as a topological superconductor.<br> This configuration could potentially allow for the creation of fault-tolerant quantum computers.</p><p><b>Scientific Milestone and Ongoing Debates</b></p><p>The announcement was accompanied by a peer-reviewed paper in Nature,<br> detailing the methods used to detect the presence of MZMs in the chip.<br> While Microsoft's team, led by Dr. Chetan Nayak, expressed confidence in their findings,<br> the broader scientific community remains cautious.<br> Distinguishing MZMs from other similar phenomena, such as Andreev bound states, is inherently challenging.<br> Some researchers argue that the current evidence does not conclusively prove the existence of MZMs in the device.</p><p><b>Implications for the Future</b></p><p>If Microsoft's claims are validated through further experimentation and peer review,<br> the Majorana 1 chip could mark a pivotal step toward scalable and reliable quantum computing.<br> Such a breakthrough would have profound implications across various fields,<br> including cryptography, materials science, and complex system modeling.</p><p>As the scientific community continues to scrutinize and test these findings,<br> the potential of topological quantum computing remains a promising frontier in the quest for practical quantum technologies.</p>"
   }
 
 
