@@ -28,7 +28,7 @@ fetch('articles.json')
         previewElement.classList.add('slide-in-left', 'news-item');
 
         previewElement.innerHTML = `
-          <a class="link" href="/article/?slug=${article.slug}">
+          <a class="link" href="/Z-A-S/article.html?slug=${article.slug}">
             <img class="article-image" src="${article.image}" alt="Article Image" width="65%">
             <h3 class="article-title">${article["article-title"]}</h3>
           </a>
