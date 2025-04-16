@@ -32,31 +32,75 @@
 </header>
 
 <main>
-    <section class="newsletter">
-        <h2 class="fade-in">Join The Z A S Newsletter</h2>
-        <p>Stay informed with the latest news and insights.</p>
-        <form action="https://shattereddisk.github.io/rickroll/rickroll.mp4">
-            <input class="email fade-in" type="email" name="email" placeholder="Enter your email">
-            <button class="submit-button fade-in" onclick="redirectToVideoPage()"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--main)"><path d="M120-160v-240l320-80-320-80v-240l760 320-760 320Z"/></svg></button>
-        </form>
-    </section>
+
+<section class="newsletter news-item-w-dropdown row">
+  <div class="col-md-9">
+    <h2 class="fade-in">Join The Z A S Newsletter</h2>
+    <p>Stay informed with the latest news and insights.</p>
+    <form action="https://shattereddisk.github.io/rickroll/rickroll.mp4">
+      <input class="email fade-in" type="email" name="email" placeholder="Enter your email">
+      <button class="submit-button fade-in" onclick="redirectToVideoPage()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--main)">
+          <path d="M120-160v-240l320-80-320-80v-240l760 320-760 320Z"/>
+        </svg>
+      </button>
+    </form>
+
+</section>
+
 
     <section class="Latest-news">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-  <h1 class="fade-in mb-0">Latest News</h1>
+
+
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+  <h1 class="fade-in mb-0 flex-grow-1">Latest News</h1>
+
+  <!-- Filter by Author -->
+  <select id="authorFilter" class="form-select w-auto" multiple>
+    <option value="author-chatgpt">ChatGPT</option>
+    <option value="author-gemini">Gemini</option>
+    <option value="author-zeyad">Zeyad</option>
+    <option value="author-unknown">Unknown</option>
+  </select>
+
+  <!-- Filter by Category -->
+  <select id="categoryFilter" class="form-select w-auto" multiple>
+    <option value="category-tech">Tech</option>
+    <option value="category-science">Science</option>
+    <option value="category-lifestyle">Lifestyle</option>
+    <option value="category-family">Family</option>
+  </select>
+
+<div>
   <select id="sortOptions" class="form-select w-auto">
     <option value="date" selected>Sort by Date</option>
-    <option value="trending">Sort by Trending</option>
+    <option value="trending">Filter by Trending</option>
     <option value="title">Sort by Title</option>
     <option value="author">Sort by Author</option>
     <option value="category">Sort by Category</option>
   </select>
+  <button id="clearFiltersBtn" class="clear-btn btn-outline-secondary">Clear Filters</button>
+
+  </div>
 </div>
 
 
-       <div class="news-container" id="article-preview-container">
-  <!-- JS will inject preview items here -->
-</div>   
+
+       <div class="d-flex flex-wrap news-container">
+  <!-- Filter list -->
+
+
+  <!-- Articles container -->
+  <div class="flex-grow-1" id="article-preview-container">
+    <!-- JS will inject articles here -->
+
+
+    <p id="noArticlesMsg" class="text-center my-4 nonedisplay" >No articles found based on the current parameters.</p>
+
+  </div>
+
+  
+  </div>
     </section>
 </main>
 

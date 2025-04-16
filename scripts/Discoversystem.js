@@ -2,27 +2,37 @@ fetch('articles.json')
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('article-preview-container');
-    const dropdown = document.getElementById('sortOptions');
+    const sortDropdown = document.getElementById('sortOptions');
+    const authorFilter = document.getElementById('authorFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const noArticlesMsg = document.getElementById('noArticlesMsg');
+    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
 
-    if (!container) {
-      console.error('No container found with ID article-preview-container');
-      return;
-    }
+    const activeFilters = {
+      author: [],
+      category: []
+    };
 
-    // Helper to convert DD/MM/YY to Date object
     function parseDate(dateStr) {
       const [day, month, year] = dateStr.split('/');
-      return new Date(`20${year}`, month - 1, day); // assumes 20YY
+      return new Date(`20${year}`, month - 1, day);
     }
 
     function renderArticles(articles) {
-      container.innerHTML = ''; // Clear existing previews
+      container.innerHTML = '';
+
+      if (articles.length === 0) {
+        noArticlesMsg.classList.remove('nonedisplay');
+        return;
+      } else {
+        noArticlesMsg.classList.add('nonedisplay');
+      }
 
       articles.forEach(article => {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = article["article-content"];
         const plainText = tempDiv.textContent || tempDiv.innerText || "";
-        const preview = plainText.slice(0, 160) + ' <a href="/Z-A-S/article.html?slug=' + article.slug + '" class="link">...read more</a>';
+        const preview = plainText.slice(0, 160) + ` <a href="/Z-A-S/article.html?slug=${article.slug}" class="link">...read more</a>`;
 
         const previewElement = document.createElement('div');
         previewElement.classList.add('slide-in-left', 'news-item');
@@ -40,42 +50,71 @@ fetch('articles.json')
       });
     }
 
-    function sortArticles(criteria) {
-      let sorted = [...data]; // copy the array
-    
-      switch (criteria) {
+    function applyFiltersAndSort(sortCriteria) {
+      let filtered = [...data];
+
+      if (activeFilters.author.length > 0) {
+        filtered = filtered.filter(article =>
+          activeFilters.author.includes(article.author.toLowerCase())
+        );
+      }
+
+      if (activeFilters.category.length > 0) {
+        filtered = filtered.filter(article =>
+          activeFilters.category.includes(article.category.toLowerCase())
+        );
+      }
+
+      switch (sortCriteria) {
         case 'date':
-          sorted.sort((a, b) => parseDate(b["article-date"]) - parseDate(a["article-date"]));
+          filtered.sort((a, b) => parseDate(b["article-date"]) - parseDate(a["article-date"]));
           break;
-          case 'trending':
-            sorted = data.filter(article => article.Trending === "true");
-            break;
-          
+        case 'trending':
+          filtered = filtered.filter(article => article.Trending === "true");
+          break;
         case 'title':
-          sorted.sort((a, b) => a["article-title"].localeCompare(b["article-title"]));
+          filtered.sort((a, b) => a["article-title"].localeCompare(b["article-title"]));
           break;
         case 'author':
-          sorted.sort((a, b) => a.author.localeCompare(b.author));
+          filtered.sort((a, b) => a.author.localeCompare(b.author));
           break;
         case 'category':
-          sorted.sort((a, b) => a.category.localeCompare(b.category));
+          filtered.sort((a, b) => a.category.localeCompare(b.category));
           break;
       }
-    
-      renderArticles(sorted);
+
+      renderArticles(filtered);
     }
-    
 
-    // Initial render
-    sortArticles('date');
+    function updateActiveFilters() {
+      activeFilters.author = Array.from(authorFilter.selectedOptions).map(option =>
+        option.value.replace('author-', '')
+      );
+      activeFilters.category = Array.from(categoryFilter.selectedOptions).map(option =>
+        option.value.replace('category-', '')
+      );
+      applyFiltersAndSort(sortDropdown.value);
+    }
 
-    // Dropdown change
-    dropdown.addEventListener('change', (e) => {
-      sortArticles(e.target.value);
+    // Clear Filters Button Logic
+    clearFiltersBtn.addEventListener('click', () => {
+      // Clear activeFilters arrays
+      activeFilters.author = [];
+      activeFilters.category = [];
+
+      // Reset dropdowns
+      authorFilter.selectedIndex = -1;
+      categoryFilter.selectedIndex = -1;
+
+      // Re-apply sorting
+      applyFiltersAndSort(sortDropdown.value);
     });
+
+    // Event listeners
+    sortDropdown.addEventListener('change', () => applyFiltersAndSort(sortDropdown.value));
+    authorFilter.addEventListener('change', updateActiveFilters);
+    categoryFilter.addEventListener('change', updateActiveFilters);
+
+    applyFiltersAndSort('date');
   })
   .catch(error => console.error('Error loading article previews:', error));
-
-
-
-  

@@ -29,6 +29,15 @@
   color: var(--link)
 }
 
+.no-hover {
+  pointer-events: none;
+  border: none;
+  font-weight: bold;
+  cursor: default;
+}
+
+
+
 
 body, main {
     font-family: 'Roboto', sans-serif !important;
@@ -378,13 +387,18 @@ font-family: 'Roboto', sans-serif !important;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.1);
   }
 
-
-
-  .news-item img {
-    max-width: 45%;
+  .article-preview-container img {
+    max-width: 35%;
     height: auto;
     margin-bottom: 15px;
   }
+
+  .news-item img {
+    max-width: 35%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
 
 
 
@@ -427,6 +441,30 @@ font-family: 'Roboto', sans-serif !important;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.1);
   }
   
+
+
+
+  select[multiple]::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  select[multiple]::-webkit-scrollbar-thumb {
+    background-color: var(--main);  /* Or any color */
+    border-radius: 5px;
+  }
+  
+  select[multiple]::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  /* Firefox support */
+  select[multiple] {
+    scrollbar-color: var(--main) transparent;
+    scrollbar-width: thin;
+  }
+
+
+
   .closebtn {
     margin-left: 15px;
     color: var(--secondarybg);
@@ -438,7 +476,22 @@ font-family: 'Roboto', sans-serif !important;
     transition: 0.3s;
   }
 
-  
+  .clear-btn{
+width: 146px;
+height: 40px;
+padding: 16px 12px 16px 12px;
+padding-bottom: 20px;
+align-content: center;
+vertical-align: middle;
+text-align: center;
+border-style: solid;
+border-radius: 10%;
+background-color: var(--main);
+color: var(--maintext);
+font-family: 'Roboto', sans-serif !important;
+border-color: var(--maintext);
+margin-top: 2px;
+  }
  
   .closebtn:hover {
     color: rgb(201, 0, 0);
