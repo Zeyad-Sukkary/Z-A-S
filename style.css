@@ -25,6 +25,10 @@
 }
 
 
+#article-title {
+  color: var(--link)
+}
+
 
 body, main {
     font-family: 'Roboto', sans-serif !important;
@@ -320,6 +324,19 @@ font-family: 'Roboto', sans-serif !important;
   }
 
 
+  .form-select {
+    background-color: var(--main);
+    color: var(--maintext);
+    border: 1px solid var(--maintext);
+    border-radius: 10%;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.15);
+  }
+
+
 
   .button {
     background-color: var(--maintext);
@@ -364,7 +381,7 @@ font-family: 'Roboto', sans-serif !important;
 
 
   .news-item img {
-    max-width: 100%;
+    max-width: 45%;
     height: auto;
     margin-bottom: 15px;
   }

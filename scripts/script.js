@@ -76,7 +76,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0 }); 
 
-const slidingElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+const slidingElements = document.querySelectorAll('.fade-in, .news-item, .slide-in-left, .slide-in-right');
 
 slidingElements.forEach(el => observer.observe(el));
 
@@ -158,3 +158,10 @@ window.addEventListener('scroll', () => {
   const scrollPercentage = (scrollTop / scrollHeight) * 100;
   scrollProgress.style.width = scrollPercentage + '%';
 });
+
+
+console.log(getComputedStyle(document.body).backgroundColor);
+
+
+
+
