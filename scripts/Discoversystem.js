@@ -22,7 +22,7 @@ fetch('articles.json')
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = article["article-content"];
         const plainText = tempDiv.textContent || tempDiv.innerText || "";
-        const preview = plainText.slice(0, 160) + ' <a href="/article/?slug=' + article.slug + '" class="link">...read more</a>';
+        const preview = plainText.slice(0, 160) + ' <a href="/article.html?slug=' + article.slug + '" class="link">...read more</a>';
 
         const previewElement = document.createElement('div');
         previewElement.classList.add('slide-in-left', 'news-item');
