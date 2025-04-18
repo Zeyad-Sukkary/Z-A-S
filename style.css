@@ -62,6 +62,7 @@ height: 100%;
 
   header, footer{
     color: var(--maintext) !important; 
+    background-color: var(--secondarybg) !important;
     margin-bottom: 0px;
     border-radius: 5px;
     transition: all 0.2s;
@@ -383,14 +384,14 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
     margin-top: 10px;
     margin-bottom: -8px;
     padding: 15px;
-    background-color: var(--main) !important;
+    background-color: var(--secondarybg) !important;
   }
 
 
   
   header{
     padding:0% !important;
-    background-color: var(--main)
+    background-color: var(--secondarybg)
      !important; 
      border: none !important;
     position: relative;
@@ -420,6 +421,19 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
     scrollbar-color: var(--main) transparent;
     scrollbar-width: thin;
   }
+
+
+
+
+.topheadlines1 {
+    color: var(--link);
+}
+
+.topheadlines2{
+  color: rgb(115, 153, 40);
+}
+
+
 
 
 
