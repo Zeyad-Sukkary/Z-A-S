@@ -12,6 +12,31 @@ fetch('articles.json')
       category: null
     };
 
+    // Get unique authors and categories
+    const authors = [...new Set(data.map(article => article.author.trim()))].sort();
+    const categories = [...new Set(data.flatMap(article => 
+      Array.isArray(article.category) ? article.category : [article.category]
+    ))].sort();
+
+    // Populate filter dropdowns
+    function populateFilter(dropdown, values, prefix) {
+      dropdown.innerHTML = `<option value="none" selected>None</option>`;
+      values.forEach(val => {
+        const option = document.createElement('option');
+        option.value = `${prefix}-${val.toLowerCase()}`;
+        option.textContent = val;
+        dropdown.appendChild(option);
+      });
+
+      // Hide dropdown if only one option
+      if (values.length <= 1) {
+        dropdown.parentElement.style.display = 'none';
+      }
+    }
+
+    populateFilter(authorFilter, authors, 'author');
+    populateFilter(categoryFilter, categories, 'category');
+
     function applyFiltersAndSort(sortCriteria) {
       let filtered = [...data];
 
@@ -23,7 +48,9 @@ fetch('articles.json')
 
       if (activeFilters.category && activeFilters.category !== 'none') {
         filtered = filtered.filter(article =>
-          article.category.toLowerCase() === activeFilters.category
+          Array.isArray(article.category)
+            ? article.category.map(cat => cat.toLowerCase()).includes(activeFilters.category)
+            : article.category.toLowerCase() === activeFilters.category
         );
       }
 
@@ -32,7 +59,7 @@ fetch('articles.json')
           filtered.sort((a, b) => parseDate(b["article-date"]) - parseDate(a["article-date"]));
           break;
         case 'trending':
-          filtered = filtered.filter(article => article.Trending === "true");
+          filtered = filtered.filter(article => article.Trending?.toLowerCase() === "true");
           break;
         case 'title':
           filtered.sort((a, b) => a["article-title"].localeCompare(b["article-title"]));
@@ -41,16 +68,21 @@ fetch('articles.json')
           filtered.sort((a, b) => a.author.localeCompare(b.author));
           break;
         case 'category':
-          filtered.sort((a, b) => a.category.localeCompare(b.category));
+          filtered.sort((a, b) => a.category.toLowerCase().localeCompare(b.category.toLowerCase()));
           break;
       }
 
       renderArticles(filtered);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function updateActiveFilters() {
-      activeFilters.author = authorFilter.value.replace('author-', '');
-      activeFilters.category = categoryFilter.value.replace('category-', '');
+      const authorValue = authorFilter.value.replace('author-', '');
+      const categoryValue = categoryFilter.value.replace('category-', '');
+
+      activeFilters.author = authorValue !== 'none' ? authorValue.toLowerCase() : null;
+      activeFilters.category = categoryValue !== 'none' ? categoryValue.toLowerCase() : null;
+
       applyFiltersAndSort(sortDropdown.value);
     }
 
@@ -93,13 +125,18 @@ function renderArticles(articles) {
       const plainText = tempDiv.textContent || tempDiv.innerText || "";
       const preview = plainText.slice(0, 130) + '....';
 
+      // Ensure category is always an array
+      const categories = Array.isArray(article.category) ? article.category : [article.category];
+
       const col = document.createElement('div');
       col.classList.add('col-md-6');
 
       const cardHTML = `
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
           <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 category-text">${article.category}</strong>
+            <strong class="d-inline-block mb-2 category-text">
+              ${categories.join(' | ')}
+            </strong>
             <h3 class="mb-0" style="color: var(--maintext);">${article["article-title"]}</h3>
             <p class="mb-1 text-body-secondary">${article.date}</p>
             <p class="card-text mb-auto">${preview}</p>
@@ -109,7 +146,7 @@ function renderArticles(articles) {
             </a>
           </div>
           <div class="col-auto d-none d-lg-block">
-            <img src="${article.image}" width="200" height="320" style="object-fit: cover;" alt="Thumbnail">
+            <img src="${article.image || '/path/to/default-image.jpg'}" width="200" height="320" style="object-fit: cover;" alt="Thumbnail">
           </div>
         </div>
       `;

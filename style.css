@@ -790,7 +790,9 @@ opacity: .75;
 
 
 
-
+li {
+  color: var(--maintext);
+}
 
 
 

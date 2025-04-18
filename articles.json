@@ -34,7 +34,7 @@
   {
     "slug": "power-of-walking",
     "Trending": "true",
-    "category": "Lifestyle",
+    "category": ["Lifestyle", "Health"],
     "article-title": "The Power of Walking: A Simple Path to Wellness",
     "author": "ChatGpt",
     "article-date": "16/04/25",
@@ -56,7 +56,7 @@
   {
     "slug": "Microsoft-Majorana-1-chip",
     "Trending": "true",
-    "category": "Tech",
+    "category": ["Tech", "science"],
     "article-title": "Microsoft's Quantum Technology: A Game Changer for the Future",
     "author": "ChatGpt",
     "article-date": "18/04/25",
@@ -69,7 +69,7 @@
   {
     "slug": "james-webb-space-telescope",
     "Trending": "false",
-    "category": "science",
+    "category": ["science", "Space"],
     "article-title": "The James Webb Space Telescope: A New Era in Astronomy",
     "author": "ChatGpt",
     "article-date": "17/04/25",
@@ -91,7 +91,7 @@
   {
     "slug": "digital-minimalism",
     "Trending": "false",
-    "category": "Lifestyle",
+  "category": ["Lifestyle", "Tech"],
     "article-title": "Digital Minimalism: Reclaiming Your Time in a Hyperconnected World",
     "author": "ChatGpt",
     "article-date": "18/04/25",
@@ -102,7 +102,7 @@
   {
     "slug": "satellite-internet",
     "Trending": "true",
-    "category": "Tech",
+    "category": ["Tech", "science", "Space"],
     "article-title": "Satellite Internet: Connecting the World, One Orbit at a Time",
     "author": "ChatGpt",
     "article-date": "18/04/25",
@@ -125,7 +125,7 @@
   {
     "slug": "mental-health-awareness",
     "Trending": "false",
-    "category": "Lifestyle",
+    "category": ["Health", "Lifestyle"],
     "article-title": "Mental Health Awareness: Breaking the Stigma",
     "author": "ChatGpt",
     "article-date": "18/04/25",
@@ -147,7 +147,7 @@
   {
     "slug": "exercise-benefits",
     "Trending": "false",
-    "category": "Lifestyle",
+    "category": ["Health", "Lifestyle"],
     "article-title": "The Benefits of Regular Exercise",
     "author": "ChatGpt",
     "article-date": "18/04/25",

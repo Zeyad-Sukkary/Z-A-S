@@ -22,31 +22,33 @@ fetch('articles.json')
         const card = document.createElement("div");
         card.className = "col h-400";
         card.innerHTML = `
- <a href="/Z-A-S/article.html?slug=${article.slug}" class="text-decoration-none text-white">
-  <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-    style="background-image: url('${article.image}'); background-size: cover; background-position: center;">
-    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-      <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-white">${article["article-title"]}</h3>
-      <ul class="d-flex list-unstyled mt-auto">
-        <li class="me-auto">
-          <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">${article.category}</span>
-        </li>
-        <li class="d-flex align-items-center me-3">
-          <svg class="bi me-2" width="1em" height="1em" role="img" aria-label="Author">
-            <use xlink:href="#geo-fill" />
-          </svg>
-          <small>${article.author}</small>
-        </li>
-        <li class="d-flex align-items-center">
-          <svg class="bi me-2" width="1em" height="1em" role="img" aria-label="Date">
-            <use xlink:href="#calendar3" />
-          </svg>
-          <small>${article["article-date"]}</small>
-        </li>
-      </ul>
-    </div>
-  </div>
-</a>
+          <a href="/Z-A-S/article.html?slug=${article.slug}" class="text-decoration-none text-white">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+              style="background-image: url('${article.image}'); background-size: cover; background-position: center;">
+              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-white">${article["article-title"]}</h3>
+                <ul class="d-flex list-unstyled mt-auto">
+                  <li class="me-auto">
+                    <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">
+                      ${Array.isArray(article.category) ? article.category.join(', ') : article.category}
+                    </span>
+                  </li>
+                  <li class="d-flex align-items-center me-3">
+                    <svg class="bi me-2" width="1em" height="1em" role="img" aria-label="Author">
+                      <use xlink:href="#geo-fill" />
+                    </svg>
+                    <small>${article.author}</small>
+                  </li>
+                  <li class="d-flex align-items-center">
+                    <svg class="bi me-2" width="1em" height="1em" role="img" aria-label="Date">
+                      <use xlink:href="#calendar3" />
+                    </svg>
+                    <small>${article["article-date"]}</small>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </a>
         `;
         trendingContainer.appendChild(card);
       });
@@ -79,7 +81,9 @@ fetch('articles.json')
       previewElement.innerHTML = `
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
           <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 category-text">${article.category}</strong>
+            <strong class="d-inline-block mb-2 category-text">
+              ${Array.isArray(article.category) ? article.category.join(', ') : article.category}
+            </strong>
             <h3 class="mb-0" style="color: var(--maintext);">${article["article-title"]}</h3>
             <p class="mb-1 text-body-secondary">${article["article-date"]}</p>
             <p class="card-text mb-auto">${preview}</p>
