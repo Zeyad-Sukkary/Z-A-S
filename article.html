@@ -51,24 +51,25 @@
 </header>
 
 <main>
-    <section class="d-flex">
-        <article class="news-item" style="flex-grow: 1;">
+    <section class="d-flex justify-content-center mb-4 row" id="main-section">
+        <article class="col-12 news-item col-md-8" style="flex-grow: 1;">
             <h1 id="article-title"></h1>
             <h5 id="author"></h5><h5 id="article-date"></h5><br>
             <img id="image" src="none.png" alt="Article Image" width="65%">
             <div id="article-content"></div>
         </article>
 
-        <!-- Sidebar -->
-        <div class="sidebar ms-4">
+        
+
+<div class="sidebar dummy-class col-12 ms-1 col-md-2">
             <div class="sidebar-container p-4 mb-3 bg-body-tertiary rounded">
   <h4 class="fst-italic">Related Posts</h4>
-  <ul class="recent-posts list-unstyled mb-0">
+                 <ul class="recent-posts row list-unstyled mb-0">
     <!-- Related articles will be injected here -->
-  </ul>
-</div>
+                </ul>
+        </div>
+</section>
 
-    </section>
 </main>
 
 <footer>
@@ -83,9 +84,10 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script type="text/javascript" src="scripts/articlescript.js"></script>
 <script src="scripts/darkmode.js"></script>
 <script type="text/javascript" src="scripts/script.js"></script>
-<script type="text/javascript" src="scripts/articlescript.js"></script>
+
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 [
   {
     "slug": "Riyadh",
-    "Trending": "true",
+    "Trending": "false",
     "category": "Lifestyle",
     "article-title": "Riyadh Season 2024: A Cultural Extravaganza",
     "author": "Gemini",
@@ -12,7 +12,7 @@
 
   {
     "slug": "quantum-entaglement",
-    "Trending": "true",
+    "Trending": "false",
     "category": "science",
     "article-title": "Glimpse into the Quantum World: The Enigma of Entanglement",
     "author": "ChatGpt",
@@ -96,18 +96,73 @@
     "author": "ChatGpt",
     "article-date": "18/04/25",
     "image": "pics/digitalminimalism.png",
-  "article-content": "<p>In a world of constant notifications, endless scrolling, and dopamine-driven apps, more people are asking a bold question: What if we just... used tech less? <br> That’s the core idea behind digital minimalism, a growing movement focused on using technology intentionally rather than habitually.</p><p>We wake up and check our phones. <br> We scroll during meals. <br> We jump from app to app, video to video, sometimes without even realizing it. <br> Studies have shown that the average person taps, swipes, or clicks on their phone over 2,500 times a day. <br> And while tech has made life more convenient in many ways, it’s also made it louder, faster, and more distracting than ever.</p><p>Digital minimalism isn’t about going full “off the grid” or ditching your phone completely — it’s about taking back control. <br> It’s about asking: Which apps actually improve my life? <br> Which ones just steal my time and attention?</p><p>Here’s what digital minimalism usually involves:</p><ul><li>Cutting out non-essential apps, especially those designed to be addictive (like certain social media platforms or endless news feeds).</li><li>Turning off notifications for everything except what truly matters — texts, calls, maybe work emails.</li><li>Setting screen time boundaries, like no phones at meals, or screen-free Saturdays.</li><li>Replacing screen time with real-life alternatives — going for a walk, picking up a hobby, spending time with friends, or even just doing nothing for a bit.</li></ul><p>One popular method is the “Digital Declutter”, introduced by author Cal Newport. <br> It’s a 30-day reset where you remove all optional tech, then slowly reintroduce what’s truly useful and meaningful. <br> Many who try it say they feel more focused, more peaceful, and even more human afterward.</p><p>Why is this important? <br> Because our attention is a limited resource — and companies are fighting to grab as much of it as possible. <br> Every time we scroll without thinking, we’re giving away a little piece of our mental space. <br> Digital minimalism is about taking that back — choosing tech that serves you, not the other way around.</p><p>In a world that's always online, slowing down is a radical act. <br> But it’s also one that more people are embracing — not to reject technology, but to use it in a way that aligns with their values and goals. <br> Because sometimes, the best upgrade isn’t a new app or gadget. <br> It’s just a little more space to breathe.</p>"
+  "article-content": "<p>In a world of constant notifications, endless scrolling, and dopamine-driven apps, more people are asking a bold question: What if we just... used tech less? <br> That’s the core idea behind digital minimalism, a growing movement focused on using technology intentionally rather than habitually.</p><p>We wake up and check our phones. <br> We scroll during meals. <br> We jump from app to app, video to video, sometimes without even realizing it. <br> Studies have shown that the average person taps, swipes, or clicks on their phone over 2,500 times a day. <br> And while tech has made life more convenient in many ways, it’s also made it louder, faster, and more distracting than ever.</p><p>Digital minimalism isn’t about going full “off the grid” or ditching your phone completely — it’s about taking back control. <br> It’s about asking: Which apps actually improve my life? <br> Which ones just steal my time and attention?</p><p>Here’s what digital minimalism usually involves:</p><ul><li><p>Cutting out non-essential apps, especially those designed to be addictive (like certain social media platforms or endless news feeds).</p></li><li><p>Turning off notifications for everything except what truly matters — texts, calls, maybe work emails.</p></li><li><p>Setting screen time boundaries, like no phones at meals, or screen-free Saturdays.</p></li><li><p>Replacing screen time with real-life alternatives — going for a walk, picking up a hobby, spending time with friends, or even just doing nothing for a bit.</p></li></ul><p>One popular method is the “Digital Declutter”, introduced by author Cal Newport. <br> It’s a 30-day reset where you remove all optional tech, then slowly reintroduce what’s truly useful and meaningful. <br> Many who try it say they feel more focused, more peaceful, and even more human afterward.</p><p>Why is this important? <br> Because our attention is a limited resource — and companies are fighting to grab as much of it as possible. <br> Every time we scroll without thinking, we’re giving away a little piece of our mental space. <br> Digital minimalism is about taking that back — choosing tech that serves you, not the other way around.</p><p>In a world that's always online, slowing down is a radical act. <br> But it’s also one that more people are embracing — not to reject technology, but to use it in a way that aligns with their values and goals. <br> Because sometimes, the best upgrade isn’t a new app or gadget. <br> It’s just a little more space to breathe.</p>"
   },
 
   {
     "slug": "satellite-internet",
     "Trending": "true",
-    "category": "tech",
+    "category": "Tech",
     "article-title": "Satellite Internet: Connecting the World, One Orbit at a Time",
     "author": "ChatGpt",
     "article-date": "18/04/25",
     "image": "pics/satellite.png",
   "article-content": "<p>For decades, access to the internet has mostly depended on cables — fiber optics, undersea lines, and cell towers.<br> But what about people living in remote villages, mountains, deserts, or even on the move in the middle of the ocean?</p><p>That’s where satellite internet comes in — and it’s no longer slow, clunky, or only for emergencies.<br> With companies like SpaceX’s Starlink, Amazon’s Project Kuiper, and others racing to cover the globe, satellite internet is shaping up to be one of the biggest game-changers in modern connectivity.</p><p><b>So, How Does It Work?</b></p><p>Traditional satellite internet relied on large satellites in geostationary orbit, about 36,000 km above Earth.<br> While they could cover large areas, the signal had to travel so far that it caused noticeable lag — not ideal for video calls, gaming, or real-time communication.</p><p>Enter Low Earth Orbit (LEO) satellites.</p><p>LEO satellites orbit at just a few hundred kilometers above Earth, which means:</p><ul><li>Much faster response times (low latency)</li><li>Stronger signals</li><li>The ability to blanket the entire planet with thousands of small satellites working together</li></ul><p>SpaceX, for example, has already launched over 5,000 Starlink satellites and provides service in dozens of countries.<br> Users just need a small dish (often nicknamed a “UFO on a stick”) and a clear view of the sky — no cables, no towers, just a direct link to space.</p><p><b>Why It Matters</b></p><p>Satellite internet could close the global digital divide.<br> As of now, over 2.6 billion people around the world still don’t have regular internet access.<br> Many live in rural or underserved areas where laying fiber-optic cables is too expensive or impractical.</p><p>With LEO satellite networks, internet access becomes possible anywhere — empowering communities with education, healthcare, jobs, and information.</p><p>It’s also useful during disasters, where infrastructure is damaged or unreachable.<br> Emergency teams can use satellite internet to communicate, coordinate rescue efforts, and even provide Wi-Fi to affected areas.</p><p><b>Challenges Ahead</b></p><p>Of course, it’s not all perfect.<br> Satellite constellations raise concerns about:</p><ul><li>Space debris from thousands of orbiting satellites</li><li>Light pollution affecting astronomers and night sky photography</li><li>Cost: While prices are dropping, satellite internet is still more expensive than traditional broadband in many places</li><li>Security and regulation: Who controls these networks in space? What happens when countries compete over orbital “real estate”?</li></ul><p>Still, innovation is happening fast.<br> Speeds are improving, hardware is getting cheaper, and more players are entering the game.</p><p><b>Final Thoughts</b></p><p>In a world that’s becoming more connected every day, satellite internet offers something rare: the promise of universal access.<br> Whether you’re on a mountain top, in a fishing boat, or deep in the Amazon rainforest, the ability to connect to the digital world is becoming less of a luxury — and more of a right.</p><p>Thanks to space-based internet, the phrase “I don’t have service here” might soon be a thing of the past.</p>"
+  },
+
+  {
+    "slug": "sustainable-living",
+    "Trending": "true",
+    "category": "science",
+    "article-title": "Sustainable Living: A Path to a Greener Future",
+    "author": "ChatGpt",
+    "article-date": "18/04/25",
+    "image": "pics/sustainableliving.png",
+  "article-content": "<p>Sustainable living has become a crucial part of modern society as more individuals are recognizing the impact of their actions on the environment. By adopting eco-friendly habits, such as reducing waste, conserving water, and using renewable energy sources, people can contribute to the well-being of the planet. These changes not only help the environment but also promote healthier lifestyles for individuals.</p><br><p>One of the most significant ways to live sustainably is by reducing consumption. Buying fewer, higher-quality products and reusing items can reduce the amount of waste generated. In addition, conserving energy and water in daily routines can lower utility bills while also protecting natural resources. This shift toward more mindful consumption can have a profound effect on the planet's future.</p><br><p>For those starting their sustainable journey, take a look at this list of simple steps to get started:</p><br><ul><li>1. Start using reusable bags, bottles, and containers</li><li>2. Switch to energy-efficient appliances</li><li>3. Use public transport, bike, or walk instead of driving</li><li>4. Compost food scraps and yard waste</li></ul><br><p>By incorporating these actions into everyday life, you can make a significant difference in the fight against climate change. <b>Sustainable living</b> is not just about small changes; it's about making a long-term commitment to preserving the planet for future generations.</p>"
+  },
+
+
+  {
+    "slug": "mental-health-awareness",
+    "Trending": "false",
+    "category": "Lifestyle",
+    "article-title": "Mental Health Awareness: Breaking the Stigma",
+    "author": "ChatGpt",
+    "article-date": "18/04/25",
+    "image": "pics/MentalHealthAwareness.png",
+  "article-content": "<p>Mental health awareness is crucial for fostering a society where people can openly discuss and seek help for mental health issues. The stigma surrounding mental health has long been a barrier to individuals seeking support, but recent efforts to raise awareness have made significant strides in changing this perception. By focusing on education and empathy, society can break down the walls of stigma and ensure that everyone has access to the help they need.</p><br><p>One of the most important aspects of mental health awareness is promoting the idea that mental health is just as important as physical health. Everyone, regardless of age, gender, or background, can experience mental health challenges. The more people talk about their experiences, the easier it becomes for others to feel comfortable seeking help when needed.</p><br><p>If you're looking to raise awareness or support mental health initiatives, here are a few actions you can take:</p><br><ul><li>1. Educate yourself and others about common mental health conditions</li><li>2. Share personal stories to reduce stigma</li><li>3. Support mental health charities and organizations</li><li>4. Encourage open conversations about mental health</li></ul><br><p>By becoming advocates for mental health awareness, we can create a more supportive and understanding environment. <b>Taking small steps</b> toward mental health awareness can lead to a world where no one has to face their struggles alone.</p>"
+
+  },
+
+  {
+    "slug": "electric-vehicles",
+    "Trending": "true",
+    "category": "Tech",
+    "article-title": "The Rise of Electric Vehicles: A Sustainable Future",
+    "author": "ChatGpt",
+    "article-date": "18/04/25",
+    "image": "pics/EVs.png",
+  "article-content": "<p>The automotive industry has been undergoing a major transformation in recent years, with electric vehicles (EVs) leading the charge. As concerns about climate change and fossil fuel dependency grow, EVs have become an attractive alternative to traditional gasoline-powered cars. With advancements in battery technology, longer driving ranges, and more affordable prices, electric vehicles are becoming increasingly accessible to consumers.</p><br><p>One of the key benefits of EVs is their environmental impact. Unlike traditional vehicles, electric cars produce zero emissions, helping to reduce air pollution and greenhouse gas emissions. Additionally, EVs are more energy-efficient than internal combustion engine vehicles, meaning they use less energy to travel the same distance.</p><br><p>If you're considering making the switch to an electric vehicle, here are some benefits to keep in mind:</p><br><ul><li>1. Lower operating costs due to fewer moving parts and cheaper electricity</li><li>2. No tailpipe emissions, contributing to cleaner air</li><li>3. Tax incentives and rebates for purchasing EVs</li><li>4. Reduced dependence on fossil fuels</li></ul><br><p>The rise of electric vehicles represents a major step forward in the fight against climate change. <b>As technology continues to improve</b>, the future of transportation is becoming cleaner, greener, and more sustainable.</p>"
+  },
+  {
+    "slug": "exercise-benefits",
+    "Trending": "false",
+    "category": "Lifestyle",
+    "article-title": "The Benefits of Regular Exercise",
+    "author": "ChatGpt",
+    "article-date": "18/04/25",
+    "image": "pics/Exercise.png",
+  "article-content": "<p>Regular exercise is one of the most effective ways to improve both physical and mental health. From boosting energy levels to reducing stress, the benefits of staying active are vast and well-documented. Whether you're aiming to improve your cardiovascular health, build strength, or enhance your mood, regular exercise can help you achieve your goals.</p><br><p>One of the key advantages of exercise is its positive effect on the heart. Cardiovascular exercises, such as running, swimming, and cycling, strengthen the heart, improve circulation, and help to reduce the risk of heart disease. Additionally, regular physical activity can aid in maintaining a healthy weight, reducing the risk of obesity, and improving overall fitness.</p><br><p>For those just starting out, here are some simple exercises to consider incorporating into your routine:</p><br><ul><li>1. Walking or jogging for cardiovascular health</li><li>2. Strength training to build muscle and improve metabolism</li><li>3. Yoga or Pilates to enhance flexibility and reduce stress</li><li>4. Cycling or swimming for low-impact aerobic exercise</li></ul><br><p>Aside from physical health, exercise also offers significant mental health benefits. <b>It has been shown</b> to reduce symptoms of anxiety, depression, and stress, providing a natural mood boost and improving overall well-being.</p>"
+  },
+  {
+    "slug": "climate-change",
+    "Trending": "true",
+    "category": "science",
+    "article-title": "Climate Change: Understanding the Global Challenge",
+    "author": "ChatGpt",
+    "article-date": "18/04/25",
+    "image": "pics/ClimateChange.png",
+  "article-content": "<p>Climate change is one of the most significant and pressing issues of our time. It refers to long-term changes in temperature, precipitation patterns, and other atmospheric conditions on Earth. The primary cause of climate change is the increased concentration of greenhouse gases (GHGs) in the atmosphere, which trap heat and lead to a warming effect known as the greenhouse effect.</p><br><p>Human activities, such as burning fossil fuels, deforestation, and industrial processes, have significantly increased the levels of carbon dioxide (CO2) and other GHGs in the atmosphere. This has resulted in global temperatures rising at an unprecedented rate, causing shifts in weather patterns, more frequent extreme events, and rising sea levels.</p><br><p>To better understand the science of climate change, consider these key phenomena:</p><br><ul><li>1. The greenhouse effect, where gases like CO2 trap heat in the Earth's atmosphere</li><li>2. Melting polar ice caps and glaciers contributing to rising sea levels</li><li>3. Increased frequency of extreme weather events such as hurricanes, droughts, and floods</li><li>4. Ocean acidification due to higher CO2 levels affecting marine life</li></ul><br><p>Climate change poses a serious threat to ecosystems, human societies, and global economies. <b>Mitigating its impact</b> requires immediate action, including reducing GHG emissions, transitioning to renewable energy sources, and adopting sustainable practices globally.</p>"
   }
 
 ]

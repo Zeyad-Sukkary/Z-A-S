@@ -29,6 +29,12 @@
   color: var(--link)
 }
 
+
+
+
+
+
+
 .no-hover {
   pointer-events: none;
   border: none;
@@ -43,7 +49,8 @@ body, main {
     font-family: 'Roboto', sans-serif !important;
     background-color: var(--main);
     transition: 3s color, backgroundcolor;
-
+width: 100%;
+height: 100%;
 }
 
 
@@ -668,15 +675,14 @@ opacity: .75;
 /* Sidebar General Layout */
 .sidebar {
   position: relative;
-  width: 100%;
-  max-width: 300px; /* Example max width */
+  width: 100% !important;
 }
 
 /* Sticky Sidebar */
 .sidebar-container {
   position: sticky;
   top: 2rem; /* Adjust based on your layout */
-  z-index: 100; /* Ensure it stays on top */
+  z-index: 10; /* Ensure it stays on top */
   background-color: var(--secondarybg) !important; /* Light or dark background based on theme */
   padding: 1.25rem;
   border-radius: 8px;
@@ -780,4 +786,43 @@ opacity: .75;
 
 .darkmode .sidebar-container .recent-posts svg {
   fill: var(--fillcolor) !important; /* Placeholder image color in dark mode */
+}
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .recent-posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0;
+    width: 100%;
+  }
+
+  .recent-posts li {
+    width: 46%; /* slight spacing */
+    list-style: none;
+  }
+
+  .recent-posts a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .recent-posts a img {
+    width: 100%;
+    height: auto;
+    max-width: 100px;
+  }
+
+  .recent-posts .col-lg-8 {
+    width: 100%;
+  }
 }
