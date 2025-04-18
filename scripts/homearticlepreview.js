@@ -37,13 +37,13 @@ fetch('articles.json')
                     <svg class="bi me-2" width="1em" height="1em" role="img" aria-label="Author">
                       <use xlink:href="#geo-fill" />
                     </svg>
-                    <small>${article.author}</small>
+                    <small class="text-white">${article.author}</small>
                   </li>
                   <li class="d-flex align-items-center">
                     <svg class="bi me-2" width="1em" height="1em" role="img" aria-label="Date">
                       <use xlink:href="#calendar3" />
                     </svg>
-                    <small>${article["article-date"]}</small>
+                    <small class="text-white">${article["article-date"]}</small>
                   </li>
                 </ul>
               </div>
