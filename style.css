@@ -1,8 +1,8 @@
 :root {
 --main: #FAF7F0;
 --secondarybg: #eeebe3;
---maintext: #640D5F;
---secondarytext: #D91656;
+--maintext: #221d22;
+--secondarytext: #302a2c;
 --link: #7e1178;
 --linkhover: #c01bb8;
 --linkactive: #500c4b;
@@ -14,8 +14,8 @@
 .darkmode{
   --main: #272727;
 --secondarybg: #3b3b3b;
---maintext: #9e61e9;
---secondarytext: #36ebd9;
+--maintext: #f6e7ff;
+--secondarytext: #e6fffd;
 --link: #BB86FC;
 --linkhover: #cba0ff;
 --linkactive: #7945b8;
@@ -67,7 +67,7 @@ body, main {
 .active {
 background-color: var(--button) !important;
 color: var(--main) !important;
-
+border: 0;
 }
 
 .active:hover {
@@ -82,13 +82,45 @@ color: var(--main) !important;
     
     }
 
+
+
+
+
+    .card-cover {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .card-cover::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6); /* adjust 0.4 for more/less darkness */
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .card-cover > * {
+      position: relative;
+      z-index: 1;
+    }
+    
+
+
+
+
+
   html {
     scroll-behavior: smooth;
     transition: .3s color, backgroundcolor !important;
 
   }
 
-
+.text-white
+{
+    color: rgb(255, 255, 255) !important;
+  }
 
   .fade-in {
     opacity: 0;
@@ -245,94 +277,6 @@ text-decoration: none;
 }
 
 
-  .email {
-    color: var(--maintext);
-  background-color: var(--main);
-    border: none;
-height: 30px;
-width: auto;
-border-bottom-left-radius: 25px;
-border-top-left-radius: 25px;
-text-align: center;
-box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.15);
-transition: all 0.15s;
-font-family: 'Roboto', sans-serif !important;
-margin-right: -5px;
-
-  }
-
-.email:hover{
-  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.1);
-  
-}
-
-
-
-.email:active{
-  box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.05);
-}
-
-
-
-  .newsletter {
-   align-items: center;
-   background-color: var(--secondarybg);
-    text-align: center;
-    padding: 100px 0;
-    border-radius: 20px;
-    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.15);
-    margin-top: 40px;
-    transition: all 0.2s, background-color .2s;
-    font-family: 'Roboto', sans-serif !important;
-
-  }
-
-
-
-  .newsletter:hover, header:hover, footer:hover{
-    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.1);
-  }
-
-
-
-  .newsletter-content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-
-
-  .submit-button{
-background-color: var(--link);
-border: none;
-height: 30px;
-margin-left: -2px;
-margin-right: 4px;
-color: var(--main);
-border-bottom-right-radius: 12px;
-border-top-right-radius: 12px;
-cursor: pointer;
-transition: 0.15s;
-box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.15);
-font-family: 'Roboto', sans-serif !important;
-  }
-
-
-
-  .submit-button:hover{
-    background-color: var(--linkhover);
-    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.1);
-  }
-
-
-
-  .submit-button:active{
-    background-color: var(--linkactive);
-    color: var(--secondarybg);
-    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.05);
-  }
-
-
   .form-select {
     background-color: var(--main);
     color: var(--maintext);
@@ -364,42 +308,25 @@ font-family: 'Roboto', sans-serif !important;
   
 
 
-  .featured-news {
-    margin-top: 50px;
-  }
+.category-text
+{
+  color: var(--button) !important;
+}
 
 
-  
   .news-item {
     background-color: var(--secondarybg);
-    border-radius: 10px;
-    margin-bottom: 40px;
+    border-radius: 12px;
     padding: 20px;
-    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.15);
-    transition: all 0.2s;
-    margin-top: 10px;
-
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+    margin: 12px 0; /* smaller vertical spacing between articles */
   }
-
-
-
-  .news-item:hover{
-    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.1);
+  
+  .news-item:hover {
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.08);
   }
-
-  .article-preview-container img {
-    max-width: 35%;
-    height: auto;
-    margin-bottom: 15px;
-  }
-
-  .news-item img {
-    max-width: 35%;
-    height: auto;
-    margin-bottom: 15px;
-  }
-
-
+  
 
 
   footer {
@@ -427,8 +354,8 @@ font-family: 'Roboto', sans-serif !important;
 
   .alert {
     padding: 20px;
-    background-color: var(--maintext); 
-    color: #ffffff;
+    background-color: var(--linkactive); 
+    color: var(--main);
     margin-bottom: 15px;
     border-radius: 10px;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.15);
@@ -664,6 +591,19 @@ align-items: center;
   }
 
 
+  .alert.slide-out-right {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s ease-in;
+  }
+  .slide-out-left {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 0.4s ease-in;
+  }
+    
+
+
 
   #scrollBtn {
     display: none;
@@ -720,3 +660,124 @@ opacity: .75;
 }
 
 
+
+
+
+
+
+/* Sidebar General Layout */
+.sidebar {
+  position: relative;
+  width: 100%;
+  max-width: 300px; /* Example max width */
+}
+
+/* Sticky Sidebar */
+.sidebar-container {
+  position: sticky;
+  top: 2rem; /* Adjust based on your layout */
+  z-index: 100; /* Ensure it stays on top */
+  background-color: var(--secondarybg) !important; /* Light or dark background based on theme */
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar Title Styling */
+.sidebar-container h4 {
+  font-size: 1.25rem;
+  color: var(--maintext) !important; /* Title color for light/dark mode */
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Recent Posts Section Styling */
+.sidebar-container .recent-posts {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-container .recent-posts li {
+  background-color: var(--secondarybg) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px solid var(--main) !important; /* Border color for separation */
+  padding-top: 1rem;
+}
+
+.sidebar-container .recent-posts li:first-child {
+  border-top: none; /* No border for the first item */
+}
+
+.sidebar-container .recent-posts a {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--link) !important; /* Link color for light/dark mode */
+  padding: 0.75rem 0;
+}
+
+.sidebar-container .recent-posts a:hover {
+  color: var(--linkhover) !important; /* Link hover color */
+}
+
+.sidebar-container .recent-posts a:active {
+  color: var(--linkactive) !important; /* Active link color */
+}
+
+/* Styling for the SVG Placeholder */
+.sidebar-container .recent-posts svg {
+  width: 100%;
+  height: auto;
+  fill: var(--fillcolor) !important; /* Placeholder image color */
+  margin-bottom: 0.5rem; /* Space between image and text */
+}
+
+/* Adjustments for Flexbox Layout */
+.sidebar-container .recent-posts a .col-lg-8 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sidebar-container .recent-posts h6 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--link) !important; /* Default text color for post title */
+}
+
+.sidebar-container .recent-posts small {
+  color: var(--secondarytext) !important; /* Smaller text for post date */
+}
+
+/* Dark Mode Adjustments */
+.darkmode .sidebar-container {
+  background-color: var(--secondarybg) !important; /* Dark mode background */
+}
+
+.darkmode .sidebar-container h4 {
+  color: var(--maintext) !important; /* Dark mode title color */
+}
+
+.darkmode .sidebar-container .recent-posts a {
+  color: var(--link) !important; /* Light blue links for dark mode */
+}
+
+.darkmode .sidebar-container .recent-posts a:hover {
+  color: var(--linkhover) !important; /* Lighter blue hover */
+}
+
+.darkmode .sidebar-container .recent-posts a:active {
+  color: var(--linkactive) !important; /* Active link for dark mode */
+}
+
+.darkmode .sidebar-container .recent-posts small {
+  color: var(--secondarytext) !important; /* Light gray text for post date */
+}
+
+.darkmode .sidebar-container .recent-posts svg {
+  fill: var(--fillcolor) !important; /* Placeholder image color in dark mode */
+}

@@ -6,62 +6,24 @@ fetch('articles.json')
     const authorFilter = document.getElementById('authorFilter');
     const categoryFilter = document.getElementById('categoryFilter');
     const noArticlesMsg = document.getElementById('noArticlesMsg');
-    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
 
     const activeFilters = {
-      author: [],
-      category: []
+      author: null,
+      category: null
     };
-
-    function parseDate(dateStr) {
-      const [day, month, year] = dateStr.split('/');
-      return new Date(`20${year}`, month - 1, day);
-    }
-
-    function renderArticles(articles) {
-      container.innerHTML = '';
-
-      if (articles.length === 0) {
-        noArticlesMsg.classList.remove('nonedisplay');
-        return;
-      } else {
-        noArticlesMsg.classList.add('nonedisplay');
-      }
-
-      articles.forEach(article => {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = article["article-content"];
-        const plainText = tempDiv.textContent || tempDiv.innerText || "";
-        const preview = plainText.slice(0, 160) + ` <a href="/Z-A-S/article.html?slug=${article.slug}" class="link">...read more</a>`;
-
-        const previewElement = document.createElement('div');
-        previewElement.classList.add('slide-in-left', 'news-item');
-
-        previewElement.innerHTML = `
-          <a class="link" href="/Z-A-S/article.html?slug=${article.slug}">
-            <img class="article-image" src="${article.image}" alt="Article Image" width="65%">
-            <h3 class="article-title">${article["article-title"]}</h3>
-          </a>
-          <p class="article-content">${preview}</p>
-        `;
-
-        container.appendChild(previewElement);
-        observer.observe(previewElement);
-      });
-    }
 
     function applyFiltersAndSort(sortCriteria) {
       let filtered = [...data];
 
-      if (activeFilters.author.length > 0) {
+      if (activeFilters.author && activeFilters.author !== 'none') {
         filtered = filtered.filter(article =>
-          activeFilters.author.includes(article.author.toLowerCase())
+          article.author.toLowerCase() === activeFilters.author
         );
       }
 
-      if (activeFilters.category.length > 0) {
+      if (activeFilters.category && activeFilters.category !== 'none') {
         filtered = filtered.filter(article =>
-          activeFilters.category.includes(article.category.toLowerCase())
+          article.category.toLowerCase() === activeFilters.category
         );
       }
 
@@ -87,30 +49,11 @@ fetch('articles.json')
     }
 
     function updateActiveFilters() {
-      activeFilters.author = Array.from(authorFilter.selectedOptions).map(option =>
-        option.value.replace('author-', '')
-      );
-      activeFilters.category = Array.from(categoryFilter.selectedOptions).map(option =>
-        option.value.replace('category-', '')
-      );
+      activeFilters.author = authorFilter.value.replace('author-', '');
+      activeFilters.category = categoryFilter.value.replace('category-', '');
       applyFiltersAndSort(sortDropdown.value);
     }
 
-    // Clear Filters Button Logic
-    clearFiltersBtn.addEventListener('click', () => {
-      // Clear activeFilters arrays
-      activeFilters.author = [];
-      activeFilters.category = [];
-
-      // Reset dropdowns
-      authorFilter.selectedIndex = -1;
-      categoryFilter.selectedIndex = -1;
-
-      // Re-apply sorting
-      applyFiltersAndSort(sortDropdown.value);
-    });
-
-    // Event listeners
     sortDropdown.addEventListener('change', () => applyFiltersAndSort(sortDropdown.value));
     authorFilter.addEventListener('change', updateActiveFilters);
     categoryFilter.addEventListener('change', updateActiveFilters);
@@ -118,3 +61,68 @@ fetch('articles.json')
     applyFiltersAndSort('date');
   })
   .catch(error => console.error('Error loading article previews:', error));
+
+// OUTSIDE FETCH
+
+function parseDate(dateStr) {
+  const [day, month, year] = dateStr.split('/');
+  return new Date(`20${year}`, month - 1, day);
+}
+
+function renderArticles(articles) {
+  const container = document.getElementById('article-preview-container');
+  const noArticlesMsg = document.getElementById('noArticlesMsg');
+
+  container.innerHTML = '';
+
+  if (articles.length === 0) {
+    noArticlesMsg.classList.remove('nonedisplay');
+    return;
+  } else {
+    noArticlesMsg.classList.add('nonedisplay');
+  }
+
+  for (let i = 0; i < articles.length; i += 2) {
+    const row = document.createElement('div');
+    row.classList.add('row', 'mb-2');
+
+    for (let j = i; j < i + 2 && j < articles.length; j++) {
+      const article = articles[j];
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = article["article-content"];
+      const plainText = tempDiv.textContent || tempDiv.innerText || "";
+      const preview = plainText.slice(0, 130) + '....';
+
+      const col = document.createElement('div');
+      col.classList.add('col-md-6');
+
+      const cardHTML = `
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 category-text">${article.category}</strong>
+            <h3 class="mb-0" style="color: var(--maintext);">${article["article-title"]}</h3>
+            <p class="mb-1 text-body-secondary">${article.date}</p>
+            <p class="card-text mb-auto">${preview}</p>
+            <a href="/Z-A-S/article.html?slug=${article.slug}" class="icon-link link gap-1 icon-link-hover stretched-link">
+              Read more
+              <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img src="${article.image}" width="200" height="320" style="object-fit: cover;" alt="Thumbnail">
+          </div>
+        </div>
+      `;
+
+      col.innerHTML = cardHTML;
+
+      // Add observer for animation
+      const card = col.querySelector('.slide-in-left');
+      observer.observe(card);
+
+      row.appendChild(col);
+    }
+
+    container.appendChild(row);
+  }
+}

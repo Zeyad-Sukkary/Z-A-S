@@ -67,18 +67,18 @@ function scrollToTop() {
 document.body.scrollTop = 0;
 document.documentElement.scrollTop = 0;
 }
-
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
     }
   });
-}, { threshold: 0 }); 
+}, { threshold: 0 }); // Only triggers when element just starts appearing
 
-const slidingElements = document.querySelectorAll('.fade-in, .news-item, .slide-in-left, .slide-in-right');
+const slidingElements = document.querySelectorAll('.slide-in-left');
 
 slidingElements.forEach(el => observer.observe(el));
+
 
 window.addEventListener('scroll', function() {
   const header = document.getElementById('header');
@@ -140,7 +140,15 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+function closeAlert(el) {
+  const alertBox = el.parentElement;
+  alertBox.classList.add('slide-out-right');
 
+  // Wait for the animation to finish before hiding it
+  setTimeout(() => {
+    alertBox.style.display = 'none';
+  }, 400); // same duration as CSS transition
+}
 
 const scrollProgress = document.createElement('div');
 scrollProgress.id = 'scrollProgress';
