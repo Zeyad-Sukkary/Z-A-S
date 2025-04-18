@@ -1,11 +1,15 @@
 fetch('articles.json')
   .then(response => response.json())
   .then(data => {
+    // Cache the fetched articles if needed for search reuse
+    const allArticles = data;
+
     const container = document.getElementById('article-preview-container');
     const sortDropdown = document.getElementById('sortOptions');
     const authorFilter = document.getElementById('authorFilter');
     const categoryFilter = document.getElementById('categoryFilter');
     const noArticlesMsg = document.getElementById('noArticlesMsg');
+    const searchBar = document.getElementById('searchbar');
 
     const activeFilters = {
       author: null,
@@ -14,7 +18,7 @@ fetch('articles.json')
 
     // Get unique authors and categories
     const authors = [...new Set(data.map(article => article.author.trim()))].sort();
-    const categories = [...new Set(data.flatMap(article => 
+    const categories = [...new Set(data.flatMap(article =>
       Array.isArray(article.category) ? article.category : [article.category]
     ))].sort();
 
@@ -37,9 +41,16 @@ fetch('articles.json')
     populateFilter(authorFilter, authors, 'author');
     populateFilter(categoryFilter, categories, 'category');
 
+    // Listen for search input and update filtering when it changes
+    searchBar.addEventListener('input', () => {
+      // Use the current sortDropdown value so that search is integrated with other filters.
+      applyFiltersAndSort(sortDropdown.value);
+    });
+
     function applyFiltersAndSort(sortCriteria) {
       let filtered = [...data];
 
+      // Apply filters for author and category
       if (activeFilters.author && activeFilters.author !== 'none') {
         filtered = filtered.filter(article =>
           article.author.toLowerCase() === activeFilters.author
@@ -54,6 +65,24 @@ fetch('articles.json')
         );
       }
 
+      // Apply search filter (searches title, content, author, and category)
+      const searchTerm = searchBar.value.trim().toLowerCase();
+      if (searchTerm !== '') {
+        filtered = filtered.filter(article => {
+          const title = (article["article-title"] || "").toLowerCase();
+          const content = (article["article-content"] || "").toLowerCase();
+          const author = (article.author || "").toLowerCase();
+          const category = Array.isArray(article.category)
+            ? article.category.join(' ').toLowerCase()
+            : (article.category || "").toLowerCase();
+          return title.includes(searchTerm) ||
+                 content.includes(searchTerm) ||
+                 author.includes(searchTerm) ||
+                 category.includes(searchTerm);
+        });
+      }
+
+      // Apply sorting based on the criteria
       switch (sortCriteria) {
         case 'date':
           filtered.sort((a, b) => parseDate(b["article-date"]) - parseDate(a["article-date"]));
@@ -68,7 +97,11 @@ fetch('articles.json')
           filtered.sort((a, b) => a.author.localeCompare(b.author));
           break;
         case 'category':
-          filtered.sort((a, b) => a.category.toLowerCase().localeCompare(b.category.toLowerCase()));
+          filtered.sort((a, b) => {
+            const aCat = Array.isArray(a.category) ? a.category.join(' ').toLowerCase() : a.category.toLowerCase();
+            const bCat = Array.isArray(b.category) ? b.category.join(' ').toLowerCase() : b.category.toLowerCase();
+            return aCat.localeCompare(bCat);
+          });
           break;
       }
 
@@ -152,14 +185,11 @@ function renderArticles(articles) {
       `;
 
       col.innerHTML = cardHTML;
-
-      // Add observer for animation
       const card = col.querySelector('.slide-in-left');
       observer.observe(card);
 
       row.appendChild(col);
     }
-
     container.appendChild(row);
   }
 }

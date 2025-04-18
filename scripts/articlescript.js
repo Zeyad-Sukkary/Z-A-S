@@ -93,3 +93,27 @@ function handleSidebarClasses() {
     lastWidthAbove768 = isNowAbove768;
   }
 }
+
+
+
+
+
+
+
+
+
+const images = document.querySelectorAll('img');
+
+images.forEach(img => {
+  img.addEventListener('click', () => {
+    const src = img.getAttribute('src');
+    const lightbox = document.createElement('div');
+    lightbox.classList.add('lightbox');
+    lightbox.innerHTML = `<img src="${src}" alt="Image">`;
+    document.body.appendChild(lightbox);
+
+    lightbox.addEventListener('click', () => {
+      lightbox.remove();
+    });
+  });
+});
