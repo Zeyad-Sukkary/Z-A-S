@@ -162,7 +162,7 @@ function renderArticles(articles) {
       const categories = Array.isArray(article.category) ? article.category : [article.category];
 
       const col = document.createElement('div');
-      col.classList.add('col-md-6 news-item');
+      col.classList.add('col-md-6');
 
       const cardHTML = `
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
