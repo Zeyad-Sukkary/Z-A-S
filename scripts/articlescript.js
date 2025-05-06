@@ -102,23 +102,7 @@ function handleSidebarClasses() {
 
 
 
-const images = document.querySelectorAll('.news-item img');
-
-images.forEach(img => {
-  img.addEventListener('click', () => {
-    const src = img.getAttribute('src');
-    const lightbox = document.createElement('div');
-    lightbox.classList.add('lightbox');
-    lightbox.innerHTML = `<img src="${src}" alt="Image">`;
-    document.body.appendChild(lightbox);
-
-    lightbox.addEventListener('click', () => {
-      lightbox.remove();
-    });
-  });
-});
-
-const images = document.querySelectorAll('#article-content img');
+const images = document.querySelectorAll('main img');
 
 images.forEach(img => {
   img.addEventListener('click', () => {
