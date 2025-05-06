@@ -102,7 +102,7 @@ function handleSidebarClasses() {
 
 
 
-const images = document.querySelectorAll('img');
+const images = document.querySelectorAll('.news-item img');
 
 images.forEach(img => {
   img.addEventListener('click', () => {

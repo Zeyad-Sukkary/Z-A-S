@@ -235,4 +235,71 @@ fetch('articles.json')
     populateCategoryNav();
     applyFiltersAndSort('date');
   })
-  .catch(err => console.error('Error loading article previews:', err));
+  .catch(error => console.error('Error loading article previews:', error));
+
+// OUTSIDE FETCH
+
+function parseDate(dateStr) {
+  const [day, month, year] = dateStr.split('/');
+  return new Date(`20${year}`, month - 1, day);
+}
+
+function renderArticles(articles) {
+  const container = document.getElementById('article-preview-container');
+  const noArticlesMsg = document.getElementById('noArticlesMsg');
+
+  container.innerHTML = '';
+
+  if (articles.length === 0) {
+    noArticlesMsg.classList.remove('nonedisplay');
+    return;
+  } else {
+    noArticlesMsg.classList.add('nonedisplay');
+  }
+
+  for (let i = 0; i < articles.length; i += 2) {
+    const row = document.createElement('div');
+    row.classList.add('row', 'mb-2');
+
+    for (let j = i; j < i + 2 && j < articles.length; j++) {
+      const article = articles[j];
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = article["article-content"];
+      const plainText = tempDiv.textContent || tempDiv.innerText || "";
+      const preview = plainText.slice(0, 110) + '....';
+
+      // Ensure category is always an array
+      const categories = Array.isArray(article.category) ? article.category : [article.category];
+
+      const col = document.createElement('div');
+      col.classList.add('col-md-6');
+
+      const cardHTML = `
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 category-text">
+              ${categories.join(' | ')}
+            </strong>
+            <h3 class="mb-0" style="color: var(--maintext);">${article["article-title"]}</h3>
+            <p class="mb-1 text-body-secondary">${article["article-date"]}</p>
+            <p class="card-text mb-auto">${preview}</p>
+            <a href="/Z-A-S/article.html?slug=${article.slug}" class="icon-link link gap-1 icon-link-hover stretched-link">
+              Read more
+              <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg>
+            </a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <img src="${article.image || '/path/to/default-image.jpg'}" width="200" height="320" style="object-fit: cover;" alt="Thumbnail">
+          </div>
+        </div>
+      `;
+
+      col.innerHTML = cardHTML;
+      const card = col.querySelector('.slide-in-left');
+      observer.observe(card);
+
+      row.appendChild(col);
+    }
+    container.appendChild(row);
+  }
+}

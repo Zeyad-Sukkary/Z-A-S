@@ -30,7 +30,7 @@ fetch('articles.json')
                 <ul class="d-flex list-unstyled mt-auto">
                   <li class="me-auto">
                     <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">
-                      ${Array.isArray(article.category) ? article.category.join(', ') : article.category}
+                      ${Array.isArray(article.category) ? article.category.join(' | ') : article.category}
                     </span>
                   </li>
                   <li class="d-flex align-items-center me-3">
@@ -74,7 +74,7 @@ fetch('articles.json')
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = article["article-content"];
       const plainText = tempDiv.textContent || tempDiv.innerText || "";
-      const preview = plainText.slice(0, 130) + '....';
+      const preview = plainText.slice(0, 110) + '....';
 
       const previewElement = document.createElement('div');
       previewElement.classList.add('col-md-6');
@@ -82,7 +82,7 @@ fetch('articles.json')
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
           <div class="col p-4 d-flex flex-column position-static">
             <strong class="d-inline-block mb-2 category-text">
-              ${Array.isArray(article.category) ? article.category.join(', ') : article.category}
+              ${Array.isArray(article.category) ? article.category.join(' | ') : article.category}
             </strong>
             <h3 class="mb-0" style="color: var(--maintext);">${article["article-title"]}</h3>
             <p class="mb-1 link">${article["article-date"]}</p>
