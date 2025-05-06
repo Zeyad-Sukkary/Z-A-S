@@ -80,21 +80,6 @@ const slidingElements = document.querySelectorAll('.slide-in-left');
 slidingElements.forEach(el => observer.observe(el));
 
 
-window.addEventListener('scroll', function() {
-  const header = document.getElementById('header');
-  const logo = document.getElementById('logo');
-  
-  const sticky = header.offsetTop + header.offsetHeight;
-
-  if (window.pageYOffset > sticky) {
-      logo.classList.add('fixed');
-  } else {
-      logo.classList.remove('fixed');
-  }
-});
-
-
-
 
 
 document.addEventListener('DOMContentLoaded', () => {

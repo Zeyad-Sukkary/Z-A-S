@@ -1,89 +1,108 @@
 fetch('articles.json')
   .then(response => response.json())
   .then(data => {
-    // Cache the fetched articles if needed for search reuse
-    const allArticles = data;
-
     const container = document.getElementById('article-preview-container');
     const sortDropdown = document.getElementById('sortOptions');
     const authorFilter = document.getElementById('authorFilter');
-    const categoryFilter = document.getElementById('categoryFilter');
+    const categoryNav = document.getElementById('categoryNav');
     const noArticlesMsg = document.getElementById('noArticlesMsg');
     const searchBar = document.getElementById('searchbar');
 
-    const activeFilters = {
-      author: null,
-      category: null
-    };
+    const activeFilters = { author: null, category: null };
 
-    // Get unique authors and categories
-    const authors = [...new Set(data.map(article => article.author.trim()))].sort();
-    const categories = [...new Set(data.flatMap(article =>
+    const allAuthors = [...new Set(data.map(article => article.author.trim()))].sort();
+    const allCategories = [...new Set(data.flatMap(article =>
       Array.isArray(article.category) ? article.category : [article.category]
-    ))].sort();
+    ))].filter(Boolean).sort();
 
-    // Populate filter dropdowns
-    function populateFilter(dropdown, values, prefix) {
-      dropdown.innerHTML = `<option value="none" selected>None</option>`;
-      values.forEach(val => {
+    // Populate author dropdown
+    function populateAuthorDropdown() {
+      authorFilter.innerHTML = `<option value="none" selected>None</option>`;
+      allAuthors.forEach(author => {
         const option = document.createElement('option');
-        option.value = `${prefix}-${val.toLowerCase()}`;
-        option.textContent = val;
-        dropdown.appendChild(option);
+        option.value = `author-${author.toLowerCase()}`;
+        option.textContent = author;
+        authorFilter.appendChild(option);
       });
 
-      // Hide dropdown if only one option
-      if (values.length <= 1) {
-        dropdown.parentElement.style.display = 'none';
+      if (allAuthors.length <= 1) {
+        authorFilter.parentElement.style.display = 'none';
       }
     }
 
-    populateFilter(authorFilter, authors, 'author');
-    populateFilter(categoryFilter, categories, 'category');
+    // Create nav item
+    function createNavItem(name, categoryValue, isActive = false) {
+      const li = document.createElement('li');
+      li.className = 'fade-in nav-item p-2 mx-1 visible';
+      li.title = `${name} | Discover`;
 
-    // Listen for search input and update filtering when it changes
-    searchBar.addEventListener('input', () => {
-      // Use the current sortDropdown value so that search is integrated with other filters.
+      const a = document.createElement('a');
+      a.className = `link p-2 nav-link${isActive ? ' active' : ''}`;
+      a.href = '#';
+      a.textContent = name;
+      a.dataset.category = categoryValue;
+
+      li.appendChild(a);
+      return li;
+    }
+
+    // Populate category navigation
+    function populateCategoryNav() {
+      categoryNav.innerHTML = '';
+
+      const allItem = createNavItem('All', 'none', true);
+      categoryNav.appendChild(allItem);
+
+      allCategories.forEach(category => {
+        const li = createNavItem(category, category.toLowerCase());
+        categoryNav.appendChild(li);
+      });
+    }
+
+    // Update active filters
+    function updateActiveFilters() {
+      const authorVal = authorFilter.value.replace('author-', '');
+      activeFilters.author = authorVal !== 'none' ? authorVal.toLowerCase() : null;
       applyFiltersAndSort(sortDropdown.value);
-    });
+    }
 
-    function applyFiltersAndSort(sortCriteria) {
+    // Apply filters and sorting
+    function applyFiltersAndSort(sortBy) {
       let filtered = [...data];
 
-      // Apply filters for author and category
-      if (activeFilters.author && activeFilters.author !== 'none') {
+      // Filter by author
+      if (activeFilters.author) {
         filtered = filtered.filter(article =>
-          article.author.toLowerCase() === activeFilters.author
+          article.author?.toLowerCase() === activeFilters.author
         );
       }
 
-      if (activeFilters.category && activeFilters.category !== 'none') {
-        filtered = filtered.filter(article =>
-          Array.isArray(article.category)
-            ? article.category.map(cat => cat.toLowerCase()).includes(activeFilters.category)
-            : article.category.toLowerCase() === activeFilters.category
-        );
-      }
-
-      // Apply search filter (searches title, content, author, and category)
-      const searchTerm = searchBar.value.trim().toLowerCase();
-      if (searchTerm !== '') {
+      // Filter by category
+      if (activeFilters.category) {
         filtered = filtered.filter(article => {
-          const title = (article["article-title"] || "").toLowerCase();
-          const content = (article["article-content"] || "").toLowerCase();
-          const author = (article.author || "").toLowerCase();
-          const category = Array.isArray(article.category)
-            ? article.category.join(' ').toLowerCase()
-            : (article.category || "").toLowerCase();
-          return title.includes(searchTerm) ||
-                 content.includes(searchTerm) ||
-                 author.includes(searchTerm) ||
-                 category.includes(searchTerm);
+          const articleCats = Array.isArray(article.category)
+            ? article.category.map(c => c.toLowerCase())
+            : [article.category?.toLowerCase()];
+          return articleCats.includes(activeFilters.category);
         });
       }
 
-      // Apply sorting based on the criteria
-      switch (sortCriteria) {
+      // Filter by search term
+      const term = searchBar.value.trim().toLowerCase();
+      if (term) {
+        filtered = filtered.filter(article => {
+          const title = article["article-title"]?.toLowerCase() || "";
+          const content = article["article-content"]?.toLowerCase() || "";
+          const author = article.author?.toLowerCase() || "";
+          const categoryText = Array.isArray(article.category)
+            ? article.category.join(' ').toLowerCase()
+            : article.category?.toLowerCase() || "";
+          return title.includes(term) || content.includes(term) || author.includes(term) || categoryText.includes(term);
+        });
+      }
+
+      // Sorting
+      switch (sortBy) {
         case 'date':
           filtered.sort((a, b) => parseDate(b["article-date"]) - parseDate(a["article-date"]));
           break;
@@ -98,8 +117,8 @@ fetch('articles.json')
           break;
         case 'category':
           filtered.sort((a, b) => {
-            const aCat = Array.isArray(a.category) ? a.category.join(' ').toLowerCase() : a.category.toLowerCase();
-            const bCat = Array.isArray(b.category) ? b.category.join(' ').toLowerCase() : b.category.toLowerCase();
+            const aCat = Array.isArray(a.category) ? a.category.join(' ').toLowerCase() : a.category?.toLowerCase() || '';
+            const bCat = Array.isArray(b.category) ? b.category.join(' ').toLowerCase() : b.category?.toLowerCase() || '';
             return aCat.localeCompare(bCat);
           });
           break;
@@ -109,87 +128,111 @@ fetch('articles.json')
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function updateActiveFilters() {
-      const authorValue = authorFilter.value.replace('author-', '');
-      const categoryValue = categoryFilter.value.replace('category-', '');
-
-      activeFilters.author = authorValue !== 'none' ? authorValue.toLowerCase() : null;
-      activeFilters.category = categoryValue !== 'none' ? categoryValue.toLowerCase() : null;
-
-      applyFiltersAndSort(sortDropdown.value);
+    // Parse date
+    function parseDate(dateStr) {
+      const [day, month, year] = dateStr.split('/');
+      return new Date(`20${year}`, month - 1, day);
     }
 
-    sortDropdown.addEventListener('change', () => applyFiltersAndSort(sortDropdown.value));
-    authorFilter.addEventListener('change', updateActiveFilters);
-    categoryFilter.addEventListener('change', updateActiveFilters);
+    // Render articles
+    function renderArticles(articles) {
+      container.innerHTML = '';
+      if (articles.length === 0) {
+        noArticlesMsg.classList.remove('nonedisplay');
+        return;
+      } else {
+        noArticlesMsg.classList.add('nonedisplay');
+      }
 
+      for (let i = 0; i < articles.length; i += 2) {
+        const row = document.createElement('div');
+        row.classList.add('row', 'mb-2');
+
+        for (let j = i; j < i + 2 && j < articles.length; j++) {
+          const article = articles[j];
+          const textContent = getTextContent(article["article-content"]);
+          const preview = textContent.slice(0, 130) + '....';
+          const categories = Array.isArray(article.category) ? article.category : [article.category];
+
+          const col = document.createElement('div');
+          col.classList.add('col-md-6');
+          col.innerHTML = `
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
+              <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 category-text">${categories.join(' | ')}</strong>
+                <h3 class="mb-0" style="color: var(--maintext);">${article["article-title"]}</h3>
+                <p class="mb-1 text-body-secondary">${article["article-date"]}</p>
+                <p class="card-text mb-auto">${preview}</p>
+                <a href="/Z-A-S/article.html?slug=${article.slug}" class="icon-link link gap-1 icon-link-hover stretched-link">
+                  Read more <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg>
+                </a>
+              </div>
+              <div class="col-auto d-none d-lg-block">
+                <img src="${article.image || '/path/to/default-image.jpg'}" width="200" height="320" style="object-fit: cover;" alt="Thumbnail">
+              </div>
+            </div>
+          `;
+
+          const card = col.querySelector('.slide-in-left');
+          observer.observe(card);
+          row.appendChild(col);
+        }
+
+        container.appendChild(row);
+        triggerSlideInAnimations();
+      }
+    }
+
+    // Trigger slide-in animations
+    function triggerSlideInAnimations() {
+      document.querySelectorAll('.slide-in-left').forEach((el) => {
+        el.classList.add('visible');
+      });
+    } 
+
+    // Get text content from HTML
+    function getTextContent(html) {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+      return tempDiv.textContent || tempDiv.innerText || '';
+    }
+
+    // IntersectionObserver for animations
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Event listeners
+    categoryNav.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        e.preventDefault();
+
+        // Remove 'active' class from all links
+        const links = categoryNav.querySelectorAll('.nav-link');
+        links.forEach(link => link.classList.remove('active'));
+
+        // Add 'active' to the clicked link
+        e.target.classList.add('active');
+
+        // Update filter and re-render
+        const categoryVal = e.target.dataset.category;
+        activeFilters.category = categoryVal !== 'none' ? categoryVal : null;
+        applyFiltersAndSort(sortDropdown.value);
+      }
+    });
+
+    authorFilter.addEventListener('change', updateActiveFilters);
+    sortDropdown.addEventListener('change', () => applyFiltersAndSort(sortDropdown.value));
+    searchBar.addEventListener('input', () => applyFiltersAndSort(sortDropdown.value));
+
+    // Initialize
+    populateAuthorDropdown();
+    populateCategoryNav();
     applyFiltersAndSort('date');
   })
-  .catch(error => console.error('Error loading article previews:', error));
-
-// OUTSIDE FETCH
-
-function parseDate(dateStr) {
-  const [day, month, year] = dateStr.split('/');
-  return new Date(`20${year}`, month - 1, day);
-}
-
-function renderArticles(articles) {
-  const container = document.getElementById('article-preview-container');
-  const noArticlesMsg = document.getElementById('noArticlesMsg');
-
-  container.innerHTML = '';
-
-  if (articles.length === 0) {
-    noArticlesMsg.classList.remove('nonedisplay');
-    return;
-  } else {
-    noArticlesMsg.classList.add('nonedisplay');
-  }
-
-  for (let i = 0; i < articles.length; i += 2) {
-    const row = document.createElement('div');
-    row.classList.add('row', 'mb-2');
-
-    for (let j = i; j < i + 2 && j < articles.length; j++) {
-      const article = articles[j];
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = article["article-content"];
-      const plainText = tempDiv.textContent || tempDiv.innerText || "";
-      const preview = plainText.slice(0, 130) + '....';
-
-      // Ensure category is always an array
-      const categories = Array.isArray(article.category) ? article.category : [article.category];
-
-      const col = document.createElement('div');
-      col.classList.add('col-md-6');
-
-      const cardHTML = `
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 category-text">
-              ${categories.join(' | ')}
-            </strong>
-            <h3 class="mb-0" style="color: var(--maintext);">${article["article-title"]}</h3>
-            <p class="mb-1 text-body-secondary">${article["article-date"]}</p>
-            <p class="card-text mb-auto">${preview}</p>
-            <a href="/Z-A-S/article.html?slug=${article.slug}" class="icon-link link gap-1 icon-link-hover stretched-link">
-              Read more
-              <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg>
-            </a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <img src="${article.image || '/path/to/default-image.jpg'}" width="200" height="320" style="object-fit: cover;" alt="Thumbnail">
-          </div>
-        </div>
-      `;
-
-      col.innerHTML = cardHTML;
-      const card = col.querySelector('.slide-in-left');
-      observer.observe(card);
-
-      row.appendChild(col);
-    }
-    container.appendChild(row);
-  }
-}
+  .catch(err => console.error('Error loading article previews:', err));
