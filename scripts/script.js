@@ -12,6 +12,18 @@ if (closeButton && alertParent) {
  
 
 
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+
+  const loading = document.getElementById('loading');
+  if (loading) {
+    loading.classList.add('hidden');
+  }
+});
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const modalTour = document.getElementById('modalTour');
   const modalDismiss = document.getElementById('modaldismiss');
@@ -40,15 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
-
-  const loading = document.getElementById('loading');
-  if (loading) {
-    loading.classList.add('hidden');
-  }
-});
 
 
 
