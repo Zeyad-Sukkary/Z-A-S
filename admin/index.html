@@ -6,7 +6,18 @@
     <title>Content Manager</title>
   </head>
   <body>
-    <!-- Include the script that builds the page and powers Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+    <!-- Include the script that builds the page and powers Decap CMS --><script type="module">
+  import CMS from "https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js";
+
+  CMS.init({
+    config: {
+      backend: {
+        name: "git-gateway",
+        auth_url: "https://decap-cms-auth.onrender.com/auth",  // your custom auth
+      }
+    }
+  });
+</script>
+
   </body>
 </html>
