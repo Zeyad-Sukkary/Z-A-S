@@ -1,110 +1,164 @@
-fetch('articles.json')
-  .then(response => response.json())
+fetch('articles/index.json')
+  .then(res => res.json())
   .then(data => {
     const container = document.getElementById('article-preview-container');
-    const trendingContainer = document.getElementById("trendingContainer");
+    const noArticlesMsg = document.getElementById('noArticlesMsg');
+    const used = new Set();
 
-    if (!container) {
-      console.error('No container found with ID article-preview-container');
-      return;
-    }
+    // Load all published articles
+    const loads = data.published.map(slug =>
+      fetch(`articles/${slug}.json`)
+        .then(r => r.json())
+        .catch(e => { console.error(`Error loading ${slug}`, e); return null; })
+    );
 
-    const usedSlugs = new Set();
+    Promise.all(loads).then(articles => {
+      // Keep only valid
+      const valid = articles.filter(a =>
+        a && a.title && a.slug && a.date && a.content && a.authors
+      );
 
-    // === Trending Cards (Top Headlines) - FIRST ===
-    if (trendingContainer) {
-      const trending = data.filter(article => article.Trending === "true");
-      const selected = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-      selected.forEach(article => {
-        usedSlugs.add(article.slug); // ✅ Track it to exclude later
 
-        const card = document.createElement("div");
-        card.className = "col h-400";
-        card.innerHTML = `
-          <a href="/Z-A-S/article.html?slug=${article.slug}" class="text-decoration-none text-white">
-            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
-              style="background-image: url('${article.image}'); background-size: cover; background-position: center;">
-              <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-white">${article["article-title"]}</h3>
-                <ul class="d-flex list-unstyled mt-auto">
-                  <li class="me-auto">
-                    <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">
-                      ${Array.isArray(article.category) ? article.category.join(' | ') : article.category}
-                    </span>
-                  </li>
-                  <li class="d-flex align-items-center me-3">
-                    <svg class="bi me-2" width="1em" height="1em" role="img" aria-label="Author">
-                      <use xlink:href="#geo-fill" />
-                    </svg>
-                    <small class="text-white">${article.author}</small>
-                  </li>
-                  <li class="d-flex align-items-center">
-                    <svg class="bi me-2" width="1em" height="1em" role="img" aria-label="Date">
-                      <use xlink:href="#calendar3" />
-                    </svg>
-                    <small class="text-white">${article["article-date"]}</small>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </a>
-        `;
-        trendingContainer.appendChild(card);
+      fetch('articles/index.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('article-preview-container');
+        const trendingContainer = document.getElementById('trendingContainer');
+        const noArticlesMsg = document.getElementById('noArticlesMsg');
+    
+        // 1) Load all article JSONs
+        const loads = data.published.map(slug =>
+          fetch(`articles/${slug}.json`)
+            .then(r => r.json())
+            .catch(() => null)
+        );
+    
+        Promise.all(loads).then(articles => {
+          // 2) Filter out any bad/malformed articles
+          const valid = articles.filter(a =>
+            a && a.title && a.slug && a.date && a.content && a.authors
+          );
+    
+          // ── INSERT TRENDING SECTION HERE ──
+          if (trendingContainer) {
+            const trending = valid.filter(a => a.trending);
+            const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
+            featured.forEach(art => {
+              const card = document.createElement('div');
+              card.className = 'col h-400';
+              card.innerHTML = `
+                <a href="article.html?slug=${art.slug}" class="text-decoration-none text-white">
+                  <div class="card card-cover h-100 text-bg-dark rounded-4 shadow-lg"
+                    style="
+                      background-image: url('${art.cover || art.image || '/path/to/default-image.jpg'}');
+                      background-size: cover;
+                      background-position: center;
+                    ">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                      <h3 class="pt-5 mt-5 mb-4 display-6 fw-bold">${art.title}</h3>
+                      <ul class="list-unstyled mt-auto">
+                        <li>
+                          <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">
+                            ${Array.isArray(art.categories) ? art.categories.join(' | ') : art.categories}
+                          </span>
+                        </li>
+                        <li class="small text-white mt-2">${art.authors}</li>
+                        <li class="small text-white">${art.date}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </a>
+              `;
+              trendingContainer.appendChild(card);
+            });
+          }
+          // ── END TRENDING SECTION ──
+    
+          // 3) Sort valid by date and take the first 4 for “main” previews
+          valid.sort((a, b) => {
+            const [dA,mA,yA] = a.date.split('/').map(Number);
+            const [dB,mB,yB] = b.date.split('/').map(Number);
+            return new Date(2000+yB, mB-1, dB) - new Date(2000+yA, mA-1, dA);
+          });
+          const toShow = valid.slice(0, 4);
+    
+          // 4) Render “no articles” message if empty
+          if (!toShow.length) {
+            noArticlesMsg.classList.remove('d-none');
+            return;
+          }
+          noArticlesMsg.classList.add('d-none');
+    
+          // 5) Render main previews (same as before)…
+          for (let i = 0; i < toShow.length; i += 2) {
+            // …your two‑column rendering logic here …
+          }
+    
+          // 6) Trigger animations
+          document.querySelectorAll('.slide-in-left').forEach(el => el.classList.add('visible'));
+        });
+      })
+      .catch(err => console.error(err));
+    
+
+
+
+      // Sort by date descending
+      valid.sort((a, b) => {
+        const [dA,mA,yA] = a.date.split('/').map(Number);
+        const [dB,mB,yB] = b.date.split('/').map(Number);
+        return new Date(2000+yB, mB-1, dB) - new Date(2000+yA, mA-1, dA);
       });
-    }
 
-    // === Main Article Previews (Exclude Trending ones) ===
-    const sortedArticles = data
-      .filter(article => !usedSlugs.has(article.slug)) // ✅ Exclude trending
-      .slice()
-      .sort((a, b) => {
-        const [dayA, monthA, yearA] = a["article-date"].split('/').map(Number);
-        const [dayB, monthB, yearB] = b["article-date"].split('/').map(Number);
-
-        const dateA = new Date(2000 + yearA, monthA - 1, dayA);
-        const dateB = new Date(2000 + yearB, monthB - 1, dayB);
-
-        return dateB - dateA;
-      });
-
-    sortedArticles.slice(0, 4).forEach(article => {
-      usedSlugs.add(article.slug); // Optional if you'll exclude from more later
-
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = article["article-content"];
-      const plainText = tempDiv.textContent || tempDiv.innerText || "";
-      const preview = plainText.slice(0, 110) + '....';
-
-      const previewElement = document.createElement('div');
-      previewElement.classList.add('col-md-6');
-      previewElement.innerHTML = `
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 category-text">
-              ${Array.isArray(article.category) ? article.category.join(' | ') : article.category}
-            </strong>
-            <h3 class="mb-0" style="color: var(--maintext);">${article["article-title"]}</h3>
-            <p class="mb-1 link">${article["article-date"]}</p>
-            <p class="card-text mb-auto">${preview}</p>
-            <a href="/Z-A-S/article.html?slug=${article.slug}" class="icon-link link gap-1 icon-link-hover stretched-link">
-              Read more
-              <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg>
-            </a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <img src="${article.image}" width="200" height="320" style="object-fit: cover;" alt="Thumbnail">
-          </div>
-        </div>
-      `;
-
-      container.appendChild(previewElement);
-
-      const cardElement = previewElement.querySelector('.slide-in-left');
-      if (typeof observer !== 'undefined' && cardElement) {
-        observer.observe(cardElement);
+      // Take first 4
+      const toShow = valid.slice(0, 6);
+      if (!toShow.length) {
+        noArticlesMsg.classList.remove('d-none');
+        return;
       }
-    });
+      noArticlesMsg.classList.add('d-none');
 
+      // Render in two‑column rows
+      for (let i = 0; i < toShow.length; i += 3) {
+        const row = document.createElement('div');
+        row.className = 'row mb-4 ';
+
+        for (let j = i; j < i + 3 && j < toShow.length; j++) {
+          const art = toShow[j];
+          const text = (() => {
+            const div = document.createElement('div');
+            div.innerHTML = art.content;
+            return (div.textContent || '').slice(0, 80) + '…';
+          })();
+          const cats = Array.isArray(art.categories) ? art.categories : [art.categories];
+
+          const col = document.createElement('div');
+          col.className = 'col-md-4';
+          col.innerHTML = `<div class="card news-item shadow-sm">
+          <a href="article.html?slug=${art.slug}" class="text-decoration-none cursor-pointer text-white">
+  <img src="${art.cover || '/path/to/default-image.jpg'}" class="card-img-top" alt="Thumbnail" style="height: 225px; object-fit: cover;">
+  </a><div class="card-body">
+    <strong class="d-inline-block mb-2 category-text">${cats.join(' | ')}</strong>
+    <a href="article.html?slug=${art.slug}" class="text-decoration-none cursor-pointer text-white">
+    <h5 class="card-title">${art.title}</h5>
+    <p class="card-text">${text}</p></a>
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="category-text">${art.date}</small>
+      <small class="category-text">${art.authors}</small>
+    </div>
+  </div>
+</div>
+
+`;
+          row.appendChild(col);
+        }
+
+        container.appendChild(row);
+      }
+
+      // Reveal animations
+      document.querySelectorAll('.slide-in-left').forEach(el => el.classList.add('visible'));
+    });
   })
-  .catch(error => console.error('Error loading article previews:', error));
+  .catch(err => console.error('Error loading articles:', err));

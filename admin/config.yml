@@ -2,13 +2,13 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "../pics"
+media_folder: "pics"
 public_folder: "/Z-A-S/pics"
 
 collections:
   - name: "articles"
     label: "Articles"
-    folder: "../articles"
+    folder: "articles"
     extension: "json"
     format: "json"
     create: true
@@ -23,3 +23,16 @@ collections:
       - { name: "content", label: "Content", widget: "markdown" }
       - { name: "trending", label: "Trending", widget: "boolean", default: false }
       - { name: "featured", label: "Featured", widget: "boolean", default: false }
+ 
+  - name: "articleIndex"
+    label: "Published Articles"
+    files:
+      - file: "articles/index.json"
+        label: "Article Index"
+        name: "index"
+        fields:
+          - label: "Published Articles"
+            name: "published"
+            widget: "list"
+            summary: "{{fields.published}}"
+            field: { label: "Filename", name: "Published Article", widget: "string" }
