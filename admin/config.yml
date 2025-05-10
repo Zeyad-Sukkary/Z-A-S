@@ -4,7 +4,7 @@ backend:
   branch: main
   auth_endpoint: https://decap-cms-auth.onrender.com/auth
 
-auth_url: https://decap-cms-auth.onrender.com/auth
+proxy_url: https://decap-cms-auth.onrender.com/auth
 site_url: https://zeyad-sukkary.github.io/Z-A-S
 base_url: /Z-A-S
 
