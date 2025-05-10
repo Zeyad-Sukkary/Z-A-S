@@ -15,7 +15,7 @@ public_folder: "/Z-A-S/pics"
 collections:
   - name: "articles"
     label: "Articles"
-    folder: "Z-A-S/articles"
+    folder: "articles"
     extension: "json"
     format: "json"
     create: true
