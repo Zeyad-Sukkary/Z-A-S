@@ -15,6 +15,7 @@ content:
     label: Articles
     type: collection
     path: articles
+    format: json
     fields:
       - name: title
         label: Title
