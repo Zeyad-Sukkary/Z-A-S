@@ -13,7 +13,7 @@ media:
 content:
   - name: articles
     label: Articles
-    collection: articles
+    type: collection
     path: articles
     fields:
       - name: title
@@ -24,7 +24,7 @@ content:
         type: string
       - name: date
         label: Date
-        type: string
+        type: date
       - name: cover
         label: Cover Image
         type: image
@@ -35,14 +35,13 @@ content:
           extensions: [jpg, jpeg, png]
       - name: categories
         label: Categories
-        type: list
-        subtype: string
+        type: string
       - name: authors
         label: Authors
         type: string
       - name: content
         label: Content
-        type: markdown
+        type: rich-text
       - name: trending
         label: Trending
         type: boolean
@@ -52,10 +51,9 @@ content:
 
   - name: published
     label: Published Articles
-    collection: published
+    type: file
     path: articles/index.json
     fields:
       - name: published
         label: Published Slugs
-        type: list
-        subtype: string
+        type: string
