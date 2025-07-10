@@ -56,4 +56,5 @@ content:
     fields:
       - name: published
         label: Published Slugs
-        type: code
+        type: string
+        list: true
