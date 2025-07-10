@@ -39,8 +39,9 @@ content:
       - name: categories
         label: Categories
         type: string
+        list: true
       - name: authors
-        label: Authors
+        label: Author(s)
         type: string
       - name: content
         label: Content
