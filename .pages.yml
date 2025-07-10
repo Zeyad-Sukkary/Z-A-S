@@ -4,7 +4,7 @@ branch: main
 collections:
   - name: articles
     label: Articles
-    folder: articles
+    folder: articles/
     extension: json
     format: json
     identifier_field: slug
@@ -40,7 +40,7 @@ collections:
 
   - name: published
     label: Published Index
-    file: index.json
+    file: articles/index.json
     format: json
     fields:
       - name: published
