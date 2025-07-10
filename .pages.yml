@@ -4,7 +4,7 @@ branch: main
 collections:
   - name: articles
     label: Articles
-    folder: articles/
+    folder: articles
     extension: json
     format: json
     identifier_field: slug
