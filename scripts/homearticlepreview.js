@@ -1,4 +1,4 @@
-fetch('articles/index.json')
+fetch('collection/articles/index.json')
   .then(res => res.json())
   .then(data => {
     const container = document.getElementById('article-preview-container');
@@ -7,7 +7,7 @@ fetch('articles/index.json')
 
     // Load all published articles
     const loads = data.published.map(slug =>
-      fetch(`articles/${slug}.json`)
+      fetch(`collection/articles/${slug}.json`)
         .then(r => r.json())
         .catch(e => { console.error(`Error loading ${slug}`, e); return null; })
     );
@@ -20,7 +20,7 @@ fetch('articles/index.json')
 
 
 
-      fetch('articles/index.json')
+      fetch('collection/articles/index.json')
       .then(res => res.json())
       .then(data => {
         const container = document.getElementById('article-preview-container');
@@ -29,7 +29,7 @@ fetch('articles/index.json')
     
         // 1) Load all article JSONs
         const loads = data.published.map(slug =>
-          fetch(`articles/${slug}.json`)
+          fetch(`collection/articles/${slug}.json`)
             .then(r => r.json())
             .catch(() => null)
         );

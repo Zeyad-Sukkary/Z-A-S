@@ -3,7 +3,7 @@ const slug = urlParams.get('slug');
 
 console.log("Fetched slug:", slug);
 
-fetch(`articles/${slug}.json`)
+fetch(`collection/articles/${slug}.json`)
   .then(response => {
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
     return response.json();
@@ -25,7 +25,7 @@ fetch(`articles/${slug}.json`)
     imageElement.alt = article.title || "Article image";
 
     // Related posts logic: fetch index for other slugs
-    fetch('articles/index.json')
+    fetch('collection/articles/index.json')
       .then(resp => resp.json())
       .then(indexData => {
         const relatedContainer = document.querySelector('.recent-posts');
@@ -36,7 +36,7 @@ fetch(`articles/${slug}.json`)
         // Fetch other articles metadata (only slugs in index)
         const otherPromises = indexData.published
           .filter(s => s !== slug)
-          .map(s => fetch(`articles/${s}.json`).then(r => r.json()).catch(() => null));
+          .map(s => fetch(`collection/articles/${s}.json`).then(r => r.json()).catch(() => null));
 
         Promise.all(otherPromises).then(others => {
           const valid = others.filter(a => a && a.categories);

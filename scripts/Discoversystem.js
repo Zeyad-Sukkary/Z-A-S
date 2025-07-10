@@ -1,4 +1,4 @@
-fetch('articles/index.json')
+fetch('collection/articles/index.json')
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('article-preview-container');
@@ -12,7 +12,7 @@ fetch('articles/index.json')
 
     // Fetch article data based on filenames from index.json
     const articlePromises = data.published.map(slug => {
-      return fetch(`articles/${slug}.json`)  // Assuming articles are stored as individual .json files
+      return fetch(`collection/articles/${slug}.json`)  // Assuming articles are stored as individual .json files
         .then(response => response.json())
         .catch(error => {
           console.error(`Error loading article ${slug}:`, error);
