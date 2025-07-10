@@ -52,7 +52,7 @@ content:
   - name: published
     label: Published Articles
     type: file
-    path: articles/index.json
+    path: collection/articles/index.json
     fields:
       - name: published
         label: Published Slugs
