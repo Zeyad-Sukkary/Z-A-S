@@ -13,7 +13,8 @@ media:
 content:
   - name: articles
     label: Articles
-    type: file
+    type: collection
+    root: true
     path: articles
     fields:
       - name: title
