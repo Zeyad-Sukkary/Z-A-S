@@ -41,48 +41,38 @@ fetch('articles/index.json')
           );
     
           // ── INSERT TRENDING SECTION HERE ──
-              if (trendingContainer) {
-        const trending = valid.filter(a => a.trending);
-        const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
-
-        const count = featured.length;
-        let colClass;
-        if (count === 1) colClass = "col-12 w-100";
-        else if (count === 2) colClass = "col-6 w-50";
-        else colClass = "col-md-4"; // Optional: switch to col-4 if you want fixed width always
-
-        featured.forEach(art => {
-          const card = document.createElement('div');
-          card.className = `${colClass} h-400`; // ← this line is now dynamic
-
-          card.innerHTML = `
-            <a href="article.html?slug=${art.slug}" class="text-decoration-none text-white">
-              <div class="card card-cover h-100 text-bg-dark rounded-4 shadow-lg"
-                style="
-                  background-image: url('${art.cover || art.image || '/path/to/default-image.jpg'}');
-                  background-size: cover;
-                  background-position: center;
-                ">
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                  <h3 class="pt-5 mt-5 mb-4 display-6 fw-bold text-white">${art.title}</h3>
-                  <ul class="list-unstyled mt-auto">
-                    <li>
-                      <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">
-                        ${Array.isArray(art.categories) ? art.categories.join(' | ') : art.categories}
-                      </span>
-                    </li>
-                    <li class="small text-white mt-2">${art.authors}</li>
-                    <li class="small text-white">${art.date}</li>
-                  </ul>
-                </div>
-              </div>
-            </a>
-          `;
-
-          trendingContainer.appendChild(card);
-        });
-      }
-
+          if (trendingContainer) {
+            const trending = valid.filter(a => a.trending);
+            const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
+            featured.forEach(art => {
+              const card = document.createElement('div');
+              card.className = 'col w-auto h-400';
+              card.innerHTML = `
+                <a href="article.html?slug=${art.slug}" class="text-decoration-none text-white">
+                  <div class="card card-cover h-100 text-bg-dark rounded-4 shadow-lg"
+                    style="
+                      background-image: url('${art.cover || art.image || '/path/to/default-image.jpg'}');
+                      background-size: cover;
+                      background-position: center;
+                    ">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                      <h3 class="pt-5 mt-5 mb-4 display-6 fw-bold text-white">${art.title}</h3>
+                      <ul class="list-unstyled mt-auto">
+                        <li>
+                          <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">
+                            ${Array.isArray(art.categories) ? art.categories.join(' | ') : art.categories}
+                          </span>
+                        </li>
+                        <li class="small text-white mt-2">${art.authors}</li>
+                        <li class="small text-white">${art.date}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </a>
+              `;
+              trendingContainer.appendChild(card);
+            });
+          }
           // ── END TRENDING SECTION ──
     
           // 3) Sort valid by date and take the first 4 for “main” previews
