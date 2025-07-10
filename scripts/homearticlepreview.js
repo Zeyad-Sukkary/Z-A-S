@@ -39,6 +39,23 @@ fetch('articles/index.json')
           const valid = articles.filter(a =>
             a && a.title && a.slug && a.date && a.content && a.authors
           );
+
+
+          const trendingContainer = document.getElementById("trendingContainer");
+const trending = valid.filter(a => a.trending);
+const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+const count = featured.length;
+
+trendingContainer.className = "row justify-content-center align-items-stretch g-4 py-5";
+
+if (count === 1) {
+  trendingContainer.classList.add("row-cols-1");
+} else if (count === 2) {
+  trendingContainer.classList.add("row-cols-1", "row-cols-md-2");
+} else {
+  trendingContainer.classList.add("row-cols-1", "row-cols-md-3");
+}
     
           // ── INSERT TRENDING SECTION HERE ──
           if (trendingContainer) {
@@ -46,7 +63,7 @@ fetch('articles/index.json')
             const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
             featured.forEach(art => {
               const card = document.createElement('div');
-              card.className = 'col col-auto h-400';
+              card.className = 'col h-400';
               card.innerHTML = `
                 <a href="article.html?slug=${art.slug}" class="text-decoration-none text-white">
                   <div class="card card-cover h-100 text-bg-dark rounded-4 shadow-lg"
