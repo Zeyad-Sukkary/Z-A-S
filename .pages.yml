@@ -16,6 +16,7 @@ content:
     type: collection
     path: articles
     format: json
+    extension: json
     fields:
       - name: title
         label: Title
