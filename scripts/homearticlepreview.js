@@ -47,15 +47,7 @@ const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
 
 const count = featured.length;
 
-trendingContainer.className = "row justify-content-center align-items-stretch g-4 py-5";
 
-if (count === 1) {
-  trendingContainer.classList.add("row-cols-1");
-} else if (count === 2) {
-  trendingContainer.classList.add("row-cols-1", "row-cols-md-2");
-} else {
-  trendingContainer.classList.add("row-cols-1", "row-cols-md-3");
-}
     
           // ── INSERT TRENDING SECTION HERE ──
           if (trendingContainer) {
@@ -90,6 +82,17 @@ if (count === 1) {
               trendingContainer.appendChild(card);
             });
           }
+
+trendingContainer.className = "row justify-content-center align-items-stretch g-4 py-5";
+
+if (count === 1) {
+  trendingContainer.classList.add("row-cols-1");
+} else if (count === 2) {
+  trendingContainer.classList.add("row-cols-1", "row-cols-md-2");
+} else {
+  trendingContainer.classList.add("row-cols-1", "row-cols-md-3");
+}
+
           // ── END TRENDING SECTION ──
     
           // 3) Sort valid by date and take the first 4 for “main” previews
