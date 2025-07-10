@@ -46,7 +46,7 @@ fetch('articles/index.json')
             const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
             featured.forEach(art => {
               const card = document.createElement('div');
-              card.className = 'col w-auto h-400';
+              card.className = 'col col-auto h-400';
               card.innerHTML = `
                 <a href="article.html?slug=${art.slug}" class="text-decoration-none text-white">
                   <div class="card card-cover h-100 text-bg-dark rounded-4 shadow-lg"
