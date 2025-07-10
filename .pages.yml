@@ -38,7 +38,8 @@ content:
           extensions: [jpg, jpeg, png]
       - name: categories
         label: Categories
-        type: array
+        type: string
+        list: true
       - name: authors
         label: Authors
         type: string
