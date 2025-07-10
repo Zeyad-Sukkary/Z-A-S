@@ -47,8 +47,8 @@ fetch('articles/index.json')
 
         const count = featured.length;
         let colClass;
-        if (count === 1) colClass = "col-12";
-        else if (count === 2) colClass = "col-6";
+        if (count === 1) colClass = "col-12 w-100";
+        else if (count === 2) colClass = "col-6 w-50";
         else colClass = "col-md-4"; // Optional: switch to col-4 if you want fixed width always
 
         featured.forEach(art => {
