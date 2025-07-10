@@ -27,6 +27,7 @@ content:
       - name: date
         label: Date
         type: date
+        options: format: dd/MM/yyyy
       - name: cover
         label: Cover Image
         type: image
