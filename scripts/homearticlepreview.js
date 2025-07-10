@@ -50,48 +50,58 @@ const count = featured.length;
 
     
           // ── INSERT TRENDING SECTION HERE ──
-          if (trendingContainer) {
-            const trending = valid.filter(a => a.trending);
-            const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
-            featured.forEach(art => {
-              const card = document.createElement('div');
-              card.className = 'col h-400';
-              card.innerHTML = `
-                <a href="article.html?slug=${art.slug}" class="text-decoration-none text-white">
-                  <div class="card card-cover h-100 text-bg-dark rounded-4 shadow-lg"
-                    style="
-                      background-image: url('${art.cover || art.image || '/path/to/default-image.jpg'}');
-                      background-size: cover;
-                      background-position: center;
-                    ">
-                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                      <h3 class="pt-5 mt-5 mb-4 display-6 fw-bold text-white">${art.title}</h3>
-                      <ul class="list-unstyled mt-auto">
-                        <li>
-                          <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">
-                            ${Array.isArray(art.categories) ? art.categories.join(' | ') : art.categories}
-                          </span>
-                        </li>
-                        <li class="small text-white mt-2">${art.authors}</li>
-                        <li class="small text-white">${art.date}</li>
-                      </ul>
-                    </div>
-                  </div>
-                </a>
-              `;
-              trendingContainer.appendChild(card);
-            });
-          }
+         if (trendingContainer) {
+  const trending = valid.filter(a => a.trending);
+  const featured = trending.sort(() => 0.5 - Math.random()).slice(0, 3);
 
-trendingContainer.className = "row justify-content-center align-items-stretch g-4 py-5";
+  const count = featured.length;
 
-if (count === 1) {
-  trendingContainer.classList.add("row-cols-1");
-} else if (count === 2) {
-  trendingContainer.classList.add("row-cols-1", "row-cols-md-2");
-} else {
-  trendingContainer.classList.add("row-cols-1", "row-cols-md-3");
+  // Clean previous responsive row-cols settings
+  trendingContainer.classList.remove("row-cols-1", "row-cols-md-2", "row-cols-md-3", "row-cols-lg-3");
+
+  if (count === 1) {
+    trendingContainer.classList.add("row-cols-1");
+  } else if (count === 2) {
+    trendingContainer.classList.add("row-cols-1", "row-cols-md-2");
+  } else {
+    trendingContainer.classList.add("row-cols-1", "row-cols-md-3");
+  }
+
+  // Clear container content in case this runs multiple times
+  trendingContainer.innerHTML = "";
+
+  // Add article cards
+  featured.forEach(art => {
+    const card = document.createElement('div');
+    card.className = 'col h-400';
+
+    card.innerHTML = `
+      <a href="article.html?slug=${art.slug}" class="text-decoration-none text-white">
+        <div class="card card-cover h-100 text-bg-dark rounded-4 shadow-lg"
+          style="
+            background-image: url('${art.cover || art.image || '/path/to/default-image.jpg'}');
+            background-size: cover;
+            background-position: center;
+          ">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+            <h3 class="pt-5 mt-5 mb-4 display-6 fw-bold text-white">${art.title}</h3>
+            <ul class="list-unstyled mt-auto">
+              <li>
+                <span class="badge bg-transparent text-light border border-light px-2 py-1 rounded">
+                  ${Array.isArray(art.categories) ? art.categories.join(' | ') : art.categories}
+                </span>
+              </li>
+              <li class="small text-white mt-2">${art.authors}</li>
+              <li class="small text-white">${art.date}</li>
+            </ul>
+          </div>
+        </div>
+      </a>
+    `;
+    trendingContainer.appendChild(card);
+  });
 }
+
 
           // ── END TRENDING SECTION ──
     
