@@ -22,6 +22,7 @@ collections:
         label: Cover Image Path
         widget: text
       - name: categories
+
         label: Categories
         widget: list
       - name: authors
