@@ -43,7 +43,6 @@ content:
       - name: authors
         label: Author(s)
         type: string
-        list: true
       - name: content
         label: Content
         type: rich-text
