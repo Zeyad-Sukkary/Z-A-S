@@ -1,36 +1,61 @@
 media:
-  input: pics
-  output: /pics
+  - name: default
+    label: Media
+    input: pics
+    output: /pics
+    path: pics
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - gif
 
 content:
   - name: articles
+    label: Articles
     collection: articles
     path: articles
     fields:
       - name: title
+        label: Title
         type: string
       - name: slug
+        label: Slug
         type: string
       - name: date
+        label: Date
         type: string
       - name: cover
-        type: string
+        label: Cover Image
+        type: image
+        options:
+          media: default
+          path: ""
+          multiple: false
+          extensions: [jpg, jpeg, png]
       - name: categories
+        label: Categories
         type: list
         subtype: string
       - name: authors
+        label: Authors
         type: string
       - name: content
+        label: Content
         type: markdown
       - name: trending
+        label: Trending
         type: boolean
       - name: featured
+        label: Featured
         type: boolean
 
   - name: published
+    label: Published Articles
     collection: published
     path: articles/index.json
     fields:
       - name: published
+        label: Published Slugs
         type: list
         subtype: string
