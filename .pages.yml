@@ -1,48 +1,36 @@
-repo: zeyad-sukkary/z-a-s
-branch: main
+media:
+  input: pics
+  output: /pics
 
-collections:
+content:
   - name: articles
-    label: Articles
-    folder: articles
-    extension: json
-    format: json
-    identifier_field: slug
+    collection: articles
+    path: articles
     fields:
       - name: title
-        label: Title
-        widget: text
+        type: string
       - name: slug
-        label: Slug
-        widget: text
+        type: string
       - name: date
-        label: Date
-        widget: text
+        type: string
       - name: cover
-        label: Cover Image Path
-        widget: text
+        type: string
       - name: categories
-
-        label: Categories
-        widget: list
+        type: list
+        subtype: string
       - name: authors
-        label: Authors
-        widget: text
+        type: string
       - name: content
-        label: Content
-        widget: markdown
+        type: markdown
       - name: trending
-        label: Trending
-        widget: boolean
+        type: boolean
       - name: featured
-        label: Featured
-        widget: boolean
+        type: boolean
 
   - name: published
-    label: Published Index
-    file: articles/index.json
-    format: json
+    collection: published
+    path: articles/index.json
     fields:
       - name: published
-        label: Published Slugs
-        widget: list
+        type: list
+        subtype: string
