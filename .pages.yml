@@ -14,7 +14,7 @@ content:
   - name: articles
     label: Articles
     type: file
-    path: src/articles
+    path: articles
     fields:
       - name: title
         label: Title
