@@ -1,0 +1,37 @@
+{
+  "branch": "main",
+  "collections": [
+    {
+      "name": "articles",
+      "label": "Articles",
+      "folder": "articles",
+      "extension": "json",
+      "format": "json",
+      "identifier_field": "slug",
+      "fields": [
+        { "name": "title", "label": "Title", "widget": "text" },
+        { "name": "slug", "label": "Slug", "widget": "text" },
+        { "name": "date", "label": "Date", "widget": "text" },
+        { "name": "cover", "label": "Cover Image Path", "widget": "text" },
+        { "name": "categories", "label": "Categories", "widget": "list" },
+        { "name": "authors", "label": "Authors", "widget": "text" },
+        { "name": "content", "label": "Content", "widget": "markdown" },
+        { "name": "trending", "label": "Trending", "widget": "boolean" },
+        { "name": "featured", "label": "Featured", "widget": "boolean" }
+      ]
+    },
+    {
+      "name": "published",
+      "label": "Published Index",
+      "file": "articles/index.json",
+      "format": "json",
+      "fields": [
+        {
+          "name": "published",
+          "label": "Published Articles",
+          "widget": "list"
+        }
+      ]
+    }
+  ]
+}
