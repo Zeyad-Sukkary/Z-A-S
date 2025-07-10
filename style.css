@@ -124,11 +124,13 @@ border: 0;
       background: rgba(0, 0, 0, 0.6); /* adjust 0.4 for more/less darkness */
       z-index: 0;
       pointer-events: none;
+       overflow: hidden;
     }
     
     .card-cover > * {
       position: relative;
       z-index: 1;
+       overflow: hidden;
     }
     
 
