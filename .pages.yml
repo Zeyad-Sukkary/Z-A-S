@@ -54,7 +54,7 @@ content:
   - name: published
     label: Published Articles
     type: file
-    path: collection/articles/index.json
+    path: articles/index.json
     fields:
       - name: published
         label: Published Slugs
