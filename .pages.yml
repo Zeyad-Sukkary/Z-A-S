@@ -41,8 +41,9 @@ content:
         type: string
         list: true
       - name: authors
-        label: Authors
+        label: Author(s)
         type: string
+        list: true
       - name: content
         label: Content
         type: rich-text
