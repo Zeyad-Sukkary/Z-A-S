@@ -14,7 +14,7 @@ content:
   - name: articles
     label: Articles
     type: collection
-    path: _articles
+    path: src/_articles
     fields:
       - name: title
         label: Title
