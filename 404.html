@@ -65,7 +65,11 @@ h1 {
        
       </main>
 <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-  <p class="col-md-4 mb-0 maintext">&copy; 2025 Zeyad - All Rights Reserved</p>
+ <button data-bs-toggle="modal" data-bs-target="#heroModal" class="btn btn-outline-secondary col-md-1 justify-content-center text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+  <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
+</svg></button>
+  <p class="col-md-3 mb-0 maintext">&copy; 2025 Zeyad A.S.</p>
 
   <a href="ZAS-News.html" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-decoration-none">
     <img src="pics/Logo.svg" class="logo slide-in-left" alt="Logo" width="40" height="40">
@@ -79,6 +83,44 @@ h1 {
     <li class="nav-item fade-in"><a href="https://linktr.ee/zeyadsukk" target="_blank" class="btn btn-success btn-sm ms-2">Linktree</a></li>
   </ul>
 </footer>
+
+
+<!-- Controls Modal -->
+<div class="modal fade" id="heroModal" tabindex="-1" aria-labelledby="heroModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="container px-4 py-5">
+          <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+              <img src="/Z-A-S/pics/controls.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+              <h1 class="display-5 fw-bold lh-1 mb-3">
+                Controls Are Much Easier With Keyboard Support!
+              </h1>
+              <p class="lead">
+               <h2 class="h4 mb-4">Keyboard Shortcuts</h2>
+<ul class="">
+  <li class=""><strong>S</strong> – Scroll to top</li>
+  <li class=""><strong>T</strong> – Toggle dark/light mode</li>
+  <li class=""><strong>D</strong> – Dismiss shortcut modal</li>
+  <li class=""><strong>C</strong> – Show this shortcut modal</li>
+  <li class=""><strong>Esc</strong> – Close any open modal</li>
+</ul>
+
+              </p>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2" data-bs-dismiss="modal">Close</button>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 

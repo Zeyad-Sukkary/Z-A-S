@@ -9,35 +9,6 @@ if (closeButton && alertParent) {
     alertParent.style.backgroundColor = 'var(--maintext)';
   });
 }
- 
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const modalTour = document.getElementById('modalTour');
-  const modalDismiss = document.getElementById('modaldismiss');
-
-  if (localStorage.getItem('modalDismissed') === 'true') {
-    if (modalTour) modalTour.classList.add('hidden'); // Ensure modal is hidden
-    return;
-  }
-
-  if (modalTour) modalTour.classList.remove('hidden');
-
-  if (modalDismiss && modalTour) {
-    modalDismiss.addEventListener('click', () => {
-      modalTour.classList.add('fade-out');
-
-      modalTour.addEventListener(
-        'animationend',
-        () => {
-          modalTour.classList.add('hidden');
-          localStorage.setItem('modalDismissed', 'true'); // Save dismissal status
-        },
-        { once: true }
-      );
-    });
-  }
-});
 
 
 
@@ -97,33 +68,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
 document.addEventListener('keydown', (event) => {
-  if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
-    return; 
-  }
+  const tag = event.target.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
 
-  switch (event.key.toLowerCase()) { 
-    case 's': 
+  // normalize once
+  const key = event.key.toLowerCase();
+
+  switch (key) {
+    case 's':
       window.scrollTo({ top: 0, behavior: 'smooth' });
       break;
 
-    case 't': 
+    case 't':
       document.body.classList.toggle('darkmode');
-      localStorage.setItem('theme', document.body.classList.contains('darkmode') ? 'dark' : 'light');
-      console.log('Dark mode toggled');
+      localStorage.setItem(
+        'theme',
+        document.body.classList.contains('darkmode') ? 'dark' : 'light'
+      );
+      console.log('Mode toggled');
       break;
-        
-    case 'h': 
-      const modal = document.getElementById('modalTour');
-      if (modal && !modal.classList.contains('hidden')) {
-        modal.classList.add('hidden');
-        localStorage.setItem('modalDismissed', 'true');
-        console.log('Modal hidden');
+
+    case 'd': {
+      const modalEl = document.getElementById('heroModal');
+      if (!modalEl) {
+        console.warn('Modal element not found');
+        break;
       }
+      const modalInstance =
+        bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      modalInstance.hide();
+      localStorage.setItem('modalDismissed', 'true');
+      console.log('Modal hidden');
       break;
+    }
+
+    case 'c': {
+      const modalEl = document.getElementById('heroModal');
+      if (!modalEl) {
+        console.warn('Modal element not found');
+        break;
+      }
+      const modalInstance =
+        bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      modalInstance.show();
+      break;
+    }
+
+    case 'escape': {
+      const openModals = document.querySelectorAll('.modal.show');
+      openModals.forEach((modalEl) => {
+        const inst = bootstrap.Modal.getInstance(modalEl);
+        if (inst) inst.hide();
+      });
+      break;
+    }
+
+    // you can add a default: here if you need it
   }
 });
+
 
 function closeAlert(el) {
   const alertBox = el.parentElement;
