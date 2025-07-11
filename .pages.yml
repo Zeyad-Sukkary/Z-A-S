@@ -2,7 +2,7 @@ media:
   - name: default
     label: Media
     input: pics
-    output: /pics
+    output: pics
     path: pics
     extensions:
       - jpg
