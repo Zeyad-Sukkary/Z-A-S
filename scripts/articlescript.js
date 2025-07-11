@@ -17,7 +17,7 @@ fetch(`articles/${slug}.json`)
     document.getElementById('author').textContent = article.authors || "Unknown Author";
     document.getElementById('article-date').textContent = article.date || "Date not available";
     document.getElementById('image').src = article.cover || "default-image.png";
-    document.getElementById('article-content').innerHTML = article.content || "<p>No content available.</p>";
+    document.getElementById('article-content').innerHTML = marked.parse(article.content) || "<p>No content available.</p>";
 
     const imageElement = document.getElementById('image');
     imageElement.onload = () => console.log('Image loaded successfully!');
