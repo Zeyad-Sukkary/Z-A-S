@@ -79,7 +79,7 @@ const count = featured.length;
       <a href="article.html?slug=${art.slug}" class="text-decoration-none text-white">
         <div class="card card-cover h-100 text-bg-dark rounded-4 shadow-lg"
           style="
-            background-image: url('${art.cover || art.image || '/path/to/default-image.jpg'}');
+            background-image: url('${art.cover || art.image || '/pics/default-image.webp'}');
             background-size: cover;
             background-position: center;
           ">
