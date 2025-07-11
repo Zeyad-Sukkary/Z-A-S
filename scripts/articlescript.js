@@ -95,7 +95,7 @@ fetch(`articles/${slug}.json`)
             const cats = Array.isArray(a.categories) ? a.categories : [a.categories];
             return cats.some(c => currentCats.includes(c));
           });
-          const pick = related.sort(() => 0.5 - Math.random()).slice(0, relatedCount);
+          const pick = related.sort(() => 0.5 - Math.random()).slice(0, 4);
 
           if (pick.length === 0) {
             relatedContainer.innerHTML = "<li><p>No related posts found.</p></li>";
