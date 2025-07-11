@@ -126,7 +126,7 @@ fetch('articles/index.json')
           <img src="${art.cover}" class="d-block w-100"
                style="height:300px;object-fit:cover;" alt="${art.title}">
           <div class="carousel-caption d-none d-md-block">
-            <h5>${art.title}</h5>
+            <h5 class="text-white">${art.title}</h5>
             <p>${art.excerpt||''}</p>
             <a href="article.html?slug=${art.slug}" class="btn btn-primary">Read more</a>
           </div>
@@ -135,14 +135,14 @@ fetch('articles/index.json')
       // inject
       featuredContainer.innerHTML = `
         <div id="featuredCarousel" class="carousel slide" data-bs-interval="7000">
-          <div class="carousel-indicators">${featsInd}</div>
+          <div class="carousel-indicators text-white">${featsInd}</div>
           <div class="carousel-inner">${featsSl}</div>
-          <button class="carousel-control-prev" type="button"
+          <button class="carousel-control-prev text-white" type="button"
                   data-bs-target="#featuredCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button"
+          <button class="carousel-control-next text-white" type="button"
                   data-bs-target="#featuredCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon"></span>
             <span class="visually-hidden">Next</span>
