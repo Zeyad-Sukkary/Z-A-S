@@ -176,11 +176,11 @@ fetch('articles/index.json')
                  style="background-image:url('${art.cover}');background-size:cover;">
               <div class="d-flex flex-column h-100 p-5 text-shadow-1">
                 <h3 class="display-6 fw-bold text-white">${art.title}</h3>
-                <ul class="list-unstyled mt-auto text-white small">
+                <ul class="list-unstyled col-md mt-auto text-white small">
                   <li>${[].concat(art.categories).join(' | ')}</li>
                   <li>${art.authors}</li>
                   <li>${art.date}</li>
-                </ul>
+              </ul>
               </div>
             </div>
           </a>
@@ -208,7 +208,7 @@ fetch('articles/index.json')
           const snippet = (()=>{
             const d = document.createElement('div');
             d.innerHTML=art.content;
-            return (marked.parse(d.textContent || '')).slice(0, 80) + '…';
+            return marked.parse(d.textContent||'').slice(0,80)+'…';
           })();
           const col = document.createElement('div');
           col.className = 'col-md-4';
@@ -223,7 +223,7 @@ fetch('articles/index.json')
                 <strong class="d-inline-block mb-2 category-text">
                   ${[].concat(art.categories).join(' | ')}
                 </strong>
-                <a href="article.html?slug=${art.slug}"
+               <a href="article.html?slug=${art.slug}"
                    class="text-decoration-none text-white">
                   <h5 class="card-title">${art.title}</h5>
                   <p class="card-text">${snippet}</p>

@@ -44,7 +44,9 @@
         <a class="logo d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none" href="ZAS-News.html">
             <img src="pics/Logo.svg" class="logo slide-in-left" alt="Logo">
         </a>
-        <ul class="nav nav-pills justify-content-center col-12 col-lg-auto mb-3 mb-lg-0">
+        
+        <ul class="nav nav-pills align-items-center justify-content-center col-12 col-lg-auto mb-3 mb-lg-0">
+           
             <li class="fade-in nav-item" title="Home">
                 <a class="link nav-link" href="ZAS-News.html">Home</a>
             </li>
@@ -54,7 +56,12 @@
             <li class="fade-in nav-item" title="Current | Discover">
                 <a class="link active nav-link" href="Discover.html" aria-current="page">Discover</a>
             </li>
+            <li class="fade-in nav-item" title="check out your Saved Articles"><a class="link nav-link" href="Favorites.html">Favorites</a></li>
         </ul>
+         <button id="fav-btn" class="favorite-btn btn fav-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
+            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
+            </svg></button>
     </div>
 </header>
 
@@ -63,7 +70,7 @@
     <section class="d-flex justify-content-center mb-4 row" id="main-section">
         <article class="col-12 news-item col-md-7" style="flex-grow: 1;">
             <h1 id="article-title"></h1>
-            <h5 id="author"></h5><h5 id="article-date"></h5><br>
+           <div> <h5 id="author"></h5><h5 id="article-date"></h5></div><br>
             <img id="image" src="none.png" alt="Article Image" width="65%">
             <div id="article-content"></div>
         </article>

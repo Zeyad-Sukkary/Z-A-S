@@ -30,9 +30,19 @@
 }
 
 
+.fav-btn {
+  background-color: transparent;
+  color: #e622dc;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-
-
+.fav-btn:hover {
+  color: var(--maintext);
+}
 
 
 .no-hover {
@@ -223,7 +233,6 @@ text-decoration: none;
     color: var(--linkactive); 
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.05);
   }
-
 
 
   h1, h2, h3, h4, h5 {
