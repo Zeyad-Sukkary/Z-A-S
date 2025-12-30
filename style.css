@@ -489,7 +489,7 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 
   .closebtn {
     margin-left: 15px;
-    color: var(--secondarybg);
+    color: red;
     font-weight: bold;
     float: right;
     font-size: 22px;
