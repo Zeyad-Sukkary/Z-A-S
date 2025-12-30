@@ -371,6 +371,21 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
   
 
 
+@media (hover: hover) {
+  .carousel-control-next, .carousel-control-prev {
+    display: none;
+  }
+
+.carousel:hover .carousel-control-next, .carousel:hover .carousel-control-prev {
+display: flex;
+}
+
+@media (hover: none) {
+  .carousel-control-next, .carousel-control-prev {
+    display: flex;
+  }
+}
+
 .category-text
 {
   color: var(--button) !important;
