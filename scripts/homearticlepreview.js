@@ -177,9 +177,9 @@ fetch('articles/index.json')
               <div class="d-flex flex-column h-100 p-5 text-shadow-1">
                 <h3 class="display-6 fw-bold text-white">${art.title}</h3>
                 <ul class="list-unstyled col-md mt-auto text-white small">
-                  <li>${[].concat(art.categories).join(' | ')}</li>
-                  <li>${art.authors}</li>
-                  <li>${art.date}</li>
+                  <li class="text-white">${[].concat(art.categories).join(' | ')}</li>
+                  <li class="text-white">${art.authors}</li>
+                  <li class="text-white">${art.date}</li>
               </ul>
               </div>
             </div>
@@ -229,8 +229,8 @@ fetch('articles/index.json')
                   <p class="card-text">${snippet}</p>
                 </a>
                 <div class="d-flex justify-content-between small">
-                  <span>${art.date}</span>
-                  <span>${art.authors}</span>
+                  <span class="category-text">${art.date}</span>
+                  <span class="category-text">${art.authors}</span>
                 </div>
               </div>
             </div>
