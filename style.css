@@ -1,28 +1,38 @@
 :root {
---main: #FAF7F0;
---secondarybg: #eeebe3;
---maintext: #221d22;
---secondarytext: #302a2c;
---link: #7e1178;
---linkhover: #c01bb8;
---linkactive: #500c4b;
---button: #640D5F;
---fillcolor: #435670;
---flipped: #272727;
+  --main: #f2f3f7;     
+  --secondarybg: #e4e6ee;   
+  
+  --maintext: #1f1d26;      
+  --secondarytext: #353247;
+
+  --link: #6b4ba8;        
+  --linkhover: #7f5ec7;
+  --linkactive: #4f387f;
+
+  --button: #5c4b8a;        
+  --fillcolor: #56607a;  
+  
+  --flipped: #1c1b22;
 }
 
-.darkmode{
-  --main: #272727;
---secondarybg: #3b3b3b;
---maintext: #f6e7ff;
---secondarytext: #e6fffd;
---link: #BB86FC;
---linkhover: #cba0ff;
---linkactive: #a962ff;
---button: #cba0ff;
---fillcolor: #fffcf6;
---flipped: #FAF7F0;
+
+.darkmode {
+  --main: #1c1b22;      
+  --secondarybg: #2a2833; 
+
+  --maintext: #f1edff;
+  --secondarytext: #d6d2f0;
+
+  --link: #b89cff;     
+  --linkhover: #ccb7ff;
+  --linkactive: #9f7cff;
+
+  --button: #9f7cff;
+  --fillcolor: #f6f4ff;
+
+  --flipped: #f2f3f7;
 }
+
 
 
 #article-title {
@@ -249,6 +259,11 @@ text-decoration: none;
   }
 
 
+
+
+.border-primary {
+  color: var(--secondarybg)
+}
 
 
 
