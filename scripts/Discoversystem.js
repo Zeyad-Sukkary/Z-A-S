@@ -157,7 +157,7 @@ fetch('articles/index.json')
               const col = document.createElement('div');
               col.className = 'col-md-6';
               col.innerHTML = `
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
+                <div class="row g-0 rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
                   <div class="col p-4 d-flex flex-column position-static">
                     <strong class="d-inline-block mb-2 category-text">${[].concat(art.categories).join(' | ')}</strong>
                     <h3 class="mb-0" style="color: var(--maintext);">${art.title}</h3>
