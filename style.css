@@ -262,11 +262,11 @@ text-decoration: none;
 
 
 .border-primary {
-  color: var(--secondarybg)
+  color: var(--secondarybg)!important;
 }
 
 .border-secondary {
-  color: var(--main)
+  color: var(--main)!important;
 }
 
 
