@@ -4,7 +4,7 @@ function showSkeletons(container, count) {
   for (let i = 0; i < count; i++) {
     cards.push(`
       <div class="col-md-6 mb-3">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 placeholder-glow" aria-hidden="true">
+        <div class="row g-0 border border border-primary rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 placeholder-glow" aria-hidden="true">
           <div class="col p-4 d-flex flex-column position-static">
             <strong class="placeholder col-4 mb-2"></strong>
             <h3 class="placeholder col-6 mb-1"></h3>
