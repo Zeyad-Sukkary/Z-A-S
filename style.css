@@ -265,7 +265,9 @@ text-decoration: none;
   color: var(--secondarybg)
 }
 
-
+.border-secondary {
+  color: var(--main)
+}
 
 
   .modal-content {
