@@ -262,11 +262,12 @@ text-decoration: none;
 
 
 .border-1 {
-  color: var(--secondarybg)!important;
+  border-color: var(--secondarybg)!important;
+  
 }
 
 .border-2 {
-  color: var(--main)!important;
+  border-color: var(--main)!important;
 }
 
 
