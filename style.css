@@ -404,6 +404,13 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   overflow: hidden;
 }
 
+ .card-title-home {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
   .card-text-discover {
   display: -webkit-box;
   -webkit-line-clamp: 3;
