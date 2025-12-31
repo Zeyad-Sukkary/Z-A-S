@@ -160,9 +160,9 @@ fetch('articles/index.json')
                 <div class="row g-0 border border-1 rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative slide-in-left">
                   <div class="col p-4 d-flex flex-column position-static">
                     <strong class="d-inline-block mb-2 category-text">${[].concat(art.categories).join(' | ')}</strong>
-                    <h3 class="mb-0" style="color: var(--maintext);">${art.title}</h3>
+                    <h3 class="mb-0 card-title-discover" style="color: var(--maintext);">${art.title}</h3>
                     <p class="mb-1 category-text">${art.date}</p>
-                    <p class="card-text mb-auto">${txt}</p>
+                    <p class="card-text card-text-discover mb-auto">${txt}</p>
                     <a href="/Z-A-S/article.html?slug=${art.slug}" class="icon-link link gap-1 icon-link-hover stretched-link">
                       Read more <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"/></svg>
                     </a>
