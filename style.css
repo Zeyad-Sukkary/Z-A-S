@@ -397,7 +397,7 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   color: var(--button) !important;
 }
 
-.card-text-home {
+.card-text-home p {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -411,7 +411,7 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   overflow: hidden;
 }
 
-  .card-text-discover {
+  .card-text-discover p {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
