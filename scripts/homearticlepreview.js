@@ -128,7 +128,7 @@ fetch('articles/index.json')
           <div class="carousel-caption d-none d-md-block">
             <h5 class="text-white">${art.title}</h5>
             <p>${art.excerpt||''}</p>
-            <a href="article.html?slug=${art.slug}" class="btn button">Read more</a>
+            <a href="article.html?slug=${art.slug}" class="button">Read more</a>
           </div>
         </div>
       `).join('');
