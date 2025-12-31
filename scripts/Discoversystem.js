@@ -151,7 +151,7 @@ fetch('articles/index.json')
               const txt = (() => {
                 const d = document.createElement('div');
                 d.innerHTML = art.content;
-                return (marked.parse(d.textContent || '')).slice(0, 200) + '…';
+                return (marked.parse(d.textContent || '')).slice(0, 300) + '…';
               })();
 
               const col = document.createElement('div');
