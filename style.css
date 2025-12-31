@@ -397,7 +397,27 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   color: var(--button) !important;
 }
 
+.card-text-home {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
+  .card-text-discover {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+  .card-title-discover {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+  
   .news-item {
     background-color: var(--secondarybg);
     border-radius: 12px;
