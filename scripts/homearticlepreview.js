@@ -208,7 +208,7 @@ fetch('articles/index.json')
           const snippet = (()=>{
             const d = document.createElement('div');
             d.innerHTML=art.content;
-            return marked.parse(d.textContent||'').slice(0,200)+'…';
+            return marked.parse(d.textContent||'').slice(0,250)+'…';
           })();
           const col = document.createElement('div');
           col.className = 'col-md-4';
