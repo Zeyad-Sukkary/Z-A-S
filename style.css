@@ -397,29 +397,29 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   color: var(--button) !important;
 }
 
-.card-text-Home {
+.card-text-home {
   line-height: 1.4;
   height: calc(1.4em * 2);
   overflow: hidden;
 }
 
 
-.card-title-Home {
+.card-title-home {
   line-height: 1.4;
   height: calc(1.4em * 2);
   overflow: hidden;
 }
 
 .card-text-discover {
-  line-height: 1.2;
-  height: calc(1.2em * 3);
+  line-height: 1.4;
+  height: calc(1.4em * 3);
   overflow: hidden;
 }
 
 
 .card-title-discover {
-  line-height: 1.5;
-  height: calc(1.5em * 2);
+  line-height: 1.4;
+  height: calc(1.4em * 2);
   overflow: hidden;
 }
 
