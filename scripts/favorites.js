@@ -151,10 +151,10 @@
                 <strong class="d-inline-block mb-2 category-text">
                   ${[].concat(art.categories).join(' | ')}
                 </strong>
-                <h1 class="display-4 fw-bold lh-1 text-body-emphasis">
+                <h1 class="display-4 fw-bold card-title card-title-discover main-text lh-1 text-body-emphasis">
                     ${art.title}
                 </h1>
-                <p class="lead card-text card-text-favorite">
+                <p class="card-text card-text-favorite">
                   ${txt}
                 </p>
                 <div class="d-flex justify-content-between mt-auto small mb-3">
@@ -162,12 +162,9 @@
                   <span class="category-text">${art.authors}</span>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                  <a href="article.html?slug=${art.slug}" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">
-                    Read More
+                  <a href="article.html?slug=${art.slug}" class="btn button btn-lg px-4 me-md-2 fw-bold">
+                    Read
                   </a>
-                  <button type="button" class="btn btn-outline-secondary btn-lg px-4">
-                    Save
-                  </button>
                 </div>
               </div>
 
