@@ -137,7 +137,7 @@ document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => {
       toggle =!toggle;
       
       col.innerHTML = `
-        <div class="container my-5 slide-in"> 
+        <div class="container my-5 ${slideClass}"> 
           <div class="row col-12 p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg favorite-article">
             <!-- Text section -->
             <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
