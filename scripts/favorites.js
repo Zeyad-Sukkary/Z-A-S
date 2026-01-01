@@ -18,20 +18,41 @@
     const cards = [];
     for (let i = 0; i < count; i++) {
       cards.push(`
-        <div class="col-md-6 mb-3">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 placeholder-glow" aria-hidden="true">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="placeholder col-4 mb-2"></strong>
-              <h3 class="placeholder col-6 mb-1"></h3>
-              <p class="placeholder col-8 mb-auto"></p>
-              <a class="placeholder col-3 mt-2 btn disabled"></a>
+      <div class="container my-5 slide-placeholder">
+        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg favorite-article">
+
+          <!-- Text section -->
+          <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+            <strong class="d-inline-block mb-2 category-text placeholder-glow">
+              <span class="placeholder col-4"></span>
+            </strong>
+            <h1 class="display-4 fw-bold lh-1 text-body-emphasis placeholder-glow">
+              <span class="placeholder col-8"></span>
+            </h1>
+            <p class="lead card-text card-text-favorite placeholder-glow">
+              <span class="placeholder col-12"></span>
+              <span class="placeholder col-10"></span>
+              <span class="placeholder col-8"></span>
+            </p>
+            <div class="d-flex justify-content-between mt-auto small mb-3 placeholder-glow">
+              <span class="placeholder col-3"></span>
+              <span class="placeholder col-3"></span>
             </div>
-            <div class="col-auto d-none d-lg-block">
-              <div class="placeholder" style="width:200px; height:320px;"></div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+              <a href="#" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold placeholder col-3"></a>
+              <button type="button" class="btn btn-outline-secondary btn-lg px-4 placeholder col-3"></button>
             </div>
           </div>
+
+          <!-- Image section -->
+          <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+            <div class="placeholder-glow">
+              <div class="placeholder w-100" style="height: 400px;"></div>
+            </div>
+          </div>
+
         </div>
-      `.trim());
+      </div>`.trim());
     }
 
     const wrapper = document.createElement('div');
@@ -51,7 +72,7 @@
         observer.unobserve(entry.target); // animate once
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }); // triggers a little before fully visible
 
   // Fetch all favorite JSONs
   Promise.all(favSlugs.map(slug =>
@@ -81,6 +102,17 @@
 
     noFavsMsg.classList.add('nonedisplay');
     renderFavorites(normalized);
+
+    // Make sure all slide-in elements are observed and visible if already in viewport
+    document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => {
+      observer.observe(el);
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('visible');
+        observer.unobserve(el);
+      }
+    });
+
   })
   .catch(err => {
     console.error('Error loading favorites:', err);
@@ -150,9 +182,6 @@
               
             </div>
           </div>`;
-
-        const slideEl = col.querySelector(`.${slideClass}`);
-        if (slideEl) observer.observe(slideEl);
 
         row.appendChild(col);
       }
