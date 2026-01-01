@@ -121,7 +121,7 @@ document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => {
   // Render favorites function
   function renderFavorites(list) {
     container.innerHTML = '';
-
+    let toggle = true;
     for (let i = 0; i < list.length; i++) {
       const art = list[i];
       const txt = (() => {
