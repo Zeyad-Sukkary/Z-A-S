@@ -100,12 +100,15 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML = '';
     let toggle = true;
 
-    list.forEach(art => {
-      const textPreview = (() => {
-        const temp = document.createElement('div');
-        temp.innerHTML = art.content || '';
-        return (marked.parse || '').slice(0, 250) + '...';
-      })();
+
+list.forEach(art => {
+  const textPreview = (() => {
+    const html = marked.parse(art.content || '');
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.textContent.slice(0, 250) + '...';
+  })();
+});
 
       const slideClass = toggle ? 'slide-in-left' : 'slide-in-right';
       toggle = !toggle;
