@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const textPreview = (() => {
         const temp = document.createElement('div');
         temp.innerHTML = art.content || '';
-        return (temp.textContent || '').slice(0, 250) + '...';
+        return (marked.parse || '').slice(0, 250) + '...';
       })();
 
       const slideClass = toggle ? 'slide-in-left' : 'slide-in-right';
@@ -126,8 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${textPreview}
               </p>
               <div class="d-flex justify-content-between small mb-3">
-                <span>${art.date || 'Unknown date'}</span>
-                <span>${art.authors || 'Unknown author'}</span>
+                <p>${art.date || 'Unknown date'}</p>
+                <p>${art.authors || 'Unknown author'}</p>
               </div>
               <a href="article.html?slug=${art.slug}" class="btn button btn-lg">
                 Read
