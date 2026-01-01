@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   =============================== */
   function showSkeletons(count) {
     container.innerHTML = Array.from({ length: count }).map(() => `
-      <div class="container my-5 slide-placeholder">
+      <div class="container my-5 fade-placeholder">
         <div class="p-4 rounded-3 border shadow-lg favorite-article">
           <div class="placeholder-glow">
             <span class="placeholder col-8 mb-3"></span>
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderFavorites(list);
-    initSlideObserver();
+    initFadeObserver();
   });
 
   /* ===============================
@@ -102,11 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
   =============================== */
   function renderFavorites(list) {
     container.innerHTML = '';
-    let toggle = true;
 
     list.forEach(art => {
-      const slideClass = toggle ? 'slide-in-left' : 'slide-in-right';
-      toggle = !toggle;
 
       const rawHTML = marked.parse(art.content || '');
       const previewHTML = truncateHTML(rawHTML, 250);
@@ -114,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const col = document.createElement('div');
       col.className = 'col-12';
       col.innerHTML = `
-        <div class="container my-5 ${slideClass}">
+        <div class="container my-5 fade-in">
           <div class="row p-4 align-items-center rounded-3 border shadow-lg favorite-article">
             <div class="col-lg-7 p-4">
               <strong class="category-text">
@@ -158,9 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ===============================
-     INTERSECTION OBSERVER
+     FADE-IN OBSERVER
   =============================== */
-  function initSlideObserver() {
+  function initFadeObserver() {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -170,9 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }, { threshold: 0.12 });
 
-    document
-      .querySelectorAll('.slide-in-left, .slide-in-right')
-      .forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   }
 
 });
