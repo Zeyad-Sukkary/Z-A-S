@@ -411,6 +411,27 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
     background-color: var(--linkactive);
   }
   
+  .button:active {
+    background-color: var(--link);
+  }
+
+  .button-outline {
+  background-color: var(--main);
+  border: 1px solid var(--link);
+  color: var(--maintext);
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  }
+
+  .button-outline:hover {
+    background-color: var(--linkactive);
+  }
+
+  .button-outline:active {
+    background-color: var(--link);
+  }
 
 .carousel-control-next, .carousel-control-prev {
 transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
@@ -1088,11 +1109,11 @@ li {
 
   .theme-switch-alt {
     background-color: var(--main);
+    border: 1px solid var(--link);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    border: 1px solid var(--link);
   }
 
 
