@@ -19,7 +19,7 @@
     for (let i = 0; i < count; i++) {
       cards.push(`
       <div class="container my-5 slide-placeholder">
-        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg favorite-article">
+        <div class="p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg favorite-article">
 
           <!-- Text section -->
           <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
@@ -137,21 +137,21 @@
         })();
 
         const col = document.createElement('div');
-        col.className = 'col-md-6';
+        col.className = 'col-12';
 
         const slideClass = toggle ? 'slide-in-left' : 'slide-in-right';
         toggle = !toggle;
 
         col.innerHTML = `
           <div class="container my-5 ${slideClass}">
-            <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg favorite-article">
+            <div class="col-12 p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg favorite-article">
               
               <!-- Text section -->
               <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
                 <strong class="d-inline-block mb-2 category-text">
                   ${[].concat(art.categories).join(' | ')}
                 </strong>
-                <h1 class="display-4 fw-bold card-title card-title-discover main-text lh-1 text-body-emphasis">
+                <h1 class="display-4 fw-bold card-title main-text lh-1">
                     ${art.title}
                 </h1>
                 <p class="card-text card-text-favorite">

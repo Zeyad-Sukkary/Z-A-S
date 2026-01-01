@@ -423,6 +423,14 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   text-overflow: ellipsis;
 }
 
+.card-text-favorite {
+ display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .card-title-discover {
   line-height: 1.4;
