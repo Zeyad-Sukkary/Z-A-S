@@ -356,7 +356,15 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
   cursor: default;
 }
 
+.nav-feature.feature-active {
+  border-radius: 0.75rem; /* same as normal cards */
+  border: 2px solid var(--linkactive);
+  background-color: color-mix(in srgb, var(--linkactive) 12%, transparent);
+}
 
+.nav-feature.feature-active h4 {
+  color: var(--link);
+}
 
   .form-select {
     background-color: var(--main);
@@ -527,8 +535,36 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 
 
 
-  
+  #noFavoritesMsg {
+  max-width: 520px;
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  background-color: var(--bs-body-bg);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.08);
 
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--bs-secondary-color);
+
+  opacity: 0;
+  animation: fadeInMsg 0.5s ease forwards;
+}
+
+@keyframes fadeInMsg {
+  to {
+    opacity: 1;
+  }
+}
+.error-message {
+    border-radius: 0.75rem;
+  background-color: color-mix(in srgb, var(--bs-danger) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bs-danger) 35%, transparent);
+
+  text-align: center;
+  font-weight: 600;
+  opacity: 0;
+  animation: fadeInMsg 0.4s ease forwards;
 
 
   select[multiple]::-webkit-scrollbar {

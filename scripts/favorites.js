@@ -115,7 +115,7 @@ document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => {
   })
   .catch(err => {
     console.error('Error loading favorites:', err);
-    container.innerHTML = `<p class="text-danger">Failed to load favorites.</p>`;
+    container.innerHTML = `<div class="alert alert-danger error-message text-center m" role="alert">Failed to load favorites.</div>`;
   });
 
   // Render favorites function
