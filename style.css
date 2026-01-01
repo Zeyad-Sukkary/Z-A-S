@@ -447,6 +447,7 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--secondarytext);
 }
 
 
@@ -463,6 +464,7 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   line-clamp: 4;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--secondarytext);
 }
 
 .card-text-favorite {
@@ -472,6 +474,7 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   line-clamp: 4;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--secondarytext);
 }
 
 .card-title-discover {
