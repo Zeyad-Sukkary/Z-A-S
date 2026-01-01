@@ -564,13 +564,13 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   max-width: 520px;
   padding: 2rem 2.5rem;
   border-radius: 1rem;
-  background-color: var(--bs-body-bg);
+  background-color: var(--secondarybg);
   box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.08);
 
   text-align: center;
   font-weight: 600;
   font-size: 1.25rem;
-  color: var(--bs-secondary-color);
+  color: var(--maintext);
 
   opacity: 0;
   animation: fadeInMsg 0.5s ease forwards;
@@ -777,7 +777,6 @@ margin-top: 2px;
   margin-top: 18px;
 margin-left: 8px;
 }
-
 
 .slide-in-left {
   opacity: 0;
