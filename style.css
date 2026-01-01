@@ -376,6 +376,12 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
     transition: all 0.2s;
   }
 
+  .hero {
+    background-color: var(--secondarybg);
+    color: var(--maintext);
+    
+  }
+
   .form-select {
     background-color: var(--main);
     color: var(--maintext);
