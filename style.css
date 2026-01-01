@@ -1048,3 +1048,10 @@ li {
   max-height: 90%;
   object-fit: contain;
 }
+
+
+  .cta-group { display:flex; gap:1rem; align-items:center; justify-content:center; }
+
+    .cta-group .btn { flex:1 1 0; min-width:160px; max-width:320px; }
+    
+    .hero-buttons { display:flex; flex-direction:column; gap:1rem; align-items:center; justify-content:center; height:100%; }

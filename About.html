@@ -13,82 +13,163 @@
 </head>
 <body>
 
-<button class="loading" id="loading"><div class="spinner-grow" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div></button>    
+<main>
+  <div class="container py-4">
 
-<button id="theme-switch" title="Switch" class="theme-switch slide-in-left">            
-              <svg xmlns="http://www.w3.org/2000/svg" alt="modeswitch" title="Switch to Dark" height="50px" viewBox="0 -960 960 960" width="50px" fill="var(--fillcolor)"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
-               <svg xmlns="http://www.w3.org/2000/svg" alt="modeswitch" title="Switch to Light" height="50px" viewBox="0 -960 960 960" width="50px" fill="var(--fillcolor)"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
-              </button>
+    <!-- =========================
+         HERO (replaces first jumbotron)
+         ========================= -->
+    <section class="hero p-4 mb-4 rounded-3 bg-body-tertiary">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-3">
+        <!-- CTA column (was the image column) -->
+        <div class="col-10 col-sm-8 col-lg-6 col-cta">
+          <div class="hero-buttons">
+            <!-- Page Title / Site name to the right visually, but buttons are physically here -->
+            <!-- Buttons tuned to be equal width and responsive -->
+            <a href="https://linktr.ee/zeyadsukk" class="btn btn-primary btn-lg btn-equal" target="_blank" rel="noopener noreferrer">
+              Visit Linktree
+            </a>
+            <a href="https://paypal.me/AhmedSukkary/5" class="btn btn-outline-secondary btn-lg btn-equal" target="_blank" rel="noopener noreferrer">
+              Donate via PayPal
+            </a>
+            <!-- small helper text -->
+            <small class="text-muted text-center">Support & links. No pressure — just in case someone wants to help.</small>
+          </div>
+        </div>
 
-              <button class="fade-in scrolltop" onclick="scrollToTop()" id="scrollBtn" title="Go to top"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--main)"><path d="M160-760v-80h540v80H160Zm280 640v-408L336-424l-56-56 200-200 200 200-56 56-104-104v408h-80Z"/></svg></button>
+        <!-- Text column -->
+        <div class="col-lg-6">
+          <h1 class="display-5 fw-bold lh-1 mb-2">About</h1>
+          <h2 class="h5 text-body-secondary mb-3">Zeyad A.S. — ZAS</h2>
 
+          <p class="lead">
+            This site is a concise home for curated content, tools, and small experiments — built to be fast, readable, and useful.
+            No filler. You’ll find links, quick features, and accessibility options here — everything arranged to be practical.
+          </p>
 
+          <p class="mb-0 text-muted">Quick actions are in the panel to the right (or below, on mobile). Navigation and site tools are further down.</p>
+        </div>
+      </div>
+    </section>
 
-<header class="py-3 mb-4">
-    <div class="container d-flex flex-wrap justify-content-center align-items-center">
-    <a class="logo d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none" href="ZAS-News.html">
-<img src="pics/Logo.svg" class="logo slide-in-left" alt="Logo">
+    <!-- =========================
+         SECOND JUMBOTRON ROW (two equal-height columns)
+         left keeps a short feature block, right becomes the navgrid
+         ========================= -->
+    <div class="row align-items-md-stretch mb-4">
+      <!-- Left column: small feature block -->
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3 d-flex flex-column justify-content-center">
+          <h2>Why this site</h2>
+          <p class="mb-4">Practical, straight answers and a few tools. If it’s here, it’s because it’s meant to be used — not to look pretty for a second and disappear.</p>
+          <a href="#" class="btn btn-outline-light">Read the philosophy</a>
+        </div>
+      </div>
 
-    </a>
- <ul class="nav nav-pills justify-content-center  col-12 col-lg-auto mb-3 mb-lg-0">
-      <li class="fade-in nav-item" style="animation-delay: 0.1s;"title="Home"><a class="link nav-link" href="ZAS-News.html">Home</a></li>
-      <li class="fade-in nav-item" style="animation-delay: 0.2s;"title="About"><a class="link active nav-link" id="activenav" aria-current="page" href="About.html">About us</a></li>
-      <li class="fade-in  nav-item" style="animation-delay: 0.3s;"title="Discover"><a class="link nav-link"  href="Discover.html">Discover</a></li>
-      <li class="fade-in nav-item" style="animation-delay: 0.4s;"title="check out your Saved Articles"><a class="link nav-link" href="Favorites.html">Favorites</a></li>
-    </ul>
-    </div>
-  </header>
+      <!-- Right column: NAVGRID (replaced second jumbotron text with your nav grid) -->
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2 class="mb-3">Navigation</h2>
 
-    <main>
+          <div class="row row-cols-1 row-cols-sm-2 g-4 nav-grid">
 
-<div class="px-4 pt-5 my-5 text-center border-bottom">
-  <h1 class="display-4 fw-bold">About Z-A-S</h1>
-  <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">
-      Z-A-S is the personal project of Zeyad Ahmed El-Sukkary, a passionate 15-year-old web developer and aspiring software engineer. Built from scratch with HTML, CSS, and JavaScript, this site showcases Zeyad’s growing skills in responsive design, UI/UX, and dynamic content filtering. Beyond coding, Zeyad is driven by a dream to study at Stanford and one day Start his own Company. This website is a testament to his ambition and love for technology. <br>And as You may have noticed, we run completely Ad Free, so if you Apreciate our work and want to support us, Feel Free to use the Donate Button Below.
-    </p>
-    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-      <a href="Discover.html" class="btn btn-primary btn-lg px-4 me-sm-3">Explore Articles</a>
-      <a href="https://linktr.ee/zeyadsukk" target="_blank" class="btn btn-outline-success btn-lg px-4">Linktree</a>
-    <a href="https://paypal.me/AhmedSukkary/5" target="_blank" rel="noopener noreferrer" class="btn btn-info text-white btn-lg px-4 me-sm-3">
-  <i class="bi bi-paypal me-2"></i>Donate via PayPal
-</a>
-    </div>
+            <!-- Home -->
+            <a href="ZAS-News.html"
+               class="col text-decoration-none text-reset nav-feature fade-in"
+               style="animation-delay: 0.1s;">
+              <div class="d-flex flex-column gap-2 h-100">
+                <div class="feature-icon-small"></div>
+                <h4 class="fw-semibold mb-0">Home</h4>
+                <p class="mb-0">Go back to the main page to discover the latest content.</p>
+              </div>
+            </a>
+
+            <!-- About (ACTIVE PAGE) -->
+            <div class="col nav-feature fade-in feature-active"
+                 style="animation-delay: 0.2s;" aria-current="page">
+              <div class="d-flex flex-column gap-2 h-100">
+                <div class="feature-icon-small"></div>
+                <h4 class="fw-semibold mb-0">About</h4>
+                <p class="mb-0">Learn what this site actually does and what matters here.</p>
+              </div>
+            </div>
+
+            <!-- Discover -->
+            <a href="Discover.html"
+               class="col text-decoration-none text-reset nav-feature fade-in"
+               style="animation-delay: 0.3s;">
+              <div class="d-flex flex-column gap-2 h-100">
+                <div class="feature-icon-small"></div>
+                <h4 class="fw-semibold mb-0">Discover</h4>
+                <p class="mb-0">Explore new content and trending items curated just for you.</p>
+              </div>
+            </a>
+
+            <!-- Favorites -->
+            <a href="Favorites.html"
+               class="col text-decoration-none text-reset nav-feature fade-in"
+               style="animation-delay: 0.4s;">
+              <div class="d-flex flex-column gap-2 h-100">
+                <div class="feature-icon-small"></div>
+                <h4 class="fw-semibold mb-0">Favorites</h4>
+                <p class="mb-0">All your saved items for quick access.</p>
+              </div>
+            </a>
+
+          </div> <!-- /.nav-grid -->
+
+        </div>
+      </div>
+    </div> <!-- /.row -->
+
+    <!-- =========================
+         THIRD / LAST JUMBOTRON: Site tools & accessibility buttons
+         ========================= -->
+    <section class="p-4 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-3">
+        <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+
+          <div>
+            <h3 class="h5 mb-2">Site tools</h3>
+            <p class="mb-0 text-muted">Accessibility, data controls and quick help for visitors. Use responsibly.</p>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 align-items-center">
+            <!-- Theme switch: added btn so it's visually consistent -->
+            <button id="theme-switch" title="Switch theme" class="btn btn-light theme-switch slide-in-left">
+              <!-- keep the SVGs you provided; they will show based on theme logic -->
+              <svg xmlns="http://www.w3.org/2000/svg" alt="modeswitch" title="Switch to Dark" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+            </button>
+
+            <!-- Clear Favorites -->
+            <button id="openResetFavorites" class="btn btn-outline-danger" type="button" aria-haspopup="dialog" aria-controls="confirmFavoritesModal">
+  Clear Favorites
+</button>
+            <!-- View controls guide (modal trigger) -->
+            <button data-bs-toggle="modal" data-bs-target="#heroModal" class="btn btn-outline-secondary" title="View controls">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
+              </svg>
+            </button>
+
+            <button id="openResetStorage" class="btn btn-outline-danger btn-sm" type="button" aria-haspopup="dialog" aria-controls="confirmStorageModal">
+  Reset Data
+</button>
+          </div>
+        </div>
+
+        <!-- bottom row: small legal/copyright -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <p class="col-md-3 mb-0 maintext">&copy; 2025 Zeyad A.S.</p>
+          <small class="text-muted">Built with Bootstrap — minimal, useful, purposeful.</small>
+        </div>
+      </div>
+    </section>
+
   </div>
-  <div class="overflow-hidden" style="max-height: 30vh;">
-    <div class="container px-5">
-      <img src="/Z-A-S/pics/about.jpg" class="img-fluid border rounded-3 shadow-lg mb-4" alt="About Zeyad" width="700" height="500" loading="lazy">
-    </div>
-  </div>
-</div>
+</main>
 
-
-
-<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
-   <button data-bs-toggle="modal" data-bs-target="#heroModal" class="btn btn-outline-secondary col-md-1 justify-content-center text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
-  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-  <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
-</svg></button>
-  <p class="col-md-3 mb-0 maintext">&copy; 2025 Zeyad A.S.</p>
-
-  <a href="ZAS-News.html" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-decoration-none">
-    <img src="pics/Logo.svg" class="logo slide-in-left" alt="Logo" width="40" height="40">
-  </a>
- 
-  <ul class="nav col-md-4 justify-content-end">
-    <li class="nav-item"><a href="ZAS-News.html" class="nav-link px-2 secondarytext">Home</a></li>
-    <li class="nav-item"><a href="Discover.html" class="nav-link px-2 secondarytext">Discover</a></li>
-    <li class="nav-item"><a href="About.html" class="nav-link secondarytext px-2 ">About</a></li>
-    <li class="nav-item fade-in"><button id="resetStorage" class="btn btn-outline-danger btn-sm px-2">Reset Data</button></li>
-    <li class="nav-item fade-in"><a href="https://linktr.ee/zeyadsukk" target="_blank" class="btn btn-success btn-sm ms-2">Linktree</a></li>
-  </ul>
-</footer>
-
-
-
-<!-- Controls Modal -->
 <div class="modal fade" id="heroModal" tabindex="-1" aria-labelledby="heroModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
@@ -96,26 +177,24 @@
         <div class="container px-4 py-5">
           <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
             <div class="col-10 col-sm-8 col-lg-6">
-              <img src="/Z-A-S/pics/controls.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+              <img src="/Z-A-S/pics/controls.jpg" class="d-block mx-lg-auto img-fluid" alt="Controls" width="700" height="500" loading="lazy">
             </div>
             <div class="col-lg-6">
-              <h1 class="display-5 fw-bold lh-1 mb-3">
-                Controls Are Much Easier With Keyboard Support!
-              </h1>
-              <p class="lead">
-               <h2 class="h4 mb-4">Keyboard Shortcuts</h2>
-<ul class="">
-  <li class=""><strong>S</strong> – Scroll to top</li>
-  <li class=""><strong>T</strong> – Toggle dark/light mode</li>
-  <li class=""><strong>D</strong> – Dismiss shortcut modal</li>
-  <li class=""><strong>C</strong> – Show this shortcut modal</li>
-  <li class=""><strong>Esc</strong> – Close any open modal</li>
-</ul>
+              <h1 class="display-5 fw-bold lh-1 mb-3">Controls — Keyboard Shortcuts</h1>
 
-              </p>
+              <h2 class="h5 mb-3">Keyboard Shortcuts</h2>
+              <ul class="mb-3">
+                <li><strong>S</strong> — Scroll to top</li>
+                <li><strong>T</strong> — Toggle dark/light mode</li>
+                <li><strong>D</strong> — Dismiss this shortcut modal (and mark dismissed)</li>
+                <li><strong>C</strong> — Show this shortcut modal</li>
+                <li><strong>F</strong> — Open Clear Favorites confirmation</li>
+                <li><strong>R</strong> — Open Reset Data confirmation</li>
+                <li><strong>Esc</strong> — Close any open modal</li>
+              </ul>
+
               <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                 <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2" data-bs-dismiss="modal">Close</button>
-              
               </div>
             </div>
           </div>
@@ -125,13 +204,48 @@
   </div>
 </div>
 
-    </main>
+<!-- CONFIRM: Clear Favorites Modal (confirm button uses id="resetFavorites") -->
+<div class="modal fade" id="confirmFavoritesModal" tabindex="-1" aria-labelledby="confirmFavoritesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3 shadow">
+      <div class="modal-body p-4 text-center">
+        <h5 id="confirmFavoritesLabel" class="mb-2">Clear all favorites?</h5>
+        <p class="mb-0">This will remove all saved favorites stored locally in your browser. This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer flex-nowrap p-0">
+        <button id="resetFavorites" type="button" class="btn btn-lg fs-6 text-white col-6 py-3 m-0 rounded-0 btn-danger">
+          <strong>Yes, clear favorites</strong>
+        </button>
+        <button type="button" id="cancelFavorites" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">
+          No, go back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-        crossorigin="anonymous">
+<!-- CONFIRM: Reset All Site Data Modal (confirm button uses id="resetStorage") -->
+<div class="modal fade" id="confirmStorageModal" tabindex="-1" aria-labelledby="confirmStorageLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3 shadow">
+      <div class="modal-body p-4 text-center">
+        <h5 id="confirmStorageLabel" class="mb-2">Reset all site data?</h5>
+        <p class="mb-0">This will clear all local data for this site (preferences, saved items, etc.). The page will reload afterwards.</p>
+      </div>
+      <div class="modal-footer flex-nowrap p-0">
+        <button id="resetStorage" type="button" class="btn btn-lg fs-6 text-white col-6 py-3 m-0 rounded-0 btn-danger">
+          <strong>Yes, reset site data</strong>
+        </button>
+        <button type="button" id="cancelStorage" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">
+          No, keep data
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
-       <script src="scripts/darkmode.js"></script>
+        <script src="scripts/darkmode.js"></script>
         <script type="text/javascript"src="scripts/script.js" ></script>
 
         </body>
