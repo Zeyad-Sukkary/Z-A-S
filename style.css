@@ -730,7 +730,12 @@ margin-left: 8px;
   will-change: opacity, transform;
 }
 
-    
+.alert .slide-out-right {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.4s ease-in, transform 0.4s ease-in;
+  will-change: opacity, transform;
+}
 
 
 
