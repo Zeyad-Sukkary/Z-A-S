@@ -175,7 +175,7 @@ fetch('articles/index.json')
                 </div>`;
               observer.observe(col.querySelector('.slide-in-left'));
               row.appendChild(col);
-            }
+            } 
             container.appendChild(row);
             triggerSlideInAnimations();
           }

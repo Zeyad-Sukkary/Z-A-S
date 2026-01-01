@@ -152,9 +152,7 @@
                   ${[].concat(art.categories).join(' | ')}
                 </strong>
                 <h1 class="display-4 fw-bold lh-1 text-body-emphasis">
-                  <a href="article.html?slug=${art.slug}" class="text-decoration-none text-dark">
                     ${art.title}
-                  </a>
                 </h1>
                 <p class="lead card-text card-text-favorite">
                   ${txt}
