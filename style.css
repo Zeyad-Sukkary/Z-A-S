@@ -371,7 +371,7 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
   background-color: color-mix(in srgb, var(--secondarybg) 12%, transparent);
     color: var(--secondarytext);
     padding: 15px;
-    border-color: var(--secondarybg);
+    border-color: var(--secondarybg) !important;
     border-radius: 15px;
     transition: all 0.2s;
   }
@@ -379,7 +379,7 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
   .hero {
     background-color: var(--main);
     color: var(--maintext);
-    border-color: var(--secondarybg);
+    border-color: var(--secondarybg) !important;
   }
 
   .form-select {
