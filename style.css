@@ -366,6 +366,16 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
   color: var(--link);
 }
 
+
+.jumbotron {
+    background-color: var(--secondarybg);
+    color: var(--maintext);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s;
+  }
+
   .form-select {
     background-color: var(--main);
     color: var(--maintext);
