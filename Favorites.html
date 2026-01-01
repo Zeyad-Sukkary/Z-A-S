@@ -20,41 +20,68 @@
 </button>
 
 <button class="fade-in scrolltop" onclick="scrollToTop()" id="scrollBtn" title="Go to top"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--main)"><path d="M160-760v-80h640v80H160Zm280 640v-408L336-424l-56-56 200-200 200 200-56 56-104-104v408h-80Z"/></svg></button>
-<header class="py-3 mb-4">
-
-    <div class="container d-flex flex-wrap justify-content-center align-items-center">
-    <a class="logo d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none" href="ZAS-News.html">
-<img src="pics/Logo.svg" class="logo slide-in-left" alt="Logo">
-
-    </a>
-    <div class="d-flex justify-content-center py-3">
- <ul class="nav nav-pills justify-content-center">
-        <li class="fade-in nav-item" title="Home"><a class="link nav-link" href="ZAS-News.html">Home</a></li>
-        <li class="fade-in nav-item" title="Learn more About us"><a class="link nav-link" href="About.html">About Us</a></li>
-        <li class="fade-in nav-item" title="Discover"><a class="link nav-link" href="Discover.html">Discover</a></li>
-        <li class="fade-in nav-item" title="Current | Favorites"><a class="link active nav-link" id="activenav" aria-current="page" href="Favorites.html">Favorites</a></li>
-    </ul>
-    </div>
-    </div>
-
-  </header>
-
-
 <main>
+  <section class="Latest-news">
+    <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+      
+      <!-- Left column: description and button -->
+      <div class="col d-flex flex-column align-items-start gap-2">
+        <h2 class="fw-bold text-body-emphasis">Your Favorites</h2>
+        <p class="text-body-secondary">Here you can see all the items you've saved. Use the button below to clear them if you want a fresh start.</p>
+        <a href="#" class="button btn">Clear Favorites</a>
+        <p class="small text-body-secondary mt-2">Clicking the button will remove all items from your favorites list.</p>
+      </div>
+      
+      <!-- Right column: sections as features -->
+      <div class="col">
+        <div class="row row-cols-1 row-cols-sm-2 g-4">
+          
+          <!-- Home section -->
+          <div class="col d-flex flex-column gap-2">
+            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+              <svg class="bi" width="1em" height="1em" aria-hidden="true">
+                <use xlink:href="#house"></use>
+              </svg>
+            </div>
+            <h4 class="fw-semibold mb-0 text-body-emphasis">Home</h4>
+            <p class="text-body-secondary">Go back to the main page to discover the latest content.</p>
+          </div>
 
+          <!-- About Us section -->
+          <div class="col d-flex flex-column gap-2">
+            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+              <svg class="bi" width="1em" height="1em" aria-hidden="true">
+                <use xlink:href="#info-circle"></use>
+              </svg>
+            </div>
+            <h4 class="fw-semibold mb-0 text-body-emphasis">About Us</h4>
+            <p class="text-body-secondary">Learn more about our team and mission.</p>
+          </div>
 
-    <section class="Latest-news">
+          <!-- Discover section -->
+          <div class="col d-flex flex-column gap-2">
+            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+              <svg class="bi" width="1em" height="1em" aria-hidden="true">
+                <use xlink:href="#compass"></use>
+              </svg>
+            </div>
+            <h4 class="fw-semibold mb-0 text-body-emphasis">Discover</h4>
+            <p class="text-body-secondary">Explore new content and trending items curated just for you.</p>
+          </div>
 
+          <!-- Favorites section -->
+          <div class="col d-flex flex-column gap-2">
+            <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3">
+              <img src="pics/Logo.svg" alt="Logo" style="width: 50px; height: auto;">
+            </div>
+            <h4 class="fw-semibold mb-0 text-body-emphasis">My Favorites</h4>
+            <p class="text-body-secondary">All your favorite items are saved here for easy access.</p>
+          </div>
 
-<div class="d-flex justify-content-between align-items-center gap-2 mb-3">
-  <h1 class="fade-in mb-0 flex-grow-1 col-md-3">your Favorites</h1>
+        </div>
+      </div>
 
-  
-</div>
-
-
-
-
+    </div>
 
        <div class="d-flex flex-column news-container">
   <!-- Filter list -->
