@@ -395,12 +395,14 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 .category-text
 {
   color: var(--button) !important;
+  font-size: 0.9rem;
 }
 
 .card-text-home {
  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -415,7 +417,8 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 .card-text-discover {
  display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -433,10 +436,7 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   height: 1.5em; /* locks vertical alignment across cards */
 }
 
-.category-text {
-  font-size: 0.85rem;
-  color: #6c757d; /* Bootstrap's text-secondary */
-}
+
 
 /* Prevent category from pushing the date */
 .card-meta strong {

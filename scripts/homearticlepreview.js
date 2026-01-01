@@ -226,7 +226,7 @@ fetch('articles/index.json')
                <a href="article.html?slug=${art.slug}"
                    class="text-decoration-none text-white">
                   <h5 class="card-title card-title-home">${art.title}</h5>
-                  <div class="card-text mb-auto mt-2 card-text-home">${snippet}</div>
+                  <div class="card-text mb-2 mt-2 card-text-home">${snippet}</div>
                 </a>
                 <div class="d-flex justify-content-between mt-auto small">
                   <span class="category-text">${art.date}</span>
