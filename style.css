@@ -398,9 +398,11 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 }
 
 .card-text-home {
-  line-height: 1.4;
-  height: calc(1.4em * 2);
+ display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
@@ -411,9 +413,11 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 }
 
 .card-text-discover {
-  line-height: 1.4;
-  height: calc(1.4em * 3);
+ display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 

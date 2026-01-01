@@ -208,7 +208,7 @@ fetch('articles/index.json')
           const snippet = (()=>{
             const d = document.createElement('div');
             d.innerHTML=art.content;
-            return marked.parse(d.textContent||'').slice(0,250)+'…';
+            return marked.parse(d.textContent||'').slice(0,250);
           })();
           const col = document.createElement('div');
           col.className = 'col-md-4';
@@ -226,9 +226,9 @@ fetch('articles/index.json')
                <a href="article.html?slug=${art.slug}"
                    class="text-decoration-none text-white">
                   <h5 class="card-title card-title-home">${art.title}</h5>
-                  <div class="card-text card-text-home">${snippet}</div>
+                  <div class="card-text mb-auto mt-2 card-text-home">${snippet}</div>
                 </a>
-                <div class="d-flex justify-content-between small">
+                <div class="d-flex justify-content-between mt-auto small">
                   <span class="category-text">${art.date}</span>
                   <span class="category-text">${art.authors}</span>
                 </div>

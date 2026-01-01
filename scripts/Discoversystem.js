@@ -163,7 +163,7 @@ fetch('articles/index.json')
                       <strong class="category-text d-inline-block">${[].concat(art.categories).join(' | ')}</strong>
                       <p class="category-text mb-0">${art.date}</p>
                     </div>
-                    <h3 class="mb-0 card-title-discover" style="color: var(--maintext);">${art.title}</h3>
+                    <h3 class="mb-3 card-title-discover" style="color: var(--maintext);">${art.title}</h3>
                     <div class="card-text card-text-discover mb-auto">${txt}</div>
                     <a href="/Z-A-S/article.html?slug=${art.slug}" class="icon-link link gap-1 icon-link-hover stretched-link">
                       Read more <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"/></svg>
