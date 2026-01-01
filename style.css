@@ -416,7 +416,7 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
   }
 
   .button-outline {
-  background-color: var(--main);
+  background-color: transparent !important;
   border: 1px solid var(--link) !important;
   color: var(--maintext);
   padding: 15px 30px;
