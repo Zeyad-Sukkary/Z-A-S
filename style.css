@@ -534,6 +534,15 @@ transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
   }
 
 
+  .alt-footer {
+    background-color: var(--main) !important;
+    color: var(--secondarytext) !important;
+    padding: 10px;
+    text-align: center;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
 
   #noFavoritesMsg {
   max-width: 520px;

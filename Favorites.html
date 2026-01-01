@@ -122,7 +122,6 @@
 
 
 
-<!-- Controls Modal -->
 <div class="modal fade" id="heroModal" tabindex="-1" aria-labelledby="heroModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
@@ -130,30 +129,68 @@
         <div class="container px-4 py-5">
           <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
             <div class="col-10 col-sm-8 col-lg-6">
-              <img src="/Z-A-S/pics/controls.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+              <img src="/Z-A-S/pics/controls.jpg" class="d-block mx-lg-auto img-fluid" alt="Controls" width="700" height="500" loading="lazy">
             </div>
             <div class="col-lg-6">
-              <h1 class="display-5 fw-bold lh-1 mb-3">
-                Controls Are Much Easier With Keyboard Support!
-              </h1>
-              <p class="lead">
-               <h2 class="h4 mb-4">Keyboard Shortcuts</h2>
-<ul class="">
-  <li class=""><strong>S</strong> – Scroll to top</li>
-  <li class=""><strong>T</strong> – Toggle dark/light mode</li>
-  <li class=""><strong>D</strong> – Dismiss shortcut modal</li>
-  <li class=""><strong>C</strong> – Show this shortcut modal</li>
-  <li class=""><strong>Esc</strong> – Close any open modal</li>
-</ul>
+              <h1 class="display-5 fw-bold lh-1 mb-3">Controls — Keyboard Shortcuts</h1>
 
-              </p>
+              <h2 class="h5 mb-3">Keyboard Shortcuts</h2>
+              <ul class="mb-3">
+                <li><strong>S</strong> — Scroll to top</li>
+                <li><strong>T</strong> — Toggle dark/light mode</li>
+                <li><strong>D</strong> — Dismiss this shortcut modal (and mark dismissed)</li>
+                <li><strong>C</strong> — Show this shortcut modal</li>
+                <li><strong>F</strong> — Open Clear Favorites confirmation</li>
+                <li><strong>R</strong> — Open Reset Data confirmation</li>
+                <li><strong>Esc</strong> — Close any open modal</li>
+              </ul>
+
               <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                 <button type="button" class="btn btn-secondary btn-lg px-4 me-md-2" data-bs-dismiss="modal">Close</button>
-              
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM: Clear Favorites Modal (confirm button uses id="resetFavorites") -->
+<div class="modal fade" id="confirmFavoritesModal" tabindex="-1" aria-labelledby="confirmFavoritesLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3 shadow">
+      <div class="modal-body p-4 text-center">
+        <h5 id="confirmFavoritesLabel" class="mb-2">Clear all favorites?</h5>
+        <p class="mb-0">This will remove all saved favorites stored locally in your browser. This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer flex-nowrap p-0">
+        <button id="resetFavorites" type="button" class="btn btn-lg fs-6 text-white col-6 py-3 m-0 rounded-0 btn-danger">
+          <strong>Yes, clear favorites</strong>
+        </button>
+        <button type="button" id="cancelFavorites" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">
+          No, go back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM: Reset All Site Data Modal (confirm button uses id="resetStorage") -->
+<div class="modal fade" id="confirmStorageModal" tabindex="-1" aria-labelledby="confirmStorageLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-3 shadow">
+      <div class="modal-body p-4 text-center">
+        <h5 id="confirmStorageLabel" class="mb-2">Reset all site data?</h5>
+        <p class="mb-0">This will clear all local data for this site (preferences, saved items, etc.). The page will reload afterwards.</p>
+      </div>
+      <div class="modal-footer flex-nowrap p-0">
+        <button id="resetStorage" type="button" class="btn btn-lg fs-6 text-white col-6 py-3 m-0 rounded-0 btn-danger">
+          <strong>Yes, reset site data</strong>
+        </button>
+        <button type="button" id="cancelStorage" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">
+          No, keep data
+        </button>
       </div>
     </div>
   </div>
