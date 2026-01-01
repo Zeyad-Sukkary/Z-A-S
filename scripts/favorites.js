@@ -174,3 +174,25 @@ document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => {
     }
   }
 })();
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const resetButton = document.getElementById('resetFavorites');
+
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      // Only remove favorites from localStorage
+      localStorage.removeItem('favorites'); 
+      console.log('Favorites cleared');
+      alert('All Favorites Have Been Cleared.');
+
+      // Optionally, refresh UI if you have favorite buttons displayed
+      const favBtn = document.getElementById('fav-btn');
+      if (favBtn) {
+        favBtn.innerHTML = ICONS.bookmarkHeart; // Reset button to non-favorite state
+        favBtn.classList.remove('active');
+      }
+    });
+  }
+});
