@@ -368,18 +368,18 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
 
 
 .jumbotron {
-    background-color: var(--main);
-    color: var(--maintext);
+  background-color: color-mix(in srgb, var(--secondarybg) 12%, transparent);
+    color: var(--secondarytext);
     padding: 15px;
-    border-color: (var(--secondarybg));
+    border-color: var(--secondarybg);
     border-radius: 15px;
     transition: all 0.2s;
   }
 
   .hero {
-    background-color: var(--secondarybg);
+    background-color: var(--main);
     color: var(--maintext);
-    
+    border-color: var(--secondarybg);
   }
 
   .form-select {
