@@ -51,13 +51,13 @@
     }
 
     const wrapper = document.createElement('div');
-    wrapper.className = 'row col-md';
+    wrapper.className = 'row';
     wrapper.innerHTML = cards.join('');
     container.innerHTML = '';
     container.appendChild(wrapper);
   }
 
-  showSkeletons(container, Math.min(favSlugs.length || 6, 6));
+  showSkeletons(container, Math.min(favSlugs.length || favSlugs.length, 6));
 
   // Fetch all favorite JSONs
   Promise.all(favSlugs.map(slug =>
@@ -134,7 +134,7 @@ document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => {
       col.className = 'col-12';
 
       const slideClass = toggle ? 'slide-in-left' : 'slide-in-right';
-      toggle =!toggle;
+      toggle = !toggle;
       
       col.innerHTML = `
         <div class="container my-5 ${slideClass}"> 
