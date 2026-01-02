@@ -102,7 +102,7 @@ fetch(`articles/${slug}.json`)
             pick.forEach(a => {
               const li = document.createElement('li');
               li.innerHTML = `
-                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="/Z-A-S/article.html?slug=${a.slug}">
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-1 border-top" href="/Z-A-S/article.html?slug=${a.slug}">
                   <img src="${a.cover || a.image}" width="96" height="96" class="flex-shrink-0 rounded" alt="${a.title}" style="object-fit:cover;">
                   <div class="col-lg-8">
                     <h6 class="mb-0">${a.title}</h6>
