@@ -257,9 +257,6 @@ text-decoration: none;
     font-size: 18px;
   }
 
-
-
-
 .border-1 {
   border-color: var(--secondarybg)!important;
   
@@ -269,6 +266,9 @@ text-decoration: none;
   border-color: var(--main)!important;
 }
 
+.border-3 {
+  border-color: var(--secondarytext)!important;
+}
 
   .modal-content {
     background-color: var(--secondarybg);
@@ -312,7 +312,7 @@ text-decoration: none;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0px;
-    border-radius: 60px;
+    border-radius: 8%;
   }
 
 .nav-pills{
