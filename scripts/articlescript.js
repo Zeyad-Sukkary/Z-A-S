@@ -6,16 +6,16 @@ function showPageSkeletons(relatedCount = 4) {
   const artImg   = document.getElementById('image');
   const artCont  = document.getElementById('article-content');
 
-  artTitle.innerHTML = `<span class="placeholder col-8 placeholder-glow"></span>`;
-  artDate.innerHTML  = `<span class="placeholder col-4 placeholder-glow"></span>`;
-  artAuth.innerHTML  = `<span class="placeholder col-3 placeholder-glow"></span>`;
+  artTitle.innerHTML = `<span class="placeholder col-8 placeholder-wave"></span>`;
+  artDate.innerHTML  = `<span class="placeholder col-4 placeholder-wave"></span>`;
+  artAuth.innerHTML  = `<span class="placeholder col-3 placeholder-wave"></span>`;
 
   artImg.src = '';
   artImg.classList.add('placeholder');
   artImg.style = 'width:100%; height:300px; object-fit:cover;';
 
   artCont.innerHTML = Array(5).fill(0).map(() =>
-    `<p><span class="placeholder col-12 placeholder-glow"></span></p>`
+    `<p><span class="placeholder col-12 placeholder-wave"></span></p>`
   ).join('');
 
   const relatedContainer = document.querySelector('.recent-posts');
@@ -26,8 +26,8 @@ function showPageSkeletons(relatedCount = 4) {
       <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
         <div class="flex-shrink-0 placeholder" style="width:96px; height:96px;"></div>
         <div class="col-lg-8">
-          <h6 class="placeholder col-6 placeholder-glow mb-1"></h6>
-          <small class="placeholder col-4 placeholder-glow"></small>
+          <h6 class="placeholder col-6 placeholder-wave mb-1"></h6>
+          <small class="placeholder col-4 placeholder-wave"></small>
         </div>
       </a>
     `;
