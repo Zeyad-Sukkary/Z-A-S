@@ -66,6 +66,11 @@ fetch(`articles/${slug}.json`)
     document.getElementById('article-content').innerHTML =
       marked.parse(article.content || "") || "<p>No content</p>";
 
+    // ─── LIGHTBOX INIT AFTER CONTENT INJECTION ─────────────────────────
+    if (window.initArticleLightbox) {
+      window.initArticleLightbox(document.querySelector('.news-item'));
+    }
+
     // Set up favorite button
     setupFavoriteButton(slug);
 
@@ -191,13 +196,7 @@ const ICONS = {
     </svg>`
 };
 
-
-
-
-
-
-
-// Lightbox for images in article content
+// ─── Lightbox for images in article content ──────────────────────────────
 (function () {
   let lightbox, imgEl, captionEl, thumbsEl;
   let images = [];
@@ -352,8 +351,6 @@ const ICONS = {
     });
   }
 
-  // 🔥 Call this AFTER article content is injected
-  makeArticleImagesLightboxable(
-    document.querySelector('.news-item')
-  );
+  // ─── EXPOSE LIGHTBOX INITIALIZER ──────────────────────────────────────
+  window.initArticleLightbox = makeArticleImagesLightboxable;
 })();
