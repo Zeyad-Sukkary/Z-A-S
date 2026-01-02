@@ -42,7 +42,7 @@
 
 .fav-btn {
   background-color: transparent;
-  color: #e622dc;
+  color: var(--link);
   border: none;
   border-radius: 5px;
   padding: 10px;
@@ -51,7 +51,7 @@
 }
 
 .fav-btn:hover {
-  color: var(--maintext);
+  color: var(--linkhover);
 }
 
 
