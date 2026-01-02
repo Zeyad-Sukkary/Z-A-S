@@ -210,6 +210,7 @@ const ICONS = {
   let startY = 0;
 
   function applyTransform() {
+    if (!imgEl) return; // safety
     imgEl.style.transform =
       `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
   }
@@ -223,7 +224,6 @@ const ICONS = {
 
   function openLightbox(index) {
     currentIndex = index;
-    resetTransform();
 
     lightbox = document.createElement('div');
     lightbox.className = 'lightbox';
@@ -231,7 +231,7 @@ const ICONS = {
     const content = document.createElement('div');
     content.className = 'lightbox-content';
 
-    imgEl = document.createElement('img');
+    imgEl = document.createElement('img'); // assign first
     captionEl = document.createElement('div');
     captionEl.className = 'lightbox-caption';
 
@@ -247,6 +247,8 @@ const ICONS = {
     content.appendChild(thumbsEl);
     lightbox.appendChild(content);
     document.body.appendChild(lightbox);
+
+    resetTransform(); // <-- moved here
 
     renderImage();
     renderThumbnails();
