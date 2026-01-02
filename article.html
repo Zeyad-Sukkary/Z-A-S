@@ -70,9 +70,12 @@
 
 <main>
     <section class="d-flex mt-4 justify-content-center mb-4 row" id="main-section">
-        <article class="col-12 news-item col-md-12" style="flex-grow: 1;">
+        <article class="col-12 news-item col-md-8" style="flex-grow: 1;">
             <h1 id="article-title"></h1>
-           <div class="row d-flex p-2 category-text mt-2 align-items-center justify-content-between"> <h5 id="author" class="col-md-6 justify-content-start"></h5><h5 id="article-date" class="col-md-6 justify-content-end"></h5></div><br>
+            <div class="d-flex w-100 p-2 category-text mt-2">
+              <h5 id="author" class="mb-0"></h5>
+              <h5 id="article-date" class="mb-0 ms-auto"></h5>
+            </div>
             <img id="image" src="none.png" alt="Article Image" width="65%">
             <div id="article-content"></div>
         </article>
