@@ -398,7 +398,7 @@ box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.08);
 
   .button {
     background-color: var(--button);
-    color: var(--maintext);
+    color: var(--main);
     padding: 15px 30px;
     border: none;
     border-radius: 5px;
