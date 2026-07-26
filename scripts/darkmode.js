@@ -1,17 +1,15 @@
-
-window.onload = function() {
+// Immediately apply dark mode class if stored preference is 'dark'
+(function () {
   if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('darkmode');
+    document.body.classList.add('darkmode');
   }
-};
+})();
 
-document.getElementById('theme-switch').addEventListener('click', function () {
-  document.body.classList.toggle('darkmode');
-  // Optional: Save the theme preference in localStorage
-  if (document.body.classList.contains('darkmode')) {
-      localStorage.setItem('theme', 'dark');
-  } else {
-      localStorage.setItem('theme', 'light');
+document.addEventListener('click', function (e) {
+  const switchBtn = e.target.closest('#theme-switch');
+  if (switchBtn) {
+    document.body.classList.toggle('darkmode');
+    const isDark = document.body.classList.contains('darkmode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }
 });
-

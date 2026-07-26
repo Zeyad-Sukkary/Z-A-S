@@ -1,24 +1,26 @@
-/* ---------------------------
-   Combined universal script (updated)
-   --------------------------- */
+/* --------------------------------------------------------------------------
+   Z-A-S Shared Universal Script
+   -------------------------------------------------------------------------- */
 
-/* --- small hover on alert close (keeps original behavior) --- */
-const closeButton = document.querySelector('.closebtn.child');
-const alertParent = document.querySelector('.alert.parent');
-if (closeButton && alertParent) {
-  closeButton.addEventListener('mouseover', () => {
-    alertParent.style.backgroundColor = 'var(--link)';
-  });
-
-  closeButton.addEventListener('mouseout', () => {
-    alertParent.style.backgroundColor = 'var(--maintext)';
-  });
-}
-
-/* --- Favorites helpers (as provided) --- */
+/* --- Favorites Storage Helpers --- */
 function getFavorites() {
   try {
-    return JSON.parse(localStorage.getItem('favorites') || '[]');
+    const raw = JSON.parse(localStorage.getItem('favorites') || '[]');
+    if (!Array.isArray(raw)) return [];
+    return raw
+      .map(entry => {
+        if (typeof entry === 'string') {
+          return { slug: entry, savedAt: null };
+        }
+        if (!entry || typeof entry !== 'object' || !entry.slug) {
+          return null;
+        }
+        return {
+          slug: String(entry.slug),
+          savedAt: entry.savedAt || null
+        };
+      })
+      .filter(Boolean);
   } catch {
     return [];
   }
@@ -28,71 +30,127 @@ function setFavorites(arr) {
   localStorage.setItem('favorites', JSON.stringify(arr));
 }
 
-function setupFavoriteButton(slug) {
-  const btn = document.getElementById('fav-btn');
-  if (!btn) return;
-
-  const refresh = () => {
-    const favs = getFavorites();
-    const isFav = favs.includes(slug);
-    btn.innerHTML = isFav ? ICONS.bookmarkHeartFill : ICONS.bookmarkHeart;
-    btn.classList.toggle('active', isFav);
-  };
-
-  btn.addEventListener('click', () => {
-    let favs = getFavorites();
-    if (favs.includes(slug)) {
-      favs = favs.filter(s => s !== slug);
-    } else {
-      favs.push(slug);
-    }
-    setFavorites(favs);
-    refresh();
-  });
-
-  refresh(); // Initial load
+function getFavoriteEntry(slug) {
+  return getFavorites().find(item => item.slug === slug) || null;
 }
 
-/* ---------------------------
-   DOMContentLoaded — consolidated
-   --------------------------- */
+function isFavorite(slug) {
+  return !!getFavoriteEntry(slug);
+}
+
+function toggleFavorite(slug) {
+  if (!slug) return null;
+  let favs = getFavorites();
+  const existing = favs.find(item => item.slug === slug);
+
+  if (existing) {
+    favs = favs.filter(item => item.slug !== slug);
+  } else {
+    favs.push({ slug, savedAt: new Date().toISOString() });
+  }
+
+  setFavorites(favs);
+  const entry = getFavoriteEntry(slug);
+  document.dispatchEvent(new CustomEvent('favorites:changed', {
+    detail: { slug, isFavorite: !!entry, entry }
+  }));
+  return entry;
+}
+
+function formatSavedSince(savedAt) {
+  if (!savedAt) return 'Saved to favorites';
+  const date = new Date(savedAt);
+  if (Number.isNaN(date.getTime())) return 'Saved to favorites';
+  return `Saved since ${date.toLocaleString('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  })}`;
+}
+
+function updateFavoriteButton(btn) {
+  if (!btn) return;
+  const slug = btn.dataset.favoriteSlug;
+  const favEntry = getFavoriteEntry(slug);
+  const active = !!favEntry;
+  const label = active ? 'Remove from Favorites' : 'Add to Favorites';
+
+  btn.innerHTML = active ? ICONS.bookmarkHeartFill : ICONS.bookmarkHeart;
+  btn.classList.toggle('active', active);
+  btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  btn.setAttribute('aria-label', label);
+  btn.title = active ? formatSavedSince(favEntry.savedAt) : label;
+}
+
+function renderFavoriteButton(slug, extraClass = '') {
+  return `
+    <button type="button" class="favorite-btn fav-btn ${extraClass}" data-favorite-slug="${slug}" aria-label="Add to Favorites" title="Add to Favorites">
+      ${ICONS.bookmarkHeart}
+    </button>
+  `;
+}
+
+function bindFavoriteButtons(root = document) {
+  root.querySelectorAll('[data-favorite-slug]').forEach(updateFavoriteButton);
+}
+
+const ICONS = {
+  bookmarkHeartFill: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart-fill" viewBox="0 0 16 16">
+      <path d="M2 15.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2zM8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
+    </svg>`,
+  bookmarkHeart: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart" viewBox="0 0 16 16">
+      <path d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
+      <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.544a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+    </svg>`
+};
+
+function setupFavoriteButton(slug) {
+  const btn = document.getElementById('fav-btn');
+  if (!btn || !slug) return;
+  btn.dataset.favoriteSlug = slug;
+  updateFavoriteButton(btn);
+}
+
+/* --- Scroll Helpers --- */
+window.scrollToTop = function () {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+/* --- Main Initialization --- */
 document.addEventListener('DOMContentLoaded', () => {
-  // Fade-ins + loading hide
+  // Fade-in animations
   document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+
+  // Loading spinner hide
   const loading = document.getElementById('loading');
   if (loading) loading.classList.add('hidden');
 
-  // Scroll-to-top button visibility
-  window.onscroll = scrollFunction;
-  function scrollFunction() {
+  // Scroll to top button visibility
+  window.addEventListener('scroll', () => {
     const scrollBtn = document.getElementById("scrollBtn");
-    if (!scrollBtn) return;
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-      scrollBtn.style.display = "block";
-    } else {
-      scrollBtn.style.display = "none";
-    }
-  }
-
-  // ScrollToTop helper (if used elsewhere)
-  window.scrollToTop = function() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  };
-
-  // Intersection observer for slide-in-left elements
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+    if (scrollBtn) {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollBtn.style.display = "block";
+        scrollBtn.classList.add('visible');
+      } else {
+        scrollBtn.style.display = "none";
+        scrollBtn.classList.remove('visible');
       }
-    });
-  }, { threshold: 0 });
+    }
 
-  document.querySelectorAll('.slide-in-left').forEach(el => observer.observe(el));
+    // Scroll progress bar
+    const scrollProgress = document.getElementById('scrollProgress');
+    if (scrollProgress) {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercentage = (scrollHeight > 0) ? (scrollTop / scrollHeight) * 100 : 0;
+      scrollProgress.style.width = scrollPercentage + '%';
+    }
+  });
 
-  // Scroll progress bar
-  const scrollProgress = document.getElementById('scrollProgress') || (function create() {
+  // Create scroll progress bar if missing
+  if (!document.getElementById('scrollProgress')) {
     const el = document.createElement('div');
     el.id = 'scrollProgress';
     el.style.position = 'fixed';
@@ -101,93 +159,86 @@ document.addEventListener('DOMContentLoaded', () => {
     el.style.height = '5px';
     el.style.backgroundColor = 'var(--maintext)';
     el.style.zIndex = '1000';
+    el.style.transition = 'width 0.1s ease';
     document.body.prepend(el);
-    return el;
-  })();
+  }
 
-  window.addEventListener('scroll', () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollPercentage = (scrollHeight > 0) ? (scrollTop / scrollHeight) * 100 : 0;
-    scrollProgress.style.width = scrollPercentage + '%';
+  // Intersection observer for sliding elements
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.slide-in-left, .slide-in-right').forEach(el => observer.observe(el));
+
+  /* --- Modal Wiring (Event Delegation for Opener & Action Buttons) --- */
+  document.addEventListener('click', (e) => {
+    const favoriteBtn = e.target.closest('[data-favorite-slug]');
+    if (favoriteBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleFavorite(favoriteBtn.dataset.favoriteSlug);
+      updateFavoriteButton(favoriteBtn);
+    }
+
+    // Opener: Reset Favorites Modal
+    if (e.target.closest('#openResetFavorites')) {
+      const modalEl = document.getElementById('confirmFavoritesModal');
+      if (modalEl && typeof bootstrap !== 'undefined') {
+        const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        modal.show();
+      }
+    }
+
+    // Opener: Reset All Local Data Modal
+    if (e.target.closest('#openResetStorage')) {
+      const modalEl = document.getElementById('confirmStorageModal');
+      if (modalEl && typeof bootstrap !== 'undefined') {
+        const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+        modal.show();
+      }
+    }
+
+    // Action: Confirm Clear Favorites
+    if (e.target.closest('#resetFavorites')) {
+      setFavorites([]);
+      const modalEl = document.getElementById('confirmFavoritesModal');
+      if (modalEl && typeof bootstrap !== 'undefined') {
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+      }
+      document.dispatchEvent(new CustomEvent('favorites:cleared'));
+      alert('Favorites cleared.');
+      if (window.location.pathname.toLowerCase().includes('favorites')) {
+        window.location.reload();
+      }
+    }
+
+    // Action: Confirm Reset Storage
+    if (e.target.closest('#resetStorage')) {
+      try { localStorage.clear(); } catch {}
+      const modalEl = document.getElementById('confirmStorageModal');
+      if (modalEl && typeof bootstrap !== 'undefined') {
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        if (modal) modal.hide();
+      }
+      alert('All local site data cleared. Reloading page.');
+      window.location.reload();
+    }
   });
 
-  // Sliding element observer already set
+  document.addEventListener('favorites:changed', (event) => {
+    const slug = event.detail && event.detail.slug;
+    const buttons = slug
+      ? Array.from(document.querySelectorAll('[data-favorite-slug]')).filter(btn => btn.dataset.favoriteSlug === slug)
+      : Array.from(document.querySelectorAll('[data-favorite-slug]'));
+    buttons.forEach(updateFavoriteButton);
+  });
 
-  /* ---------------------------
-     Modal wiring & destructive actions
-     --------------------------- */
-  const favModalEl = document.getElementById('confirmFavoritesModal');
-  const storageModalEl = document.getElementById('confirmStorageModal');
-  const heroModalEl = document.getElementById('heroModal');
-
-  const favModal = favModalEl ? new bootstrap.Modal(favModalEl, { keyboard: true }) : null;
-  const storageModal = storageModalEl ? new bootstrap.Modal(storageModalEl, { keyboard: true }) : null;
-  const heroModal = heroModalEl ? new bootstrap.Modal(heroModalEl, { keyboard: true }) : null;
-
-  // openers (visible buttons)
-  const openFavBtn = document.getElementById('openResetFavorites');
-  const openStorageBtn = document.getElementById('openResetStorage');
-
-  // confirm (destructive) buttons keep original IDs
-  const confirmClearFavs = document.getElementById('resetFavorites'); // destructive ID preserved
-  const confirmResetStorage = document.getElementById('resetStorage'); // destructive ID preserved
-
-  // cancel buttons
-  const cancelFavBtn = document.getElementById('cancelFavorites');
-  const cancelStorageBtn = document.getElementById('cancelStorage');
-
-  // show modals when openers clicked
-  if (openFavBtn && favModal) openFavBtn.addEventListener('click', () => favModal.show());
-  if (openStorageBtn && storageModal) openStorageBtn.addEventListener('click', () => storageModal.show());
-
-  // focus management: destructive button gets focus when modal opens
-  if (favModalEl && confirmClearFavs) {
-    favModalEl.addEventListener('shown.bs.modal', () => confirmClearFavs.focus());
-    favModalEl.addEventListener('hidden.bs.modal', () => { try { openFavBtn && openFavBtn.focus(); } catch {} });
-  }
-  if (storageModalEl && confirmResetStorage) {
-    storageModalEl.addEventListener('shown.bs.modal', () => confirmResetStorage.focus());
-    storageModalEl.addEventListener('hidden.bs.modal', () => { try { openStorageBtn && openStorageBtn.focus(); } catch {} });
-  }
-
-  // Confirm clear favorites
-  if (confirmClearFavs) {
-    confirmClearFavs.addEventListener('click', () => {
-      try {
-        setFavorites([]); // clears favorites array
-      } catch (err) {
-        console.error('Failed to clear favorites', err);
-      }
-      if (favModal) favModal.hide();
-      // lightweight feedback; replace with toast if desired
-      try { alert('Favorites cleared.'); } catch (e) { console.log('Favorites cleared.'); }
-      // notify other scripts
-      document.dispatchEvent(new CustomEvent('favorites:cleared'));
-    });
-  }
-
-  // Confirm reset all site data
-  if (confirmResetStorage) {
-    confirmResetStorage.addEventListener('click', () => {
-      try {
-        localStorage.clear();
-      } catch (err) {
-        console.error('Failed to clear localStorage', err);
-      }
-      if (storageModal) storageModal.hide();
-      try { alert('All local site data cleared. Page will reload.'); } catch (e) { console.log('Site data cleared.'); }
-      location.reload();
-    });
-  }
-
-  // cancel buttons return focus to opener (bootstrap hides automatically)
-  if (cancelFavBtn) cancelFavBtn.addEventListener('click', () => { try { openFavBtn && openFavBtn.focus(); } catch {} });
-  if (cancelStorageBtn) cancelStorageBtn.addEventListener('click', () => { try { openStorageBtn && openStorageBtn.focus(); } catch {} });
-
-  /* ---------------------------
-     Keyboard shortcuts (global)
-     --------------------------- */
+  /* --- Global Keyboard Shortcuts --- */
   document.addEventListener('keydown', (event) => {
     const tag = (event.target && event.target.tagName) || '';
     if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
@@ -202,60 +253,57 @@ document.addEventListener('DOMContentLoaded', () => {
       case 't':
         document.body.classList.toggle('darkmode');
         localStorage.setItem('theme', document.body.classList.contains('darkmode') ? 'dark' : 'light');
-        console.log('Mode toggled');
         break;
 
       case 'd': {
-        // hide heroModal and mark dismissed
-        if (!heroModalEl) { console.warn('heroModal not found'); break; }
-        const instance = bootstrap.Modal.getInstance(heroModalEl) || new bootstrap.Modal(heroModalEl);
-        instance.hide();
-        localStorage.setItem('modalDismissed', 'true');
-        console.log('heroModal hidden and dismissed.');
+        const heroModalEl = document.getElementById('heroModal');
+        if (heroModalEl && typeof bootstrap !== 'undefined') {
+          const instance = bootstrap.Modal.getInstance(heroModalEl) || new bootstrap.Modal(heroModalEl);
+          instance.hide();
+          localStorage.setItem('modalDismissed', 'true');
+        }
         break;
       }
 
       case 'c': {
-        // show heroModal
-        if (!heroModalEl) { console.warn('heroModal not found'); break; }
-        const instance = bootstrap.Modal.getInstance(heroModalEl) || new bootstrap.Modal(heroModalEl);
-        instance.show();
+        const heroModalEl = document.getElementById('heroModal');
+        if (heroModalEl && typeof bootstrap !== 'undefined') {
+          const instance = bootstrap.Modal.getInstance(heroModalEl) || new bootstrap.Modal(heroModalEl);
+          instance.show();
+        }
         break;
       }
 
       case 'f': {
-        // open favorites confirmation
-        if (favModal) {
+        const favModalEl = document.getElementById('confirmFavoritesModal');
+        if (favModalEl && typeof bootstrap !== 'undefined') {
           event.preventDefault();
-          favModal.show();
+          const instance = bootstrap.Modal.getInstance(favModalEl) || new bootstrap.Modal(favModalEl);
+          instance.show();
         }
         break;
       }
 
       case 'r': {
-        // open reset data confirmation
-        if (storageModal) {
+        const storageModalEl = document.getElementById('confirmStorageModal');
+        if (storageModalEl && typeof bootstrap !== 'undefined') {
           event.preventDefault();
-          storageModal.show();
+          const instance = bootstrap.Modal.getInstance(storageModalEl) || new bootstrap.Modal(storageModalEl);
+          instance.show();
         }
         break;
       }
 
       case 'escape': {
-        // close any open bootstrap modal
-        const openModals = document.querySelectorAll('.modal.show');
-        openModals.forEach((modalEl) => {
-          const inst = bootstrap.Modal.getInstance(modalEl);
-          if (inst) inst.hide();
-        });
+        if (typeof bootstrap !== 'undefined') {
+          document.querySelectorAll('.modal.show').forEach((modalEl) => {
+            const inst = bootstrap.Modal.getInstance(modalEl);
+            if (inst) inst.hide();
+          });
+        }
         break;
       }
-
-      // default: no-op
     }
   });
 
-}); // end DOMContentLoaded
-
-// Small debug/sniff left intentionally
-console.log(getComputedStyle(document.body).backgroundColor);
+});
