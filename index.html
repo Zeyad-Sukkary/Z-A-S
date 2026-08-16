@@ -30,6 +30,22 @@
         This website's Mode has not been updated in a while.
       </div>
 
+      <button class="btn btn-accent continue-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#continueReadingPanel" aria-controls="continueReadingPanel">
+        Continue Reading
+      </button>
+
+      <aside class="offcanvas offcanvas-start continue-reading-panel" tabindex="-1" id="continueReadingPanel" aria-labelledby="continueReadingTitle">
+        <div class="offcanvas-header">
+          <h2 class="offcanvas-title h4" id="continueReadingTitle">Continue Reading</h2>
+          <button type="button" class="btn-close themed-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div id="continue-reading-list" class="continue-reading-list stagger-children">
+            <p class="mb-0">Loading articles...</p>
+          </div>
+        </div>
+      </aside>
+
       <div class="container px-4 py-3 top-headlines-section" id="trending-cards">
         <h2 class="pb-2 border-bottom">
           <b><span class="topheadlines1">Top</span> <span class="topheadlines2">Headlines</span></b>

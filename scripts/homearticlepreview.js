@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const trendingContainer  = document.getElementById('trendingContainer');
   const latestContainer    = document.getElementById('article-preview-container');
   const noArticlesMsg      = document.getElementById('noArticlesMsg');
+  const continueList       = document.getElementById('continue-reading-list');
 
   if (featuredContainer) showFeaturedSkeletons(featuredContainer, 3);
   if (trendingContainer) showSkeletons(trendingContainer, 3, true);
@@ -106,6 +107,46 @@ document.addEventListener('DOMContentLoaded', () => {
       const valid = raw.filter(a =>
         a && a.title && a.slug && a.cover && a.date && a.content && a.authors
       );
+
+      function renderContinueReading(allArticles) {
+        if (!continueList) return;
+        const history = typeof getReadHistory === 'function' ? getReadHistory() : [];
+        const bySlug = new Map(allArticles.map(article => [article.slug, article]));
+        const unreadHistory = history
+          .filter(entry => !entry.markedRead && bySlug.has(entry.slug))
+          .map(entry => ({ ...bySlug.get(entry.slug), ...entry }));
+
+        let source = unreadHistory;
+        if (!source.length) {
+          const readSlugs = new Set(history.filter(entry => entry.markedRead).map(entry => entry.slug));
+          source = [...allArticles]
+            .filter(article => !readSlugs.has(article.slug))
+            .sort((a, b) => (typeof parseArticleDate === 'function' ? parseArticleDate(b.date) - parseArticleDate(a.date) : new Date(b.date) - new Date(a.date)))
+            .slice(0, 5);
+        }
+
+        if (!source.length) {
+          continueList.innerHTML = '<p class="mb-0">No unread articles available right now.</p>';
+          return;
+        }
+
+        continueList.innerHTML = source.slice(0, 5).map(article => `
+          <article class="continue-reading-item fade-in">
+            <a href="article.html?slug=${encodeURIComponent(article.slug)}" class="text-decoration-none">
+              <img src="${article.cover || 'pics/default-image.webp'}" alt="${article.title || ''}">
+              <div>
+                <h3 class="h6 mb-1">${article.title || 'Untitled article'}</h3>
+                <small>${article.date || 'Unknown date'}</small>
+                ${typeof renderReadStatus === 'function' ? renderReadStatus(article.slug, 'mt-2') : ''}
+              </div>
+            </a>
+          </article>
+        `).join('');
+
+        if (typeof staggerFadeChildren === 'function') staggerFadeChildren(continueList);
+      }
+
+      renderContinueReading(valid);
 
       // FEATURED CAROUSEL
       if (featuredContainer) {
@@ -211,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
           latestContainer.innerHTML = '';
           for (let i = 0; i < pickLatest.length; i += 3) {
             const row = document.createElement('div');
-            row.className = 'row mb-4';
+            row.className = 'row mb-4 stagger-children';
             pickLatest.slice(i, i + 3).forEach(art => {
               const snippet = (()=>{
                 try {
@@ -254,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             latestContainer.appendChild(row);
           }
+          if (typeof staggerFadeChildren === 'function') staggerFadeChildren(latestContainer);
           document.querySelectorAll('.slide-in-left').forEach(el => el.classList.add('visible'));
         }
       }
@@ -263,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (featuredContainer) featuredContainer.innerHTML = '<p class="text-center">Could not load featured articles right now.</p>';
       if (trendingContainer) trendingContainer.innerHTML = '';
       if (latestContainer) latestContainer.innerHTML = '';
+      if (continueList) continueList.innerHTML = '<p class="mb-0">Could not load articles right now.</p>';
       if (noArticlesMsg) {
         noArticlesMsg.classList.remove('d-none');
         noArticlesMsg.textContent = 'Could not load articles right now. Please try again later.';

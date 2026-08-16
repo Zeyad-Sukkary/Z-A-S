@@ -54,6 +54,47 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  let currentArticleSlug = slug;
+  let progressSaveAllowed = true;
+
+  function getArticleReadProgress() {
+    const articleEl = document.querySelector('article.news-item');
+    const headerEl = document.querySelector('header');
+    const footerEl = document.querySelector('footer');
+    if (!articleEl) return 0;
+
+    const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 0;
+    const footerHeight = footerEl ? footerEl.getBoundingClientRect().height : 0;
+    const viewport = Math.max(0, window.innerHeight - headerHeight);
+
+    if (articleEl.scrollHeight <= viewport) {
+      progressSaveAllowed = false;
+      return 0;
+    }
+
+    progressSaveAllowed = true;
+    const articleTop = articleEl.offsetTop;
+    const readableHeight = Math.max(1, articleEl.scrollHeight - viewport);
+    const readTop = Math.max(0, window.scrollY + headerHeight - articleTop);
+    const footerAdjustedLimit = Math.max(1, document.documentElement.scrollHeight - window.innerHeight - footerHeight);
+    const pageLimit = Math.max(readableHeight, footerAdjustedLimit);
+    return Math.max(0, Math.min(99, (readTop / Math.min(readableHeight, pageLimit)) * 100));
+  }
+
+  function saveArticleProgress() {
+    if (!currentArticleSlug || typeof upsertReadHistory !== 'function') return;
+    const existing = typeof getReadHistoryEntry === 'function' ? getReadHistoryEntry(currentArticleSlug) : null;
+    if (existing && existing.markedRead) return;
+    const progress = getArticleReadProgress();
+    if (!progressSaveAllowed) return;
+    if (progress > 2 || existing) {
+      upsertReadHistory(currentArticleSlug, { progress: Math.max(progress, existing ? existing.progress || 0 : 0) });
+    }
+  }
+
+  window.addEventListener('pagehide', saveArticleProgress);
+  window.addEventListener('beforeunload', saveArticleProgress);
+
   // Fetch & Render Article
   fetch(`articles/${encodeURIComponent(slug)}.json`)
     .then(res => {
@@ -95,6 +136,23 @@ document.addEventListener('DOMContentLoaded', () => {
       // Setup favorite button
       if (typeof setupFavoriteButton === 'function') {
         setupFavoriteButton(slug);
+      }
+
+      const headerReadBtn = document.getElementById('headerMarkReadBtn');
+      if (headerReadBtn && typeof updateMarkReadButton === 'function') {
+        headerReadBtn.dataset.markReadSlug = slug;
+        updateMarkReadButton(headerReadBtn);
+      }
+
+      const actionsEl = document.getElementById('article-actions');
+      if (actionsEl && typeof renderMarkReadButton === 'function') {
+        actionsEl.innerHTML = `
+          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+            <span class="small text-secondary">Track your reading progress locally in this browser.</span>
+            ${renderMarkReadButton(slug, 'article-bottom-read-btn')}
+          </div>
+        `;
+        if (typeof bindMarkReadButtons === 'function') bindMarkReadButtons(actionsEl);
       }
 
       // Fetch related posts

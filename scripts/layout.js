@@ -59,13 +59,18 @@
 
     const isArticle = pageKey === 'article';
 
-    const favButtonHtml = isArticle ? `
+    const articleActionsHtml = isArticle ? `
       <li class="fade-in nav-item me-2" title="Add to Favorites">
         <button id="fav-btn" type="button" class="favorite-btn fav-btn" aria-label="Bookmark article" title="Add to Favorites">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
             <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
           </svg>
+        </button>
+      </li>
+      <li class="fade-in nav-item" title="Mark article as read">
+        <button id="headerMarkReadBtn" type="button" class="btn mark-read-btn btn-outline-themed btn-sm" aria-label="Mark article as read">
+          <span aria-hidden="true">○</span> Mark as read
         </button>
       </li>
     ` : '';
@@ -83,7 +88,7 @@
 
           <div id="siteNavigation" class="collapse navbar-collapse mt-3 mt-lg-0 justify-content-lg-end">
             <div class="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-3 ms-lg-auto w-100">
-              <ul class="nav nav-pills header-nav justify-content-center justify-content-lg-end align-items-center">
+              <ul class="nav nav-pills header-nav justify-content-center justify-content-lg-end align-items-center stagger-children">
                 <li class="fade-in nav-item" title="Home">
                   <a class="link nav-link ${homeActive}" ${homeActive ? 'id="activenav" aria-current="page"' : ''} href="index.html">Home</a>
                 </li>
@@ -96,7 +101,7 @@
                 <li class="fade-in nav-item" title="Check out your Saved Articles">
                   <a class="link nav-link ${favActive}" ${favActive ? 'id="activenav" aria-current="page"' : ''} href="Favorites.html">Favorites</a>
                 </li>
-                ${favButtonHtml}
+                ${articleActionsHtml}
               </ul>
 
               <!-- Universal Expandable Search Bar -->

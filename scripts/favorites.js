@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showSkeletons(count) {
     const cards = Array.from({ length: Math.max(count, 1) }).map(() => `
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-md-6 col-xl-4">
         <article class="favorite-card favorite-card-skeleton placeholder-glow" aria-hidden="true">
           <div class="favorite-card-media placeholder"></div>
           <div class="favorite-card-body">
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function favoriteCard(art, isFullWidth = false) {
     const col = document.createElement('div');
-    col.className = isFullWidth ? 'col-12' : 'col-12 col-lg-6';
+    col.className = isFullWidth ? 'col-12 col-md-6 col-xl-4' : 'col-12 col-md-6 col-xl-4';
 
     col.innerHTML = `
       <article class="favorite-card fade-in h-100" data-favorite-card="${art.slug}">
@@ -107,10 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.createElement('div');
     grid.className = 'row g-4 favorites-grid';
 
-    list.forEach((art, index) => {
-      const isLastOdd = list.length % 2 === 1 && index === list.length - 1;
-      grid.appendChild(favoriteCard(art, isLastOdd));
-    });
+    list.forEach(art => grid.appendChild(favoriteCard(art, false)));
 
     target.appendChild(grid);
   }
@@ -125,29 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     noFavsMsg.classList.add('nonedisplay');
 
-    if (list.length <= 3) {
-      renderFavoriteGrid(list, container);
-      initFadeObserver();
-      return;
-    }
-
-    renderFavoriteGrid(list.slice(0, 3), container);
-
-    const toggleWrap = document.createElement('div');
-    toggleWrap.className = 'd-flex justify-content-center my-4';
-    toggleWrap.innerHTML = `
-      <button class="btn btn-outline-themed" type="button" data-bs-toggle="collapse" data-bs-target="#moreFavorites" aria-expanded="false" aria-controls="moreFavorites">
-        Show ${list.length - 3} more favorite${list.length - 3 === 1 ? '' : 's'}
-      </button>
-    `;
-    container.appendChild(toggleWrap);
-
-    const collapse = document.createElement('div');
-    collapse.id = 'moreFavorites';
-    collapse.className = 'collapse favorites-collapse';
-    renderFavoriteGrid(list.slice(3), collapse);
-    container.appendChild(collapse);
-
+    renderFavoriteGrid(list, container);
     initFadeObserver();
   }
 

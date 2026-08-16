@@ -276,7 +276,7 @@
 
           for (let i = 0; i < list.length; i += 2) {
             const row = document.createElement('div');
-            row.className = 'row mb-3';
+            row.className = 'row mb-3 stagger-children';
             for (let j = i; j < i + 2 && j < list.length; j++) {
               const art = list[j];
               const txt = (function () {
@@ -308,9 +308,13 @@
                     </div>
                     <h3 class="mb-3 card-title-discover">${safeTitle}</h3>
                     <div class="card-text card-text-discover mb-auto">${txt}</div>
-                    <a href="article.html?slug=${encodeURIComponent(art.slug || '')}" class="icon-link link gap-1 icon-link-hover stretched-link mt-2" aria-label="Read article ${safeTitle}">
-                      Read more &rarr;
-                    </a>
+                    <div class="mt-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
+                      <a href="article.html?slug=${encodeURIComponent(art.slug || '')}" class="icon-link link gap-1 icon-link-hover" aria-label="Read article ${safeTitle}">
+                        Read more &rarr;
+                      </a>
+                      ${typeof renderMarkReadButton === 'function' ? renderMarkReadButton(art.slug || '', 'btn-sm') : ''}
+                    </div>
+                    ${typeof renderReadStatus === 'function' ? renderReadStatus(art.slug || '', 'mt-3') : ''}
                   </div>
                   <div class="col-auto d-none d-lg-block">
                     <img src="${coverSrc}" width="200" height="320" style="object-fit:cover;" alt="${safeTitle}">
@@ -323,12 +327,14 @@
                   if (observer) observer.observe(el);
                   else el.classList.add('visible');
                 }
+                if (typeof bindMarkReadButtons === 'function') bindMarkReadButtons(col);
               } catch (e) {}
 
               row.appendChild(col);
             }
             container.appendChild(row);
           }
+          if (typeof staggerFadeChildren === 'function') staggerFadeChildren(container);
         }
 
       })
