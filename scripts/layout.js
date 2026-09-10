@@ -25,20 +25,18 @@
       document.body.appendChild(container);
     }
 
+    const modCue = renderKbdCue('ArrowUp');
+    const modText = getModKeyLabel();
+
     container.innerHTML = `
-      <button id="theme-switch" title="Press T to Toggle" class="theme-switch slide-in-left" aria-label="Toggle Dark or Light Mode">
-        <svg xmlns="http://www.w3.org/2000/svg" title="Switch to Dark" height="50px" viewBox="0 -960 960 960" width="50px" fill="var(--fillcolor)">
-          <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" title="Switch to Light" height="50px" viewBox="0 -960 960 960" width="50px" fill="var(--fillcolor)">
-          <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/>
-        </svg>
+      <button id="theme-switch" title="Press ${modText} + Shift + D to Toggle" class="theme-switch slide-in-left" aria-label="Toggle Dark or Light Mode">
+        <span class="theme-icon-dark">${TABLER_ICONS.brightness}</span>
+        <span class="theme-icon-light">${TABLER_ICONS.brightness}</span>
       </button>
 
-      <button class="slide-in-right scrolltop" onclick="scrollToTop()" id="scrollBtn" title="Go to top" aria-label="Scroll to top">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="var(--main)">
-          <path d="M160-760v-80h640v80H160Zm280 640v-408L336-424l-56-56 200-200 200 200-56 56-104-104v408h-80Z"/>
-        </svg>
+      <button class="slide-in-right scrolltop" onclick="scrollToTop()" id="scrollBtn" title="Go to top (${modText} + Arrow Up)" aria-label="Scroll to top">
+        ${TABLER_ICONS.arrowUp}
+        <span class="d-none d-md-inline-flex ms-1">${modCue}</span>
       </button>
     `;
   }
@@ -58,22 +56,31 @@
     const favActive = pageKey === 'favorites' ? 'active' : '';
 
     const isArticle = pageKey === 'article';
+    const hasUnread = typeof hasUnreadArticles === 'function' ? hasUnreadArticles() : false;
+    const modText = typeof getModKeyLabel === 'function' ? getModKeyLabel() : 'Ctrl';
 
     const articleActionsHtml = isArticle ? `
       <li class="fade-in nav-item me-2" title="Add to Favorites">
         <button id="fav-btn" type="button" class="favorite-btn fav-btn" aria-label="Bookmark article" title="Add to Favorites">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-heart" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 4.41c1.387-1.425 4.854 1.07 0 4.277C3.146 5.48 6.613 2.986 8 4.412z"/>
-            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-          </svg>
+          ${TABLER_ICONS.bookmark}
         </button>
       </li>
       <li class="fade-in nav-item" title="Mark article as read">
         <button id="headerMarkReadBtn" type="button" class="btn mark-read-btn btn-outline-themed btn-sm" aria-label="Mark article as read">
-          <span aria-hidden="true">○</span> Mark as read
+          <span aria-hidden="true">${TABLER_ICONS.check}</span> Mark as read
         </button>
       </li>
     ` : '';
+
+    const continueReadingHeaderBtnHtml = `
+      <li class="fade-in nav-item me-2" id="continueReadingHeaderItem" title="Continue Reading Sidebar (${modText} + H)">
+        <button id="continueReadingHeaderBtn" class="btn btn-accent btn-sm d-inline-flex align-items-center gap-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#continueReadingPanel" aria-controls="continueReadingPanel">
+          ${TABLER_ICONS.article}
+          <span>Continue Reading</span>
+          <span class="ms-1">${typeof renderKbdCue === 'function' ? renderKbdCue('H') : '<kbd class="kbd-badge">Ctrl + H</kbd>'}</span>
+        </button>
+      </li>
+    `;
 
     headerEl.innerHTML = `
       <nav class="navbar navbar-expand-lg p-0">
@@ -83,7 +90,7 @@
           </a>
 
           <button class="navbar-toggler ms-auto d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#siteNavigation" aria-controls="siteNavigation" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            ${TABLER_ICONS.menu}
           </button>
 
           <div id="siteNavigation" class="collapse navbar-collapse mt-3 mt-lg-0 justify-content-lg-end">
@@ -101,17 +108,16 @@
                 <li class="fade-in nav-item" title="Check out your Saved Articles">
                   <a class="link nav-link ${favActive}" ${favActive ? 'id="activenav" aria-current="page"' : ''} href="Favorites.html">Favorites</a>
                 </li>
+                ${continueReadingHeaderBtnHtml}
                 ${articleActionsHtml}
               </ul>
 
-              <!-- Universal Expandable Search Bar -->
+              <!-- Universal Expandable Search Bar with Keybind Cue -->
               <form id="headerSearchForm" class="header-search-form" role="search">
                 <div class="search-box">
-                  <input type="search" class="form-control search-input" placeholder="Search..." id="searchbar" aria-label="Search articles" autocomplete="off">
-                  <button type="submit" class="btn search-btn" aria-label="Submit Search">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                    </svg>
+                  <input type="search" class="form-control search-input" placeholder="Search... (${modText} + K)" id="searchbar" aria-label="Search articles" autocomplete="off">
+                  <button type="submit" class="btn search-btn" aria-label="Submit Search" title="Focus Search (${modText} + K)">
+                    ${TABLER_ICONS.search}
                   </button>
                 </div>
               </form>
@@ -149,6 +155,7 @@
     footerEl.className = 'site-footer';
 
     const currentYear = new Date().getFullYear();
+    const modText = typeof getModKeyLabel === 'function' ? getModKeyLabel() : 'Ctrl';
 
     footerEl.innerHTML = `
       <div class="footer-top">
@@ -164,11 +171,10 @@
           </ul>
         </nav>
         <div class="d-flex align-items-center gap-2">
-          <button data-bs-toggle="modal" data-bs-target="#heroModal" class="btn btn-outline-themed btn-sm" aria-label="Keyboard shortcuts">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
-          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-          <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
-        </svg>
+          <button id="openShortcutsBtn" class="btn btn-outline-themed btn-sm d-inline-flex align-items-center gap-1" aria-label="Keyboard shortcuts" title="Keyboard Shortcuts (${modText} + /)">
+            ${TABLER_ICONS.help}
+            <span>Controls</span>
+            <span class="ms-1">${typeof renderKbdCue === 'function' ? renderKbdCue('/') : '<kbd class="kbd-badge">Ctrl + /</kbd>'}</span>
           </button>
           <button id="openResetStorage" class="btn btn-danger-themed btn-sm">Reset Data</button>
           <a href="https://linktr.ee/zeyadsukk" target="_blank" rel="noopener noreferrer" class="btn btn-success-themed btn-sm">Linktree</a>
@@ -181,95 +187,279 @@
     `;
   }
 
-  // 4. Inject Universal Modals
-  function injectModals() {
-    let modalsEl = document.getElementById('site-modals');
-    if (!modalsEl) {
-      modalsEl = document.createElement('div');
-      modalsEl.id = 'site-modals';
-      document.body.appendChild(modalsEl);
+  // 4. Inject Modular Canvas Modal System & Canvas HTML
+  function injectCanvasModalContainer() {
+    let container = document.getElementById('canvasModalContainer');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'canvasModalContainer';
+      container.className = 'canvas-modal-overlay';
+      container.setAttribute('aria-hidden', 'true');
+      container.innerHTML = `
+        <div class="canvas-modal" role="dialog" aria-modal="true" aria-labelledby="canvasModalTitle">
+          <div class="canvas-modal-header">
+            <h3 id="canvasModalTitle" class="h5 mb-0 fw-bold">Modal</h3>
+            <button type="button" class="icon-btn" onclick="closeCanvasModal()" aria-label="Close">${TABLER_ICONS.x}</button>
+          </div>
+          <div id="canvasModalBody" class="canvas-modal-body">
+            <!-- Dynamic Content or Skeleton Loader -->
+          </div>
+          <div id="canvasModalFooter" class="canvas-modal-footer">
+            <button type="button" class="btn btn-outline-themed" onclick="closeCanvasModal()">Close</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(container);
+
+      container.addEventListener('click', (e) => {
+        if (e.target === container) closeCanvasModal();
+      });
+    }
+  }
+
+  window.openCanvasModal = function ({ title = 'Information', bodyHtml = '', footerActionsHtml = '', showSkeleton = false }) {
+    injectCanvasModalContainer();
+    const overlay = document.getElementById('canvasModalContainer');
+    const titleEl = document.getElementById('canvasModalTitle');
+    const bodyEl = document.getElementById('canvasModalBody');
+    const footerEl = document.getElementById('canvasModalFooter');
+
+    if (!overlay || !titleEl || !bodyEl || !footerEl) return;
+
+    titleEl.textContent = title;
+
+    if (showSkeleton) {
+      bodyEl.innerHTML = `
+        <div class="canvas-skeleton-wrapper">
+          <div class="canvas-skeleton-line" style="width: 70%;"></div>
+          <div class="canvas-skeleton-line" style="width: 90%;"></div>
+          <div class="canvas-skeleton-line" style="width: 60%;"></div>
+          <div class="canvas-skeleton-line" style="width: 80%;"></div>
+        </div>
+      `;
+    } else {
+      bodyEl.innerHTML = bodyHtml;
     }
 
-    modalsEl.innerHTML = `
-      <!-- Keyboard Shortcuts Modal -->
-      <div class="modal fade" id="heroModal" tabindex="-1" aria-labelledby="heroModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="container px-4 py-5">
-                <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-                  <div class="col-10 col-sm-8 col-lg-6">
-                    <img src="pics/controls.jpg" class="d-block mx-lg-auto img-fluid rounded shadow" alt="Controls" width="700" height="500" loading="lazy">
-                  </div>
-                  <div class="col-lg-6">
-                    <h1 class="display-5 fw-bold lh-1 mb-3">Controls — Keyboard Shortcuts</h1>
-                    <h2 class="h5 mb-3">Keyboard Shortcuts</h2>
-                    <ul class="mb-3">
-                      <li><strong>S</strong> — Scroll to top</li>
-                      <li><strong>T</strong> — Toggle dark/light mode</li>
-                      <li><strong>D</strong> — Dismiss this shortcut modal (and mark dismissed)</li>
-                      <li><strong>C</strong> — Show this shortcut modal</li>
-                      <li><strong>F</strong> — Open Clear Favorites confirmation</li>
-                      <li><strong>R</strong> — Open Reset Data confirmation</li>
-                      <li><strong>Esc</strong> — Close any open modal</li>
-                    </ul>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                      <button type="button" class="btn btn-accent btn-lg px-4 me-md-2" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    footerEl.innerHTML = footerActionsHtml || `<button type="button" class="btn btn-outline-themed" onclick="closeCanvasModal()">Close</button>`;
 
-      <!-- Clear Favorites Modal -->
-      <div class="modal fade" id="confirmFavoritesModal" tabindex="-1" aria-labelledby="confirmFavoritesLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-3 shadow">
-            <div class="modal-body p-4 text-center">
-              <h5 id="confirmFavoritesLabel" class="mb-2">Clear all favorites?</h5>
-              <p class="mb-0">This will remove all saved favorites stored locally in your browser. This action cannot be undone.</p>
-            </div>
-            <div class="modal-footer flex-nowrap p-0">
-              <button id="resetFavorites" type="button" class="btn btn-danger-themed btn-lg fs-6 col-6 py-3 m-0 rounded-0">
-                <strong>Yes, clear favorites</strong>
-              </button>
-              <button type="button" id="cancelFavorites" class="btn btn-outline-themed btn-lg fs-6 col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">
-                No, go back
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden', 'false');
+  };
 
-      <!-- Reset Storage Modal -->
-      <div class="modal fade" id="confirmStorageModal" tabindex="-1" aria-labelledby="confirmStorageLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-3 shadow">
-            <div class="modal-body p-4 text-center">
-              <h5 id="confirmStorageLabel" class="mb-2">Reset all site data?</h5>
-              <p class="mb-0">This will clear all local data for this site (preferences, saved items, etc.). The page will reload afterwards.</p>
-            </div>
-            <div class="modal-footer flex-nowrap p-0">
-              <button id="resetStorage" type="button" class="btn btn-danger-themed btn-lg fs-6 col-6 py-3 m-0 rounded-0">
-                <strong>Yes, reset site data</strong>
-              </button>
-              <button type="button" id="cancelStorage" class="btn btn-outline-themed btn-lg fs-6 col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">
-                No, keep data
-              </button>
+  window.closeCanvasModal = function () {
+    const overlay = document.getElementById('canvasModalContainer');
+    if (overlay) {
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+  };
+
+  // Data-Driven Modal open handlers
+  window.openResetFavoritesModal = function () {
+    window.openCanvasModal({
+      title: 'Clear Favorites Confirmation',
+      bodyHtml: `
+        <div class="text-center py-3">
+          <div class="mb-3 text-warning">${TABLER_ICONS.trash}</div>
+          <h4 class="h5 fw-bold mb-2">Clear all saved favorites?</h4>
+          <p class="text-secondary mb-0">This will remove all saved favorites stored locally in your browser. This action cannot be undone.</p>
+        </div>
+      `,
+      footerActionsHtml: `
+        <button type="button" class="btn btn-outline-themed" onclick="closeCanvasModal()">Cancel</button>
+        <button type="button" class="btn btn-danger-themed" id="confirmClearFavsAction">Clear Favorites</button>
+      `
+    });
+  };
+
+  window.openResetStorageModal = function () {
+    window.openCanvasModal({
+      title: 'Reset Site Data Confirmation',
+      bodyHtml: `
+        <div class="text-center py-3">
+          <div class="mb-3 text-danger">${TABLER_ICONS.trash}</div>
+          <h4 class="h5 fw-bold mb-2">Reset all local site data?</h4>
+          <p class="text-secondary mb-0">This will clear all local storage for Z-A-S (reading progress, favorites, preferences). The page will reload.</p>
+        </div>
+      `,
+      footerActionsHtml: `
+        <button type="button" class="btn btn-outline-themed" onclick="closeCanvasModal()">Cancel</button>
+        <button type="button" class="btn btn-danger-themed" id="confirmResetStorageAction">Reset All Data</button>
+      `
+    });
+  };
+
+  window.openShortcutsModal = function () {
+    const hasUnread = typeof hasUnreadArticles === 'function' ? hasUnreadArticles() : false;
+    const renderCue = renderKbdCue;
+
+    window.openCanvasModal({
+      title: 'Controls & Keyboard Shortcuts',
+      bodyHtml: `
+        <div class="shortcuts-guide-wrapper">
+          <div class="d-flex align-items-center gap-3 mb-3 p-3 rounded border background-mix">
+            <div class="fs-4 text-primary">${TABLER_ICONS.help}</div>
+            <div>
+              <h4 class="h6 mb-1 fw-bold">Interactive Navigation Shortcuts</h4>
+              <p class="small text-secondary mb-0">Shortcut cues match your operating system and use the ${getModKeyName()} modifier.</p>
             </div>
           </div>
+
+          <div class="table-responsive">
+            <table class="table table-borderless align-middle mb-0">
+              <tbody>
+                <tr>
+                  <td>${renderCue('K')} or ${renderCue('S')}</td>
+                  <td>Focus header search bar input</td>
+                  <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                </tr>
+                <tr class="${!hasUnread ? 'cue-disabled' : ''}">
+                  <td>${renderCue('H')}</td>
+                  <td>Toggle Continue Reading sidebar panel</td>
+                  <td>${hasUnread ? '<span class="badge bg-success-subtle text-success">Active</span>' : '<span class="badge bg-secondary-subtle text-secondary">No unread articles</span>'}</td>
+                </tr>
+                <tr>
+                  <td>${renderCue('ArrowUp')}</td>
+                  <td>Scroll page smoothly to top</td>
+                  <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                </tr>
+                <tr>
+                  <td>${renderCue('Shift + D')}</td>
+                  <td>Toggle Dark or Light theme mode</td>
+                  <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                </tr>
+                <tr>
+                  <td>${renderCue('Shift + F')}</td>
+                  <td>Open Clear Favorites confirmation dialog</td>
+                  <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                </tr>
+                <tr>
+                  <td>${renderCue('Shift + R')}</td>
+                  <td>Open Reset Storage confirmation dialog</td>
+                  <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                </tr>
+                <tr>
+                  <td>${typeof renderStandaloneKeyCue === 'function' ? renderStandaloneKeyCue('Esc') : '<kbd class="kbd-badge">Esc</kbd>'}</td>
+                  <td>Close any open modal dialog or offcanvas panel</td>
+                  <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    `;
+      `,
+      footerActionsHtml: `
+        <button type="button" class="btn btn-accent" onclick="closeCanvasModal()">Got it</button>
+      `
+    });
+  };
+
+  // 5. Update Header Unread Continue Button Visibility
+  function updateHeaderUnreadButtonState() {
+    const itemEl = document.getElementById('continueReadingHeaderItem');
+    if (!itemEl) return;
+    const unreadExist = typeof hasUnreadArticles === 'function' ? hasUnreadArticles() : false;
+    if (unreadExist) {
+      itemEl.classList.remove('d-none');
+    } else {
+      itemEl.classList.add('d-none');
+    }
+  }
+
+  // Inject Offcanvas Continue Reading Panel if missing
+  function injectContinueReadingPanel() {
+    let panelEl = document.getElementById('continueReadingPanel');
+    if (!panelEl) {
+      panelEl = document.createElement('aside');
+      panelEl.className = 'offcanvas offcanvas-start continue-reading-panel';
+      panelEl.tabIndex = -1;
+      panelEl.id = 'continueReadingPanel';
+      panelEl.setAttribute('aria-labelledby', 'continueReadingTitle');
+      panelEl.innerHTML = `
+        <div class="offcanvas-header">
+          <h2 class="offcanvas-title h4" id="continueReadingTitle">Continue Reading</h2>
+          <button type="button" class="icon-btn" data-bs-dismiss="offcanvas" aria-label="Close">${TABLER_ICONS.x}</button>
+        </div>
+        <div class="offcanvas-body">
+          <div id="continue-reading-list" class="continue-reading-list stagger-children">
+            <p class="mb-0">Loading articles...</p>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(panelEl);
+    }
   }
 
   // Execute component injection
   injectFloatingControls();
   injectHeader();
   injectFooter();
-  injectModals();
+  injectCanvasModalContainer();
+  injectContinueReadingPanel();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateHeaderUnreadButtonState();
+
+    document.addEventListener('readhistory:changed', updateHeaderUnreadButtonState);
+
+    // Offcanvas Continue Reading Panel setup & empty state prompt
+    const panelEl = document.getElementById('continueReadingPanel');
+    if (panelEl) {
+      panelEl.addEventListener('show.bs.offcanvas', () => {
+        const listEl = document.getElementById('continue-reading-list');
+        if (!listEl) return;
+
+        const history = typeof getReadHistory === 'function' ? getReadHistory() : [];
+        const unreadHistory = history.filter(item => !item.markedRead);
+
+        if (!unreadHistory.length) {
+          listEl.innerHTML = `
+            <div class="empty-continue-prompt text-center py-4 px-3 rounded border">
+              <div class="mb-2 text-warning">${TABLER_ICONS.article}</div>
+              <h4 class="h6 fw-bold mb-2">No unread articles in your reading list</h4>
+              <p class="small text-secondary mb-3">Explore our curated collection to start reading and tracking progress!</p>
+              <a href="Discover.html" class="btn btn-accent btn-sm">Start Reading ${TABLER_ICONS.arrowRight}</a>
+            </div>
+          `;
+        }
+      });
+    }
+  });
+
+  // Global event delegation for modal triggers
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#openResetFavorites')) {
+      e.preventDefault();
+      window.openResetFavoritesModal();
+    }
+
+    if (e.target.closest('#openResetStorage')) {
+      e.preventDefault();
+      window.openResetStorageModal();
+    }
+
+    if (e.target.closest('#openShortcutsBtn') || e.target.closest('[data-bs-target="#heroModal"]')) {
+      e.preventDefault();
+      window.openShortcutsModal();
+    }
+
+    if (e.target.closest('#confirmClearFavsAction')) {
+      if (typeof setFavorites === 'function') setFavorites([]);
+      window.closeCanvasModal();
+      document.dispatchEvent(new CustomEvent('favorites:cleared'));
+      alert('Favorites cleared.');
+      if (window.location.pathname.toLowerCase().includes('favorites')) {
+        window.location.reload();
+      }
+    }
+
+    if (e.target.closest('#confirmResetStorageAction')) {
+      try { localStorage.clear(); } catch { }
+      window.closeCanvasModal();
+      alert('All local site data cleared. Reloading page.');
+      window.location.reload();
+    }
+  });
 
 })();

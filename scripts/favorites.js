@@ -73,9 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return truncateHTML(html);
   }
 
-  function favoriteCard(art, isFullWidth = false) {
+  function favoriteCard(art) {
     const col = document.createElement('div');
-    col.className = isFullWidth ? 'col-12 col-md-6 col-xl-4' : 'col-12 col-md-6 col-xl-4';
+    col.className = 'col-favorite-item';
 
     col.innerHTML = `
       <article class="favorite-card fade-in h-100" data-favorite-card="${art.slug}">
@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderFavoriteGrid(list, target) {
     const grid = document.createElement('div');
-    grid.className = 'row g-4 favorites-grid';
+    grid.className = 'favorites-flexible-grid';
 
-    list.forEach(art => grid.appendChild(favoriteCard(art, false)));
+    list.forEach(art => grid.appendChild(favoriteCard(art)));
 
     target.appendChild(grid);
   }

@@ -1,3 +1,27 @@
+function setupDesktopStickyHeader() {
+  const heroHeader = document.getElementById('article-hero-header');
+  const stickyBar = document.getElementById('sticky-article-bar');
+  if (!heroHeader || !stickyBar) return;
+
+  function checkStickyScroll() {
+    if (window.innerWidth < 992) {
+      stickyBar.classList.remove('visible');
+      return;
+    }
+
+    const heroBottom = heroHeader.offsetTop + heroHeader.offsetHeight - 40;
+    if (window.scrollY > heroBottom) {
+      stickyBar.classList.add('visible');
+    } else {
+      stickyBar.classList.remove('visible');
+    }
+  }
+
+  window.addEventListener('scroll', checkStickyScroll, { passive: true });
+  window.addEventListener('resize', checkStickyScroll, { passive: true });
+  checkStickyScroll();
+}
+
 // ─── Page Skeleton Helper ────────────────────────────────────────────────
 function showPageSkeletons(relatedCount = 4) {
   const artTitle = document.getElementById('article-title');
@@ -102,23 +126,32 @@ document.addEventListener('DOMContentLoaded', () => {
       return res.json();
     })
     .then(article => {
+      const stickyTitle = document.getElementById('sticky-title');
+      const stickyAuthor = document.getElementById('sticky-author');
+      const stickyDate = document.getElementById('sticky-date');
+      const stickyImg = document.getElementById('sticky-image');
+
       const titleEl = document.getElementById('article-title');
       const pageTitleEl = document.getElementById('page-title');
       const authorEl = document.getElementById('author');
       const dateEl = document.getElementById('article-date');
-      const contentEl = document.getElementById('article-content');
       const imgEl = document.getElementById('image');
-
+      const contentEl = document.getElementById('article-content');
       if (titleEl) titleEl.textContent = article.title || "Untitled Article";
       if (pageTitleEl) pageTitleEl.textContent = article.title ? `${article.title} | Z-A-S` : "Article | Z-A-S";
       if (authorEl) authorEl.textContent = article.authors || "Unknown Author";
       if (dateEl) dateEl.textContent = article.date || "";
 
+      if (stickyTitle) stickyTitle.textContent = article.title || "Untitled Article";
+      if (stickyAuthor) stickyAuthor.textContent = article.authors || "Unknown Author";
+      if (stickyDate) stickyDate.textContent = article.date || "";
+      if (stickyImg) stickyImg.src = article.cover || "pics/default-image.webp";
+
       if (imgEl) {
         imgEl.classList.remove('placeholder');
         imgEl.style = '';
         imgEl.src = article.cover || "pics/default-image.webp";
-        imgEl.alt = article.title || "Article Image";
+        imgEl.alt = article.title || "Article Cover Image";
       }
 
       if (contentEl) {
@@ -126,6 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
           ? marked.parse(article.content || "")
           : (article.content || "<p>No content available.</p>");
       }
+
+      // Initialize Desktop Sticky Minimized Article Bar Scroll Mobility
+      setupDesktopStickyHeader();
 
       // Initialize Lightbox after injection
       if (window.initArticleLightbox) {
@@ -144,16 +180,30 @@ document.addEventListener('DOMContentLoaded', () => {
         updateMarkReadButton(headerReadBtn);
       }
 
-      const actionsEl = document.getElementById('article-actions');
-      if (actionsEl && typeof renderMarkReadButton === 'function') {
+      function renderArticleActions() {
+        const actionsEl = document.getElementById('article-actions');
+        if (!actionsEl) return;
+        const entry = typeof getReadHistoryEntry === 'function' ? getReadHistoryEntry(slug) : null;
+        const isRead = !!(entry && entry.markedRead);
+
         actionsEl.innerHTML = `
           <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
             <span class="small text-secondary">Track your reading progress locally in this browser.</span>
-            ${renderMarkReadButton(slug, 'article-bottom-read-btn')}
+            <div class="d-flex align-items-center gap-2">
+              ${isRead && typeof renderUnreadButton === 'function' ? renderUnreadButton(slug, 'Mark as Unread', 'btn-sm') : ''}
+              ${typeof renderMarkReadButton === 'function' ? renderMarkReadButton(slug, 'article-bottom-read-btn btn-sm') : ''}
+            </div>
           </div>
         `;
         if (typeof bindMarkReadButtons === 'function') bindMarkReadButtons(actionsEl);
       }
+
+      renderArticleActions();
+      document.addEventListener('readhistory:changed', (e) => {
+        if (e.detail && e.detail.slug === slug) {
+          renderArticleActions();
+        }
+      });
 
       // Fetch related posts
       return fetch('articles/index.json')

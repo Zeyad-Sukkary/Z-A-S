@@ -69,12 +69,12 @@ function showFeaturedSkeletons(container, count = 3) {
       <div class="carousel-inner">${slides}</div>
       <button class="carousel-control-prev" type="button"
               data-bs-target="#featuredCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
+        ${TABLER_ICONS.arrowLeft}
         <span class="visually-hidden">Previous</span>
       </button>
       <button class="carousel-control-next" type="button"
               data-bs-target="#featuredCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
+        ${TABLER_ICONS.arrowRight}
         <span class="visually-hidden">Next</span>
       </button>
     </div>
@@ -116,32 +116,49 @@ document.addEventListener('DOMContentLoaded', () => {
           .filter(entry => !entry.markedRead && bySlug.has(entry.slug))
           .map(entry => ({ ...bySlug.get(entry.slug), ...entry }));
 
-        let source = unreadHistory;
-        if (!source.length) {
+        if (unreadHistory.length > 0) {
+          continueList.innerHTML = unreadHistory.slice(0, 6).map(article => `
+            <article class="continue-reading-item fade-in">
+              <a href="article.html?slug=${encodeURIComponent(article.slug)}" class="text-decoration-none">
+                <img src="${article.cover || 'pics/default-image.webp'}" alt="${article.title || ''}">
+                <div>
+                  <h3 class="h6 mb-1">${article.title || 'Untitled article'}</h3>
+                  <small>${article.date || 'Unknown date'}</small>
+                  ${typeof renderReadStatus === 'function' ? renderReadStatus(article.slug, 'mt-2') : ''}
+                </div>
+              </a>
+            </article>
+          `).join('');
+        } else {
+          // Empty prompt + Start Reading suggestion list CTA
           const readSlugs = new Set(history.filter(entry => entry.markedRead).map(entry => entry.slug));
-          source = [...allArticles]
+          const suggestions = [...allArticles]
             .filter(article => !readSlugs.has(article.slug))
-            .sort((a, b) => (typeof parseArticleDate === 'function' ? parseArticleDate(b.date) - parseArticleDate(a.date) : new Date(b.date) - new Date(a.date)))
-            .slice(0, 5);
-        }
+            .slice(0, 4);
+          const pick = suggestions.length ? suggestions : allArticles.slice(0, 4);
 
-        if (!source.length) {
-          continueList.innerHTML = '<p class="mb-0">No unread articles available right now.</p>';
-          return;
-        }
+          const suggestionsHtml = pick.map(article => `
+            <article class="continue-reading-item fade-in">
+              <a href="article.html?slug=${encodeURIComponent(article.slug)}" class="text-decoration-none">
+                <img src="${article.cover || 'pics/default-image.webp'}" alt="${article.title || ''}">
+                <div>
+                  <h3 class="h6 mb-1">${article.title || 'Untitled article'}</h3>
+                  <small class="text-secondary">${article.authors || 'Unknown author'}</small>
+                </div>
+              </a>
+            </article>
+          `).join('');
 
-        continueList.innerHTML = source.slice(0, 5).map(article => `
-          <article class="continue-reading-item fade-in">
-            <a href="article.html?slug=${encodeURIComponent(article.slug)}" class="text-decoration-none">
-              <img src="${article.cover || 'pics/default-image.webp'}" alt="${article.title || ''}">
-              <div>
-                <h3 class="h6 mb-1">${article.title || 'Untitled article'}</h3>
-                <small>${article.date || 'Unknown date'}</small>
-                ${typeof renderReadStatus === 'function' ? renderReadStatus(article.slug, 'mt-2') : ''}
-              </div>
-            </a>
-          </article>
-        `).join('');
+          continueList.innerHTML = `
+            <div class="empty-continue-prompt text-center py-3 px-2 rounded border mb-3">
+              <h4 class="h6 fw-bold mb-2">No active unread articles</h4>
+              <p class="small text-secondary mb-3">Here are suggested articles to start reading:</p>
+              <a href="Discover.html" class="btn btn-accent btn-sm">Discover All Articles ${TABLER_ICONS.arrowRight}</a>
+            </div>
+            <div class="suggestions-header small fw-bold text-uppercase text-secondary mb-2">Suggested Reading</div>
+            ${suggestionsHtml}
+          `;
+        }
 
         if (typeof staggerFadeChildren === 'function') staggerFadeChildren(continueList);
       }
@@ -177,12 +194,12 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="carousel-inner rounded-3 overflow-hidden shadow-lg">${featsSl}</div>
               <button class="carousel-control-prev text-white" type="button"
                       data-bs-target="#featuredCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
+                ${TABLER_ICONS.arrowLeft}
                 <span class="visually-hidden">Previous</span>
               </button>
               <button class="carousel-control-next text-white" type="button"
                       data-bs-target="#featuredCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
+                ${TABLER_ICONS.arrowRight}
                 <span class="visually-hidden">Next</span>
               </button>
             </div>

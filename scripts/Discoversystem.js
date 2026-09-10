@@ -293,31 +293,34 @@
               })();
 
               const col = document.createElement('div');
-              col.className = 'col-md-6 mb-3';
-              const coverSrc = art.cover ? String(art.cover) : 'pics/default-image.webp';
-              const safeTitle = String(art.title || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-              const safeCategories = [].concat(art.categories || []).join(' | ');
-              const safeDate = String(art.date || '');
-
+              const safeAuthor = String(art.authors || 'Unknown Author');
+              const safeCategories = Array.isArray(art.categories) ? art.categories.join(', ') : (art.categories ? String(art.categories) : '');
+              const safeDate = (function(){ if (!art.date) return ''; const d = new Date(art.date); return isNaN(d) ? '' : d.toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'}); })();
+              const safeTitle = art.title || '';
+              const coverSrc = art.cover || (art.image ? art.image : 'pics/placeholder.svg');
               col.innerHTML = `
-                <div class="row g-0 border border-1 rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative fade-in">
+                <div class="row g-0 border rounded-3 overflow-hidden flex-md-row shadow-sm position-relative fade-in discover-card h-100">
                   <div class="col p-4 d-flex flex-column position-static">
-                    <div class="card-meta d-flex justify-content-between align-items-baseline mb-2">
-                      <strong class="category-text d-inline-block">${safeCategories}</strong>
-                      <p class="category-text mb-0">${safeDate}</p>
+                    <div class="card-meta d-flex justify-content-between align-items-center mb-2">
+                      <strong class="category-text text-uppercase tracking-wider small mb-0">${safeCategories}</strong>
+                      <span class="small text-secondary">${safeDate}</span>
                     </div>
-                    <h3 class="mb-3 card-title-discover">${safeTitle}</h3>
-                    <div class="card-text card-text-discover mb-auto">${txt}</div>
-                    <div class="mt-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
-                      <a href="article.html?slug=${encodeURIComponent(art.slug || '')}" class="icon-link link gap-1 icon-link-hover" aria-label="Read article ${safeTitle}">
-                        Read more &rarr;
+                    <h3 class="mb-2 card-title-discover fs-5 fw-bold">${safeTitle}</h3>
+                    <p class="small text-secondary mb-2">${safeAuthor}</p>
+                    <div class="card-text card-text-discover mb-auto text-secondary small">${txt}</div>
+                    <div class="mt-3 pt-2 border-top d-flex align-items-center justify-content-between flex-wrap gap-2">
+                      <a href="article.html?slug=${encodeURIComponent(art.slug || '')}" class="icon-link link small fw-semibold text-decoration-none" aria-label="Read article ${safeTitle}">
+                        Read story ${typeof TABLER_ICONS !== 'undefined' ? TABLER_ICONS.arrowRight : ''}
                       </a>
-                      ${typeof renderMarkReadButton === 'function' ? renderMarkReadButton(art.slug || '', 'btn-sm') : ''}
+                      <div class="d-flex align-items-center gap-2">
+                        ${typeof renderFavoriteActionButton === 'function' ? renderFavoriteActionButton(art.slug || '', 'btn-sm') : ''}
+                        ${typeof renderMarkReadButton === 'function' ? renderMarkReadButton(art.slug || '', 'btn-sm') : ''}
+                      </div>
                     </div>
-                    ${typeof renderReadStatus === 'function' ? renderReadStatus(art.slug || '', 'mt-3') : ''}
+                    ${typeof renderReadStatus === 'function' ? renderReadStatus(art.slug || '', 'mt-2', { hideIfMarkedRead: true }) : ''}
                   </div>
                   <div class="col-auto d-none d-lg-block">
-                    <img src="${coverSrc}" width="200" height="320" style="object-fit:cover;" alt="${safeTitle}">
+                    <img src="${coverSrc}" width="190" height="280" style="object-fit:cover;" alt="${safeTitle}">
                   </div>
                 </div>`;
 
@@ -328,6 +331,7 @@
                   else el.classList.add('visible');
                 }
                 if (typeof bindMarkReadButtons === 'function') bindMarkReadButtons(col);
+                if (typeof bindFavoriteButtons === 'function') bindFavoriteButtons(col);
               } catch (e) {}
 
               row.appendChild(col);
